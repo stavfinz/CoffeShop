@@ -46,8 +46,8 @@ bool Shift::addProductToMenu(const Product& product)
 
 	dailyMenu[dailyMenuSize++] = product.clone();
 	return true;
-
 }
+
 bool Shift::addEmployeeToShift(const Employee& employee)
 {
 	if (numEmployees == employeesMaxSize)
@@ -56,6 +56,7 @@ bool Shift::addEmployeeToShift(const Employee& employee)
 
 	return true;
 }
+
 bool Shift::addOrder(const Order& order)
 {
 	if (numOrders == ordersMaxSize)
@@ -67,6 +68,7 @@ bool Shift::addOrder(const Order& order)
 	orders[numOrders++] = new Order(order);
 	return true;
 }
+
 const Employee* Shift::getShiftManger() const
 {
 	int maxSeniorty = 0;
@@ -93,6 +95,7 @@ double Shift::getShiftProfit() const
 	}
 	return profitSum;
 }
+
 ostream& operator<<(ostream& os, const Shift& shift)
 {
 	os << "Shift Date: " << shift.getShiftDate() << " Profit: " << shift.getShiftProfit() << endl;
