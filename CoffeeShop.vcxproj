@@ -47,6 +47,7 @@
     <ClCompile Include="GeneralFuncs.h" />
     <ClCompile Include="IllegalValue.h" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Order.cpp" />
     <ClCompile Include="Person.cpp" />
     <ClCompile Include="Product.cpp" />
     <ClCompile Include="Salad.cpp" />

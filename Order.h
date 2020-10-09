@@ -12,7 +12,7 @@ class Order {
 private:
 	int numItems; // current items in array
 	int itemsMaxSize; // current items array max size
-	Product* items;
+	const	Product** items;		// todo: const products??????		/////	
 
 	const Employee& employee;
 	const Customer& customer;
@@ -34,14 +34,14 @@ public:
 
 	// getters
 	int getNumItems() const { return numItems; }
-	const Product* getItems() const { return items; }
+	const Product** getItems() const { return items; }
 	const Employee& getEmployee() const { return employee; }
 	const Customer& getCustomer() const { return customer; }
 
 	// functions
 	bool addItem(const Product& product);
 	int getTotalCalories() const;
-	double getOrderTotal() const;
+	double getOrderProfit() const;
 	friend ostream& operator<<(ostream& os, const Order& order);
 };
 
