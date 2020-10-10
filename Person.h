@@ -9,6 +9,7 @@ protected:
 	char* name, * phoneNumber;
 
 	Person(const Person& other);
+	Person(Person&& other);
 
 	const Person& operator=(const Person& other);
 	const Person& operator=(Person&& other);

@@ -14,11 +14,6 @@ const Coffee& Coffee:: operator+=(int sugarSpoons)
 	return *this;
 }
 
-void Coffee::toOs(ostream& os) const
-{
-	os << "Sugar Spoons = " << this->getSugarSpoons() << (this->getWithMilk() ? ", with milk" : "") << endl;
-}
-
 //Ma laasot kedey she ihtov false?
 bool Coffee::addSugar(int sugarSpoons)
 {
@@ -29,4 +24,9 @@ bool Coffee::addSugar(int sugarSpoons)
 void Coffee::setMilk(bool isWithMilk)
 {
 	this->withMilk = isWithMilk;
+}
+
+void Coffee::toOs(ostream& os) const
+{
+	os << "Sugar Spoons = " << this->getSugarSpoons() << (this->getWithMilk() ? ", with milk" : "");
 }

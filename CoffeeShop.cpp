@@ -93,7 +93,7 @@ bool  CoffeeShop::addNewEmployee(Employee&& employee)
 		increaseArraySize((void**)employees, numEmployees, employeesMaxSize, sizeof(Employee*));
 	}
 
-	employees[numEmployees++] = std::move(&employee);
+	employees[numEmployees++] = new Employee(std::move(employee));
 
 	return true;								//	todo: add validations?
 }
@@ -119,7 +119,7 @@ bool  CoffeeShop::addNewProduct(Product&& product)
 		increaseArraySize((void**)products, numProducts, productsMaxSize, sizeof(Product*));
 	}
 
-	products[numProducts++] = std::move(&product);
+	products[numProducts++] = product.clone();			//	todo: possible to use std::move or something similar?
 
 	return true;								//	todo: add validations?
 }
@@ -145,7 +145,7 @@ bool  CoffeeShop::addNewCustomer(Customer&& customer)
 		increaseArraySize((void**)customers, numCustomers, customersMaxSize, sizeof(Customer*));
 	}
 
-	customers[numCustomers++] = &customer;
+	customers[numCustomers++] = new Customer(std::move(customer));
 
 	return true;								//	todo: add validations?
 }
@@ -174,28 +174,36 @@ Shift* CoffeeShop::getCurrentShift() const
 
 ostream& operator<<(ostream& os, const CoffeeShop& coffeeShop)
 {
-	cout << "Employees:" << endl;
+	cout << endl << "Employees:" << endl;
+	if (coffeeShop.numEmployees == 0)
+		cout << "No employess." << endl;
 	for (int i = 0; i < coffeeShop.numEmployees; i++)
 	{
-		cout << "\t" << coffeeShop.employees[i] << endl;
+		cout << "\t" << *coffeeShop.employees[i] << endl;
 	}
 
 	cout << endl << "Products:" << endl;
+	if (coffeeShop.numProducts == 0)
+		cout << "No products." << endl;
 	for (int i = 0; i < coffeeShop.numProducts; i++)
 	{
-		cout << "\t" << coffeeShop.products[i] << endl;
+		cout << "\t" << *coffeeShop.products[i] << endl;
 	}
 
 	cout << endl << "Customers:" << endl;
+	if (coffeeShop.numCustomers == 0)
+		cout << "No customers." << endl;
 	for (int i = 0; i < coffeeShop.numCustomers; i++)
 	{
-		cout << "\t" << coffeeShop.customers[i] << endl;
+		cout << "\t" << *coffeeShop.customers[i] << endl;
 	}
 
 	cout << endl << "Shifts:" << endl;
+	if (coffeeShop.numShifts == 0)
+		cout << "No shifts." << endl;
 	for (int i = 0; i < coffeeShop.numShifts; i++)
 	{
-		cout << "\t" << coffeeShop.shifts[i] << endl;
+		cout << "\t" << *coffeeShop.shifts[i] << endl;
 	}
 
 	return os;

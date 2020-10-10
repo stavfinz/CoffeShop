@@ -11,9 +11,14 @@ Person::Person(const char* name, const char* phoneNumber)
 	setPhoneNumber(phoneNumber);
 }
 
-Person::Person(const Person& other)
+Person::Person(const Person& other) :name(NULL), phoneNumber(NULL)
 {
 	*this = other;
+}
+
+Person::Person(Person&& other) : name(NULL), phoneNumber(NULL)
+{
+	*this = std::move(other);
 }
 
 // dtor

@@ -9,7 +9,7 @@ bool isAlphaOnly(const char* str)
 	for (int i = 0; i < strlen(str); i++)
 	{
 		char ch = str[i];
-		if (!isalpha(ch))
+		if (!isalpha(ch) && ch != ' ')
 		{
 			return false;
 		}
@@ -17,12 +17,12 @@ bool isAlphaOnly(const char* str)
 	return true;
 }
 
-void deleteArray(void** arr, int size, int elemSize)
+void deleteArray(void** arr, int size, int elemSize)		//	todo: fix this functions
 {
 	for (int i = 0; i < size; i++)
 	{
-		void* elem = arr + (i * elemSize);
-		delete elem;
+		void** elem = arr + (i * elemSize);
+		delete *elem;
 	}
 	delete[] arr;
 }
@@ -33,4 +33,9 @@ void increaseArraySize(void** arr, int numElem, int newSize, int elemSize)
 	memcpy(arr, tempArr, numElem * elemSize);
 	std::swap(tempArr, arr);
 	delete[] tempArr;
+}
+
+void cleanBuffer()
+{
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }

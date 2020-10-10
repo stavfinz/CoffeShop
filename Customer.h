@@ -10,6 +10,7 @@ private:
 	bool clubMember;
 
 	Customer(const Customer& other) = default;
+	Customer(Customer&& other);
 
 	Customer& operator=(const Customer& other) = default;
 	Customer& operator=(Customer&& other) = default;

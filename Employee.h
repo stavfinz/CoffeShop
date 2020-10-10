@@ -12,6 +12,7 @@ private:
 	Date hireDate;
 
 	Employee(const Employee& other) = default;
+	Employee(Employee&& other) = default;
 	
 	const Employee& operator=(const Employee& other);
 	const Employee& operator=(Employee&& other);

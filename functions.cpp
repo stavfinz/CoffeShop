@@ -8,6 +8,7 @@
 #include "Employee.h"
 #include "Order.h"
 #include "CoffeeShop.h"
+#include "utils.h"
 
 using namespace std;
 
@@ -63,6 +64,7 @@ void menu(CoffeeShop& shop)
 		cout << "0 - Quit" << endl;
 
 		cin >> choice;
+		cleanBuffer();
 
 		switch (choice)
 		{
@@ -72,7 +74,7 @@ void menu(CoffeeShop& shop)
 			break;
 		case 2:
 			// 2. show employees details
-			showEmployees(shop.getEmployees(),shop.getNumEmployees());
+			showEmployees(shop.getEmployees(), shop.getNumEmployees());
 			break;
 		case 3:
 			// 3. show customers details
@@ -223,7 +225,7 @@ void showProducts(const Product* const* products, int numProducts)
 	cout << "The products are:" << endl;
 	for (int i = 0; i < numProducts; i++)
 	{
-		cout << i + 1 << ". " << products[i] << endl;
+		cout << i + 1 << ". " << *products[i] << endl;
 	}
 }
 
@@ -234,7 +236,7 @@ const Product* showProductsByType(CoffeeShop& shop, const type_info& productType
  
 	for (int i = 0; i < shop.getNumProducts(); i++)
 		if (typeid(*products[i]) == productType)
-			cout << i + 1 << ". " << products[i] << endl;
+			cout << i + 1 << ". " << *products[i] << endl;
 
 	cin >> choice;
 	return products[choice - 1];
@@ -264,6 +266,7 @@ void addProductMenu(CoffeeShop& shop)
 		cout << "0 - Quit" << endl;
 
 		cin >> choice;
+		cleanBuffer();
 
 		switch (choice)
 		{
@@ -364,7 +367,7 @@ bool addCookieCoffee(CoffeeShop& shop)
 			*dynamic_cast<const Cookie*>(p1), 
 			*dynamic_cast<const Coffee*>(p2), 
 			discountPercent, 
-			choice == 'Y' ? true : false));
+			(choice == 'Y' || choice == 'y') ? true : false));
 
 	return true;
 }
@@ -408,7 +411,7 @@ void addCustomer(CoffeeShop& shop)
 	cout << "Enter customer's phone number" << endl;
 	cin.getline(phoneNumber, STRING_SIZE);
 
-	cout << "Is club member? true/false" << endl;
+	cout << "Is club member? true=1/false=0" << endl;
 	cin >> clubMember;
 
 	shop.addNewCustomer(Customer(name, phoneNumber, clubMember));

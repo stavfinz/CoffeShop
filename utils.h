@@ -7,4 +7,6 @@ void deleteArray(void** arr, int size, int elemSize);
 
 void increaseArraySize(void** arr, int numElem, int newSize, int elemSize);
 
+void cleanBuffer();
+
 #endif // !__UTILS_H__

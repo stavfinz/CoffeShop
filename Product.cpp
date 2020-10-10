@@ -2,7 +2,7 @@
 
 #include "Product.h"
 
-Product::Product(const char* name, int calories, double cost, double price)
+Product::Product(const char* name, int calories, double cost, double price) : name(NULL)
 {
 	setName(name);
 	setCalories(calories);
@@ -10,27 +10,23 @@ Product::Product(const char* name, int calories, double cost, double price)
 	setPrice(price);
 }
 
-Product::Product(const Product& other) // not sure if need using setter
+Product::Product(const Product& other)
 {
-	setName(other.name);
-	setCalories(other.calories);
-	setCost(other.cost);
-	setPrice(other.price);
+	*this = other;
 }
 // move ctor
-Product::Product(Product&& other) : name(nullptr)
+Product::Product(Product&& other)
 {
-	std::swap(name, other.name);
-	calories = other.calories;
-	cost = other.cost;
-	price = other.price;
+	*this = std::move(other);
 }
 
 const Product& Product::operator=(const Product& other) /////// Check This
 {
 	if (this != &other)
 	{
-		name = other.name;
+		if (!name)
+			delete[] name;
+		name = strdup(other.name);
 		calories = other.calories;
 		cost = other.cost;
 		price = other.price;
@@ -43,7 +39,6 @@ const Product& Product::operator=(Product&& other)
 {
 	if (this != &other)
 	{
-		delete[] name;
 		std::swap(name, other.name);
 		calories = other.calories;
 		cost = other.cost;
@@ -97,7 +92,7 @@ bool Product::operator==(const Product& other) const
 
 ostream& operator<<(ostream& os, const Product& product)
 {
-	os << "Product:" << product.name << " Calories: " << product.calories << " Cost: " <<
+	os << product.name << " Calories: " << product.calories << " Cost: " <<
 		product.cost << " Price: " << product.price;
 	product.toOs(os);
 	return os;
