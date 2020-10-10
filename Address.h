@@ -1,8 +1,8 @@
 #ifndef __ADDRESS_H__
 #define __ADDRESS_H__
 
-#include <iostream>
 using namespace std;
+#include <iostream>
 
 class Address {
 private:

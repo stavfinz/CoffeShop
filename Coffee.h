@@ -1,9 +1,8 @@
 #ifndef __COFFEE_H__
 #define __COFFEE_H__
 
-#include <iostream>
 using namespace std;
-
+#include <iostream>
 #include "Product.h"
 
 class Coffee : virtual public Product {

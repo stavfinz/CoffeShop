@@ -1,4 +1,3 @@
-#include <iostream>
 #include "functions.h"
 #include "Salad.h"
 #include "Coffee.h"
@@ -13,8 +12,8 @@
 using namespace std;
 
 const int STRING_SIZE = 255;
-extern const char* sFlourType[];
-extern const char* sDressingType[];
+extern const char* sFlourType[] = { "White", "Whole", "Gluten Free" };				//	todo: should be initialized here?
+extern const char* sDressingType[]= {"Vinegret", "Soy", "Thousand Island"};				//	todo: should be initialized here?
 
 CoffeeShop initCoffeeShop()
 {
@@ -485,7 +484,7 @@ void makeOrder(CoffeeShop& shop, Shift& shift)
 				}
 
 				Salad* temp = dynamic_cast<Salad*>(p);
-				temp->addDressing(Salad::eDressingType(choice-1));
+				temp->addDressing(Salad::eDressingType(choice - 1));
 				
 				p = temp;	
 			

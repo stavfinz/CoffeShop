@@ -1,14 +1,31 @@
 #pragma warning(disable : 4996)
 
-#include <iostream>
-using namespace std;
-
 #include <ctime>
-
 #include "Employee.h"
 #include "Date.h"
 
-Employee::Employee(const char* name, const char* phoneNumber, double shiftSalary, const Date& hireDate) : Person(name, phoneNumber),hireDate(hireDate)
+const Employee& Employee::operator=(const Employee& other)
+{
+	if (this != &other)
+	{
+		this->hireDate = other.hireDate;
+		this->shiftSalary = other.shiftSalary;
+	}
+	return *this;
+}
+
+const Employee& Employee::operator=(Employee&& other)
+{
+	if (this != &other)
+	{
+		this->hireDate = other.hireDate;
+		this->shiftSalary = other.shiftSalary;
+	}
+	return *this;
+}
+
+
+Employee::Employee(const char* name, const char* phoneNumber, double shiftSalary, const Date& hireDate) : Person(name, phoneNumber), hireDate(hireDate)
 {
 	this->shiftSalary = shiftSalary;
 }
@@ -23,11 +40,11 @@ bool Employee::operator>(const Employee& other) const
 	return this->getSeniority() > other.getSeniority();
 }
 
-/*//Lo barur li ma lirshom po --- Polymorphism?
+//Lo barur li ma lirshom po --- Polymorphism?
 bool Employee::operator==(const Person& other) const 
 {
-
-}*/
+	return true;
+}
 
 bool Employee::setShiftSalary(double shiftSalary)
 {
@@ -41,7 +58,6 @@ bool Employee::setHireDate(Date& hireDate)
 	return true;
 }
 
-// how to get date of today....
 int Employee::getSeniority() const
 {
 	std::time_t t = std::time(0);   // get time now

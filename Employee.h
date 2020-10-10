@@ -1,9 +1,8 @@
 #ifndef __EMPLOYEE_H__
 #define __EMPLOYEE_H__
 
-#include <iostream>
 using namespace std;
-
+#include <iostream>
 #include "Person.h"
 #include "Date.h"
 
@@ -12,7 +11,7 @@ private:
 	double shiftSalary;
 	Date hireDate;
 
-	Employee(const Employee& other);
+	Employee(const Employee& other) = default;
 	
 	const Employee& operator=(const Employee& other);
 	const Employee& operator=(Employee&& other);

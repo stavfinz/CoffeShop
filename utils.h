@@ -1,10 +1,10 @@
-#ifndef __GENERAL_FUNCS_H__
-#define __GENERAL_FUNCS_H__
-
-typedef size_t uint;
+#ifndef __UTILS_H__
+#define __UTILS_H__
 
 bool isAlphaOnly(const char* str);
+
 void deleteArray(void** arr, int size, int elemSize);
+
 void increaseArraySize(void** arr, int numElem, int newSize, int elemSize);
 
-#endif
+#endif // !__UTILS_H__

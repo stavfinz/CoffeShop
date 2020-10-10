@@ -1,14 +1,13 @@
 #ifndef __SALAD_H__
 #define __SALAD_H__
 
-#include <iostream>
 using namespace std;
-
+#include <iostream>
 #include "Product.h"
 
 class Salad: virtual public Product{
 public:
-	enum class eDressingType {VINEGRET, SOY, THOUSAND_ISLAND, enumTypeEnd};
+	enum class eDressingType { VINEGRET, SOY, THOUSAND_ISLAND, enumTypeEnd };
 private:
 	eDressingType dressing;
 

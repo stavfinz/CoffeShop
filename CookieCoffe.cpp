@@ -1,6 +1,7 @@
 #pragma warning(disable : 4996)
 
 #include "CookieCoffee.h"
+#include "IllegalValue.h"
 
 // ctor
 CookieCoffee::CookieCoffee(const Cookie& cookie, const Coffee& coffee, double discountPercent, bool groundCookie)
@@ -22,5 +23,7 @@ void CookieCoffee::setDiscountPercent(double discountPercent)
 // functions
 void CookieCoffee::toOs(ostream& os) const
 {
+	Cookie::toOs(os);
+	Coffee::toOs(os);
 	os << (groundCookie ? ", grounded" : "") << ", discount: " << discountPercent << "%";
 }

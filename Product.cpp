@@ -1,8 +1,5 @@
 #pragma warning(disable : 4996)
 
-#include <iostream>
-using namespace std;
-
 #include "Product.h"
 
 Product::Product(const char* name, int calories, double cost, double price)

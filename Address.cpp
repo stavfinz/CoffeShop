@@ -2,9 +2,9 @@
 
 #include "Address.h"
 #include "IllegalValue.h"
-#include "GeneralFuncs.h"
+#include "utils.h"
 
-Address::Address(const char* city, const char* streetName, int streetNumber)
+Address::Address(const char* city, const char* streetName, int streetNumber) 
 {
 	setCity(city);
 	setStreetName(streetName);

@@ -1,5 +1,4 @@
-#include <iostream>
-using namespace std;
+#pragma warning(disable : 4996)
 
 #include "Date.h"
 
@@ -9,11 +8,6 @@ using namespace std;
 	this->month = month;
 	this->year = year;
 }
-
- ostream& operator<<(ostream& os, const Date& date)
- {
-	 return os;
- }
 
  bool Date::operator==(const Date& d)
  {
@@ -27,5 +21,10 @@ using namespace std;
 	 return true;
  }
 
+ ostream& operator<<(ostream& os, const Date& date)
+ {
+	 os << date.getDay() << "/" << date.getMonth() << "/" << date.getYear();
+	 return os;
+ }
 
 

@@ -1,9 +1,8 @@
 #ifndef __CUSTOMER_H__
 #define __CUSTOMER_H__
 
-#include <iostream>
 using namespace std;
-
+#include <iostream>
 #include "Person.h"
 
 class Customer : public Person {

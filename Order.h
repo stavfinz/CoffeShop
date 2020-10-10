@@ -1,8 +1,8 @@
 #ifndef __ORDER_H__
 #define __ORDER_H__
 
-#include <iostream>
 using namespace std;
+#include <iostream>
 
 class Product;
 class Employee;
@@ -28,8 +28,8 @@ public:
 	~Order();
 
 	// operators
-	Order& operator[](int index);
-	const Order& operator[](int index) const;
+	//Product& operator[](int index){ return *items[index]; }
+	const Product& operator[](int index) const { return *items[index]; }
 	Order operator+(const Order& order);
 
 	// getters

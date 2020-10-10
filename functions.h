@@ -1,9 +1,8 @@
 #ifndef __FUNCTIONS_H__
 #define __FUNCTIONS_H__
 
-#include <iostream>
 using namespace std;
-
+#include <iostream>
 #include "CoffeeShop.h"
 
 enum class eProductType { COFFEE, COOKIE, SALAD };

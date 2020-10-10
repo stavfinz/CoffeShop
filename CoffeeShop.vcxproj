@@ -33,6 +33,7 @@
     <ClInclude Include="Product.h" />
     <ClInclude Include="Salad.h" />
     <ClInclude Include="Shift.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Address.cpp" />
@@ -44,7 +45,6 @@
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="Employee.cpp" />
     <ClCompile Include="functions.cpp" />
-    <ClCompile Include="GeneralFuncs.h" />
     <ClCompile Include="IllegalValue.h" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Order.cpp" />
@@ -52,9 +52,7 @@
     <ClCompile Include="Product.cpp" />
     <ClCompile Include="Salad.cpp" />
     <ClCompile Include="Shift.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="GeneralFuncs.cpp" />
+    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

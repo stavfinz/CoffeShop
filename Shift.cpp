@@ -1,12 +1,10 @@
-#include <iostream>
-using namespace std;
+#pragma warning(disable : 4996)
 
 #include "Shift.h"
 #include "Employee.h"
 #include "Order.h"
 #include "Product.h"
-#include "GeneralFuncs.h"
-
+#include "utils.h"
 
 Shift::Shift(double clubDiscountPercent, const Date& shiftDate) :shiftDate(shiftDate)
 {
@@ -82,7 +80,6 @@ const Employee* Shift::getShiftManger() const
 		}
 	}
 	return shiftManager; //Check This
-
 }
 
 double Shift::getShiftProfit() const

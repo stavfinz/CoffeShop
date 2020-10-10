@@ -1,10 +1,10 @@
 #ifndef __SHIFT_H__
 #define __SHIFT_H__
 
-#include <iostream>
 using namespace std;
-
+#include <iostream>
 #include "Date.h"
+
 class Order;
 class Employee;
 class Product;

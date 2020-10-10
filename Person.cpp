@@ -1,8 +1,27 @@
 #pragma warning(disable : 4996)
 
 #include "Person.h"
-#include "GeneralFuncs.h"
+#include "utils.h"
 #include "IllegalValue.h"
+
+// ctor
+Person::Person(const char* name, const char* phoneNumber)
+{
+	setName(name);
+	setPhoneNumber(phoneNumber);
+}
+
+Person::Person(const Person& other)
+{
+	*this = other;
+}
+
+// dtor
+Person::~Person()
+{
+	delete[] this->name;
+	delete[] this->phoneNumber;
+}
 
 const Person& Person::operator=(const Person& other)
 {
@@ -26,20 +45,6 @@ const Person& Person::operator=(Person&& other)
 	return *this;
 }
 
-// ctor
-Person::Person(const char* name, const char* phoneNumber)
-{
-	setName(name);
-	setPhoneNumber(phoneNumber);
-}
-
-// dtor
-Person::~Person()
-{
-	delete[] this->name;
-	delete[] this->phoneNumber;
-}
-
 // operators
 bool Person::operator==(const Person& other) const
 {
@@ -60,7 +65,7 @@ void Person::setName(const char* name)
 
 void Person::setPhoneNumber(const char* phoneNumber)
 {
-	uint phoneLen = strlen(phoneNumber);
+	int phoneLen = strlen(phoneNumber);
 	if (phoneLen < 6)
 		throw IllegalValue("Phone Number");
 	for (int i = 0; i < phoneLen; i++)

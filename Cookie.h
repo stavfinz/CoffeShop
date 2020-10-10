@@ -1,9 +1,8 @@
 #ifndef __COOKIE_H__
 #define __COOKIE_H__
 
-#include <iostream>
 using namespace std;
-
+#include <iostream>
 #include "Product.h"
 
 class Cookie : virtual public Product {

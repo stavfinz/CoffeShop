@@ -1,10 +1,12 @@
+#pragma warning(disable : 4996)
+
 using namespace std;
 #include <iostream>
-#include "GeneralFuncs.h"
+#include "utils.h"
 
 bool isAlphaOnly(const char* str)
 {
-	for (uint i = 0; i < strlen(str); i++)
+	for (int i = 0; i < strlen(str); i++)
 	{
 		char ch = str[i];
 		if (!isalpha(ch))

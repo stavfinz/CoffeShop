@@ -57,6 +57,9 @@
     <ClInclude Include="Address.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="functions.cpp">
@@ -104,16 +107,11 @@
     <ClCompile Include="Employee.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneralFuncs.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="Order.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="GeneralFuncs.cpp">
+    <ClCompile Include="utils.cpp">
       <Filter>Source Files</Filter>
-    </None>
+    </ClCompile>
   </ItemGroup>
 </Project>

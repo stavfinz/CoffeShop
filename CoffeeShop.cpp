@@ -7,7 +7,7 @@
 #include "Shift.h"
 #include "Product.h"
 #include "Date.h"
-#include "GeneralFuncs.h"
+#include "utils.h"
 #include "IllegalValue.h"
 
 // ctor
@@ -32,7 +32,8 @@ CoffeeShop::CoffeeShop(const char* name, const Address& address) noexcept(false)
 	this->products = new Product * [productsMaxSize];
 }
 
-CoffeeShop::CoffeeShop(CoffeeShop&& other) : name(std::move(other.name)), address(std::move(other.address)), customers(nullptr), employees(nullptr), shifts(nullptr), products(nullptr)
+CoffeeShop::CoffeeShop(CoffeeShop&& other) : name(std::move(other.name)), address(std::move(other.address)),
+									customers(nullptr), employees(nullptr), shifts(nullptr), products(nullptr)
 {
 	numCustomers = other.numCustomers;
 	customersMaxSize = other.customersMaxSize;
@@ -60,7 +61,6 @@ CoffeeShop::~CoffeeShop()
 	deleteArray((void**)employees, numEmployees, sizeof(Employee*));
 	deleteArray((void**)shifts, numShifts, sizeof(Shift*));
 	deleteArray((void**)products, numProducts, sizeof(Product*));
-
 }
 
 // setters
@@ -106,7 +106,7 @@ bool  CoffeeShop::addNewProduct(const Product& product)
 		increaseArraySize((void**)products, numProducts, productsMaxSize, sizeof(Product*));
 	}
 
-	products[numProducts++] = product.clone();		//	todo: products[numProducts++] = new Product(product)
+	products[numProducts++] = product.clone();
 
 	return true;								//	todo: add validations?
 }
@@ -168,6 +168,7 @@ Shift* CoffeeShop::getCurrentShift() const
 		if (d == &today)
 			return shifts[i];
 	}
+	delete dateStruct;
 	return nullptr;
 }
 

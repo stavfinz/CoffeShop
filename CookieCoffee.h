@@ -1,12 +1,10 @@
 #ifndef __COOKIECOFFEE_H__
 #define __COOKIECOFFEE_H__
 
-#include <iostream>
 using namespace std;
-
+#include <iostream>
 #include "Coffee.h"
 #include "Cookie.h"
-#include "IllegalValue.h"
 
 class CookieCoffee : public Cookie, public Coffee
 {

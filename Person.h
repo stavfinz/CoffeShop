@@ -1,8 +1,8 @@
 #ifndef __PERSON_H__
 #define __PERSON_H__
 
-#include <iostream>
 using namespace std;
+#include <iostream>
 
 class Person {
 protected:
