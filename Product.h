@@ -11,7 +11,7 @@ protected:
 	double cost, price;
 public:
 	// ctor
-	Product(const char* name, int calories, double cost, double price);
+	Product(const char* name, int calories, double cost, double price) noexcept(false);
 	// copy ctor
 	Product(const Product& other);
 	// move ctor
@@ -36,10 +36,10 @@ public:
 	double getPrice() const { return price; }
 
 	// setters
-	bool setName(const char* name);
-	bool setCalories(int calories);
-	bool setCost(double cost);
-	bool setPrice(double price);
+	void setName(const char* name) noexcept(false);
+	void setCalories(int calories) noexcept(false);
+	void setCost(double cost) noexcept(false);
+	void setPrice(double price) noexcept(false);
 
 	// functions
 	virtual void toOs(ostream& os) const = 0;

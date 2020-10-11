@@ -1,8 +1,10 @@
 #pragma warning(disable : 4996)
 
 #include "Product.h"
+#include "utils.h"
+#include "IllegalValue.h"
 
-Product::Product(const char* name, int calories, double cost, double price) : name(NULL)
+Product::Product(const char* name, int calories, double cost, double price) : name(NULL), cost(DBL_MIN), price(DBL_MAX)
 {
 	setName(name);
 	setCalories(calories);
@@ -20,7 +22,7 @@ Product::Product(Product&& other)
 	*this = std::move(other);
 }
 
-const Product& Product::operator=(const Product& other) /////// Check This
+const Product& Product::operator=(const Product& other)
 {
 	if (this != &other)
 	{
@@ -52,37 +54,35 @@ Product:: ~Product()
 	delete[] name;
 }
 
-bool Product::setName(const char* name)
+void Product::setName(const char* name)
 {
-	if (!name)
-		return false;
+	if (!isAlphaOnly(name))
+		throw IllegalValue("Name");
 	delete[] this->name;
 	this->name = new char[strlen(name) + 1];
 	strcpy(this->name, name);
-	return true;
 }
 
-bool Product::setCalories(int calories)
+void Product::setCalories(int calories)
 {
 	if (calories < 0)
-		return false;
+		throw IllegalValue("Calories");
 	this->calories = calories;
-	return true;
 }
-bool Product::setCost(double cost)
+
+void Product::setCost(double cost)
 {
-	if (cost < 0)
-		return false;
+	if (cost < 0 || cost > price)
+		throw IllegalValue("Price");
 	this->cost = cost;
-	return true;
 }
-bool Product::setPrice(double price)
+void Product::setPrice(double price)
 {
-	if (price < 0)
-		return false;
+	if (price < 0 || price < cost)
+		throw IllegalValue("Price");
 	this->price = price;
-	return true;
 }
+
 // operators
 bool Product::operator==(const Product& other) const
 {

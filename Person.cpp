@@ -71,7 +71,7 @@ void Person::setName(const char* name)
 void Person::setPhoneNumber(const char* phoneNumber)
 {
 	int phoneLen = strlen(phoneNumber);
-	if (phoneLen < 6)
+	if (phoneLen < 9)
 		throw IllegalValue("Phone Number");
 	for (int i = 0; i < phoneLen; i++)
 	{

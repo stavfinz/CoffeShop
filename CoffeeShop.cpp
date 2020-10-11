@@ -1,6 +1,5 @@
 #pragma warning(disable : 4996)
 
-#include <ctime>
 #include "CoffeeShop.h"
 #include "Customer.h"
 #include "Employee.h"
@@ -11,7 +10,7 @@
 #include "IllegalValue.h"
 
 // ctor
-CoffeeShop::CoffeeShop(const char* name, const Address& address) noexcept(false) : name(nullptr), address(address)
+CoffeeShop::CoffeeShop(const char* name, const Address& address) : name(nullptr), address(address)
 {
 	setName(name);
 
@@ -152,23 +151,28 @@ bool  CoffeeShop::addNewCustomer(Customer&& customer)
 
 bool  CoffeeShop::openShift(double clubDiscountPercent, const Date& date)
 {
-	return false;
+	if (numShifts == shiftsMaxSize)
+	{
+		shiftsMaxSize *= 2;
+		increaseArraySize((void**)shifts, numShifts, shiftsMaxSize, sizeof(Shift*));
+	}
+
+	shifts[numShifts++] = new Shift(clubDiscountPercent, date);
+
+	return true;								//	todo: add validations?
 }
 
 Shift* CoffeeShop::getCurrentShift() const
 {
-	time_t now = time(0);
-	tm* dateStruct = localtime(&now);
-	Date today(dateStruct->tm_mday, dateStruct->tm_mon, dateStruct->tm_year);
+	Date today = getTodayDate();
 
 	for (int i = 0; i < numShifts; i++)
 	{
 		const Date* d = shifts[i]->getShiftDate();
 
-		if (d == &today)
+		if (today == *d)
 			return shifts[i];
 	}
-	delete dateStruct;
 	return nullptr;
 }
 

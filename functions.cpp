@@ -207,7 +207,7 @@ void showEmployees(const Employee* const* employees, int numEmployees)
 	cout << "The employees are:" << endl;
 	for (int i = 0; i < numEmployees; i++)
 	{
-		cout << i + 1 << ". " << employees[i] << endl;
+		cout << i + 1 << ". " << *employees[i] << endl;
 	}
 }
 
@@ -216,7 +216,7 @@ void showCustomers(const Customer* const* customers, int numCustomers)
 	cout << "The customers are:" << endl;
 	for (int i = 0; i < numCustomers; i++)
 	{
-		cout << i + 1 << ". " << customers[i] << endl;
+		cout << i + 1 << ". " << *customers[i] << endl;
 	}
 }
 
@@ -248,7 +248,7 @@ void showShifts(CoffeeShop& shop)
 
 	cout << "The shifts of the coffee shop are:" << endl;
 	for (int i = 0; i < shop.getNumShifts(); i++)
-		cout << i + 1 << ". " << shifts[i] << endl;
+		cout << i + 1 << ". " << *shifts[i] << endl;
 }
 
 void addProductMenu(CoffeeShop& shop)
@@ -567,7 +567,7 @@ void addProductToDailyMenu(CoffeeShop& shop, Shift& shift)
 		{
 			if (shift.addProductToMenu(*shop.getProducts()[choice - 1]))
 			{
-				cout << shop.getProducts()[choice-1]->getName() << " added to daily menu! " << endl;
+				cout << shop.getProducts()[choice - 1]->getName() << " added to daily menu! " << endl;
 			}
 			else
 			{

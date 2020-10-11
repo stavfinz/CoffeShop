@@ -24,9 +24,9 @@ Shift::Shift(double clubDiscountPercent, const Date& shiftDate) :shiftDate(shift
 
 Shift::~Shift()
 {
-	/*deleteArray((void**)dailyMenu, dailyMenuSize, sizeof(Customer*));
+	deleteArray((void**)dailyMenu, dailyMenuSize, sizeof(Customer*));
 	deleteArray((void**)employees, numEmployees, sizeof(Employee*));
-	deleteArray((void**)orders, numOrders, sizeof(Shift*));*/
+	deleteArray((void**)orders, numOrders, sizeof(Shift*));
 }
 
 bool Shift::setClubDiscountPercent(double clubDiscountPercent)

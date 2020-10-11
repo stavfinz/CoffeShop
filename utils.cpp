@@ -2,6 +2,7 @@
 
 using namespace std;
 #include <iostream>
+#include <ctime>
 #include "utils.h"
 
 bool isAlphaOnly(const char* str)
@@ -38,4 +39,11 @@ void increaseArraySize(void** arr, int numElem, int newSize, int elemSize)
 void cleanBuffer()
 {
 	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+
+Date getTodayDate()
+{
+	time_t now = time(0);
+	tm* dateStruct = localtime(&now);
+	return Date(dateStruct->tm_mday, dateStruct->tm_mon + SYSTEM_MONTH_FACTOR, dateStruct->tm_year + SYSTEM_YEAR_FACTOR);
 }

@@ -3,6 +3,7 @@
 #include <ctime>
 #include "Employee.h"
 #include "Date.h"
+#include "utils.h"
 
 Employee::Employee(const char* name, const char* phoneNumber, double shiftSalary, const Date& hireDate) : Person(name, phoneNumber), hireDate(hireDate)
 {
@@ -63,14 +64,11 @@ bool Employee::setHireDate(Date& hireDate)
 
 int Employee::getSeniority() const
 {
-	std::time_t t = std::time(0);   // get time now
-	std::tm* now = std::localtime(&t);
+	Date today = getTodayDate();
 
-	int num = ((now->tm_year + 1900) - this->hireDate.getYear()) * 365 + 
-		((now->tm_mon + 1) - this->hireDate.getMonth()) * 31+
-		(now->tm_mday-this->hireDate.getDay());
-	
-	delete now;
+	int num = (today.getYear() - hireDate.getYear()) * 365 +
+			(today.getMonth() - hireDate.getMonth()) * 31 +
+			(today.getDay() - hireDate.getDay());
 
 	return num;
 }

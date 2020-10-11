@@ -10,5 +10,4 @@ Cookie::Cookie(const char* name, int calories, double cost, double price, eFlour
 void Cookie::toOs(ostream& os) const
 {
     os << name << " flour: " << (int)flour;
-
 }
