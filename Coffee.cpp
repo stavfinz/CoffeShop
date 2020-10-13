@@ -28,5 +28,5 @@ void Coffee::setMilk(bool isWithMilk)
 
 void Coffee::toOs(ostream& os) const
 {
-	os << "Sugar Spoons = " << this->getSugarSpoons() << (this->getWithMilk() ? ", with milk" : "");
+	os << ", Sugar Spoons = " << this->getSugarSpoons() << (this->getWithMilk() ? ", with milk" : "");
 }

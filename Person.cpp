@@ -76,7 +76,7 @@ void Person::setPhoneNumber(const char* phoneNumber)
 	for (int i = 0; i < phoneLen; i++)
 	{
 		char ch = phoneNumber[i];
-		if (!isdigit(ch) && ch != '-')
+		if (!isdigit(ch))
 		{
 			throw IllegalValue("Phone Number");
 		}
