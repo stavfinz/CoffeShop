@@ -13,8 +13,8 @@
 using namespace std;
 
 const int STRING_SIZE = 255;
-extern const char* sFlourType[] = { "White", "Whole", "Gluten Free" };				//	todo: should be initialized here?
-extern const char* sDressingType[]= {"Vinegret", "Soy", "Thousand Island"};				//	todo: should be initialized here?
+//extern const char* sFlourType[] = { "White", "Whole", "Gluten Free" };				//	todo: should be initialized here?
+//extern const char* sDressingType[]= {"Vinegret", "Soy", "Thousand Island"};				//	todo: should be initialized here?
 
 CoffeeShop initCoffeeShop()
 {
@@ -319,7 +319,23 @@ bool addProduct(CoffeeShop& shop, const type_info& productType)
 	if (productType == typeid(Coffee))
 		shop.addNewProduct(Coffee(name, calories, cost, price));
 	else if (productType == typeid(Salad))
-		shop.addNewProduct(Salad(name, calories, cost, price));
+	{
+		cout << "Select salad dressing type index" << endl;
+
+		while (true)
+		{
+			for (int i = 0; i < (int)Salad::eDressingType::enumTypeEnd; i++)
+				cout << i + 1 << ". " << sFlourType[i] << endl;
+
+			cin >> choice;
+
+			if (choice < 1 || choice >= (int)Salad::eDressingType::enumTypeEnd)
+				cout << "Invalid choice" << endl;
+			else break;
+		}
+
+		shop.addNewProduct(Salad(name, calories, cost, price, (Salad::eDressingType)(choice - 1)));
+	}
 	else if (productType == typeid(Cookie))
 	{
 		cout << "Select cookie flour type index" << endl;

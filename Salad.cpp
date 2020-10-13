@@ -15,5 +15,5 @@ bool Salad::addDressing(eDressingType dressing)
 
 void Salad::toOs(ostream& os) const
 {
-    os << (int)dressing << " dressing";
+    os << ", " << sDressingType[(int)dressing] << " dressing";
 }

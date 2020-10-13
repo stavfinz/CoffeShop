@@ -56,10 +56,34 @@ CoffeeShop::~CoffeeShop()
 {
 	delete[] name;
 
-	deleteArray((void**)customers, numCustomers, sizeof(Customer*));
+	for (int i = 0; i < numCustomers; i++)
+	{
+		delete customers[i];
+	}
+	delete[]customers;
+
+	for (int i = 0; i < numEmployees; i++)
+	{
+		delete employees[i];
+	}
+	delete[]employees;
+
+	for (int i = 0; i < numProducts; i++)
+	{
+		delete products[i];
+	}
+	delete[]products;
+
+	for (int i = 0; i < numShifts; i++)
+	{
+		delete shifts[i];
+	}
+	delete[]shifts;
+
+	/*deleteArray((void**)customers, numCustomers, sizeof(Customer*));
 	deleteArray((void**)employees, numEmployees, sizeof(Employee*));
 	deleteArray((void**)shifts, numShifts, sizeof(Shift*));
-	deleteArray((void**)products, numProducts, sizeof(Product*));
+	deleteArray((void**)products, numProducts, sizeof(Product*));*/
 }
 
 // setters

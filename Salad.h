@@ -28,4 +28,6 @@ public:
 //	friend ostream& operator<<(ostream& os, const Salad& salad);
 };
 
+static const char* sDressingType[] = { "Vinegret", "Soy", "Thousand Island" };
+
 #endif

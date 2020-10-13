@@ -26,4 +26,6 @@ public:
 	//	friend ostream& operator<<(ostream& os, const Cookie& cookie);
 };
 
+static const char* sFlourType[] = { "White", "Whole", "Gluten Free" };
+
 #endif
