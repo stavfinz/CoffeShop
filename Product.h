@@ -31,9 +31,9 @@ public:
 
 	// getters
 	const char* getName() const { return name; }
-	int getCalories() const { return calories; }
-	double getCost() const { return cost; }
-	double getPrice() const { return price; }
+	virtual int getCalories() const { return calories; }
+	virtual double getCost() const { return cost; }
+	virtual double getPrice() const { return price; }
 
 	// setters
 	void setName(const char* name) noexcept(false);

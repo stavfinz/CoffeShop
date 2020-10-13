@@ -8,6 +8,13 @@ CookieCoffee::CookieCoffee(const Cookie& cookie, const Coffee& coffee, double di
 	: Product(coffee), Coffee(coffee), Cookie(cookie), groundCookie(groundCookie)
 {
 	setDiscountPercent(discountPercent);
+
+	char name[CHAR_MAX];						//	todo: check that it works
+	strcpy(name, cookie.getName());
+	name[strlen(cookie.getName())] = ' ';
+	name[strlen(cookie.getName()) + 1] = '\0';
+	strcat(name, coffee.getName());
+	Product::setName(name);
 }
 
 // setters
@@ -18,6 +25,23 @@ void CookieCoffee::setDiscountPercent(double discountPercent)
 		throw IllegalValue("Discount");
 	}
 	this->discountPercent = discountPercent;
+}
+
+int CookieCoffee::getCalories() const
+{
+	return Coffee::getCalories() + Cookie::getCalories();
+}
+
+double CookieCoffee::getCost() const
+{
+	return Coffee::getCost() + Cookie::getCost();
+}
+
+double CookieCoffee::getPrice() const
+{
+	double price = Coffee::getPrice() + Cookie::getPrice();
+	price -= price * discountPercent;
+	return price;
 }
 
 // functions

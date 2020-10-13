@@ -16,6 +16,7 @@ Product::Product(const Product& other)
 {
 	*this = other;
 }
+
 // move ctor
 Product::Product(Product&& other)
 {

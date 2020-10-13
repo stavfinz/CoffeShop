@@ -12,7 +12,7 @@ class Order {
 private:
 	int numItems; // current items in array
 	int itemsMaxSize; // current items array max size
-	Product** items;		// todo: const products??????		/////	
+	Product** items;
 
 	const Employee& employee;
 	const Customer& customer;

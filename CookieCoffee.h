@@ -29,6 +29,10 @@ public:
 	// functions
 	virtual void toOs(ostream& os) const override;
 	//	friend ostream& operator<<(ostream& os, const CookieCoffee& cookieCoffee);
+
+	virtual int getCalories() const;
+	virtual double getCost() const;
+	virtual double getPrice() const;
 };
 
 #endif
