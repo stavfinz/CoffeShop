@@ -16,7 +16,7 @@ private:
 	Date shiftDate;
 
 	int numEmployees, employeesMaxSize;
-	Employee** employees;
+	Employee**  employees;
 
 	int dailyMenuSize, dailyMenuMaxSize;
 	Product** dailyMenu;

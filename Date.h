@@ -7,9 +7,10 @@ using namespace std;
 class Date {
 private:
 	int day, month, year;
+
 public:
 	// ctor
-	Date(int day, int month, int year);
+	Date(int day, int month, int year) noexcept(false);
 
 	// getters
 	int getDay() const { return day; }
@@ -20,6 +21,14 @@ public:
 	friend ostream& operator<<(ostream& os, const Date& date);
 
 	bool operator==(const Date& d);
+
+	bool operator>=(const Date& d);
+
+	int getMonthDays(int month, int year);
+
+	bool isLeapYear(int year);
+
+	bool isValid(int day, int month, int year);
 };
 
 #endif

@@ -50,7 +50,7 @@ bool Shift::addEmployeeToShift(const Employee& employee)
 {
 	if (numEmployees == employeesMaxSize)
 		return false;
-	//employees[numEmployees++] = new Employee(employee); ////?????
+	//employees[numEmployees++] = &employee; ////?????
 
 	return true;
 }

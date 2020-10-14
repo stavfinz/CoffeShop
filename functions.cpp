@@ -431,7 +431,6 @@ void addCustomer(CoffeeShop& shop)
 	cin >> clubMember;
 
 	shop.addNewCustomer(Customer(name, phoneNumber, clubMember));
-
 }
 
 void makeOrder(CoffeeShop& shop, Shift& shift)
@@ -442,6 +441,24 @@ void makeOrder(CoffeeShop& shop, Shift& shift)
 	int choice;
 	bool withMilk;
 	int numOfSugar;
+
+	if (shift.getNumEmployees() == 0)
+	{
+		cout << "No employees in the shift!";
+		return;
+	}
+
+	if (shop.getNumCustomers() == 0)
+	{
+		cout << "There are no customers in the shop!";
+		return;
+	}
+
+	if (shop.getNumProducts() == 0)
+	{
+		cout << "There are no products in the shop!";
+		return;
+	}
 	
 	cout << "Enter employee to be incharge of the order" << endl;
 	showEmployees(shift.getEmployees(), shift.getNumEmployees());
