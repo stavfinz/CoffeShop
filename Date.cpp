@@ -16,7 +16,7 @@ Date::Date(int day, int month, int year)
 	this->year = year;
 }
 
-bool Date::operator==(const Date& d)
+bool Date::operator==(const Date& d) const
 {
 	if (this->year != d.year)
 		return false;
@@ -28,13 +28,13 @@ bool Date::operator==(const Date& d)
 	return true;
 }
 
-bool Date::operator>=(const Date& d)
+bool Date::operator>(const Date& d) const 
 {
-	if (year < d.year)
+	if (year <= d.year)
 		return false;
-	if (month < d.month)
+	if (month <= d.month)
 		return false;
-	if (day < d.day)
+	if (day <= d.day)
 		return false;
 
 	return true;

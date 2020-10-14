@@ -4,9 +4,12 @@
 #include "Employee.h"
 #include "Date.h"
 #include "utils.h"
+#include "IllegalValue.h"
 
 Employee::Employee(const char* name, const char* phoneNumber, double shiftSalary, const Date& hireDate) : Person(name, phoneNumber), hireDate(hireDate)
 {
+	if (hireDate > getTodayDate())
+		throw IllegalValue("Date can not be greater than today.");
 	this->shiftSalary = shiftSalary;
 }
 

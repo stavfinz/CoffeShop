@@ -20,9 +20,9 @@ public:
 	// functions
 	friend ostream& operator<<(ostream& os, const Date& date);
 
-	bool operator==(const Date& d);
+	bool operator==(const Date& d) const;
 
-	bool operator>=(const Date& d);
+	bool operator>(const Date& d) const;
 
 	int getMonthDays(int month, int year);
 

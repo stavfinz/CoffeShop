@@ -20,7 +20,7 @@ private:
 public:
 	friend class CoffeeShop;
 	// ctor
-	Employee(const char* name, const char* phoneNumber, double shiftSalary, const Date& hireDate);
+	Employee(const char* name, const char* phoneNumber, double shiftSalary, const Date& hireDate) noexcept(false);
 	
 	// operators
 	bool operator<(const Employee& other) const; 
