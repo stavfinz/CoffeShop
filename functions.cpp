@@ -325,11 +325,11 @@ bool addProduct(CoffeeShop& shop, const type_info& productType)
 		while (true)
 		{
 			for (int i = 0; i < (int)Salad::eDressingType::enumTypeEnd; i++)
-				cout << i + 1 << ". " << sFlourType[i] << endl;
+				cout << i + 1 << ". " << sDressingType[i] << endl;
 
 			cin >> choice;
 
-			if (choice < 1 || choice >= (int)Salad::eDressingType::enumTypeEnd)
+			if (choice < 1 || choice > (int)Salad::eDressingType::enumTypeEnd)
 				cout << "Invalid choice" << endl;
 			else break;
 		}
@@ -347,7 +347,7 @@ bool addProduct(CoffeeShop& shop, const type_info& productType)
 
 			cin >> choice;
 
-			if (choice < 1 || choice >= (int)Cookie::eFlourType::enumTypeEnd)
+			if (choice < 1 || choice > (int)Cookie::eFlourType::enumTypeEnd)
 				cout << "Invalid choice" << endl;
 			else break;
 		}
