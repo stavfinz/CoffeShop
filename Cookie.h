@@ -13,7 +13,7 @@ protected:
 
 public:
 	// ctor
-	Cookie(const char* name, int calories, double cost, double price, eFlourType flour = eFlourType::WHITE);
+	Cookie(const char* name, int calories, double cost, double price, eFlourType flour = eFlourType::WHITE) noexcept(false);
 
 	// clone
 	virtual Product* clone() const override { return new Cookie(*this); }

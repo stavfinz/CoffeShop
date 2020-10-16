@@ -11,10 +11,10 @@ protected:
 	int sugarSpoons;
 public:
 	// ctor
-	Coffee(const char* name, int calories, double cost, double price, bool withMilk = false, int sugarSpoons = 0);
+	Coffee(const char* name, int calories, double cost, double price, bool withMilk = false, int sugarSpoons = 0) noexcept(false);
 
 	// operators
-	const Coffee& operator+=(int sugarSpoons);
+	const Coffee& operator+=(int sugarSpoons) noexcept(false);
 
 	// clone
 	virtual Product* clone() const override { return new Coffee(*this); }
@@ -24,7 +24,7 @@ public:
 	int getSugarSpoons() const { return sugarSpoons; }
 
 	// functions
-	bool addSugar(int sugarSpoons = 1);
+	bool addSugar(int sugarSpoons = 1) noexcept(false);
 	void setMilk(bool isWithMilk);
 
 	void toOs(ostream& os) const override;

@@ -10,7 +10,7 @@ Employee::Employee(const char* name, const char* phoneNumber, double shiftSalary
 {
 	if (hireDate > getTodayDate())
 		throw IllegalValue("Date can not be greater than today.");
-	this->shiftSalary = shiftSalary;
+	setShiftSalary(shiftSalary);
 }
 
 const Employee& Employee::operator=(const Employee& other)
@@ -53,16 +53,18 @@ bool Employee::operator==(const Person& other) const
 	return true;
 }
 
-bool Employee::setShiftSalary(double shiftSalary)
+void Employee::setShiftSalary(double shiftSalary)
 {
+	if (shiftSalary <= 0)
+	{
+		throw IllegalValue("Invalid Shift Salary");
+	}
 	this->shiftSalary = shiftSalary;
-	return true;
 }
 
-bool Employee::setHireDate(Date& hireDate)
+void Employee::setHireDate(Date& hireDate)
 {
 	this->hireDate = hireDate;
-	return true;
 }
 
 int Employee::getSeniority() const

@@ -32,8 +32,8 @@ public:
 	const Date* getHireDate() const { return &hireDate; }
 
 	// setters
-	bool setShiftSalary(double shiftSalary);
-	bool setHireDate(Date& hireDate);
+	void setShiftSalary(double shiftSalary) noexcept(false);
+	void setHireDate(Date& hireDate) noexcept(false);
 
 	// functions
 	int getSeniority() const;

@@ -29,7 +29,7 @@ public:
 
 	// operators
 	//Product& operator[](int index){ return *items[index]; }
-	const Product& operator[](int index) const { return *items[index]; }
+	const Product& operator[](int index) const { return *items[index]; }			//	todo: add exception?? invalid index?
 	Order operator+(const Order& order);
 
 	// getters
