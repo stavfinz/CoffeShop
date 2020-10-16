@@ -21,14 +21,26 @@ Order::Order(const Order& other) : employee(other.employee), customer(other.cust
 
 Order::~Order()
 {
-	deleteArray((void**)items, itemsMaxSize, numItems);
+	for (int i = 0; i < numItems; i++)
+	{
+		delete items[i];
+	}
+	delete[] items;
+	//deleteArray((void**)items, itemsMaxSize, numItems);
 }
 
 const Order& Order::operator=(const Order& other)
 {
 	if (this != &other)
 	{
-		deleteArray((void**)items, numItems, sizeof(Product*));
+		//deleteArray((void**)items, numItems, sizeof(Product*));
+		
+		for (int i = 0; i < numItems; i++)
+		{
+			delete items[i];
+		}
+		delete[] items;
+		
 		/*employee = other.employee;
 		customer = other.customer;*/
 		numItems = 0;
@@ -68,7 +80,11 @@ bool Order::addItem(const Product& product)
 	if (numItems == itemsMaxSize)
 	{
 		itemsMaxSize *= 2;
-		increaseArraySize((void**)items, numItems, itemsMaxSize, sizeof(Product*));
+		Product** tempArr = new Product * [itemsMaxSize];
+		memcpy(tempArr, items, numItems * sizeof(Product*));
+		std::swap(tempArr, items);
+		delete[] tempArr;
+		//increaseArraySize((void**)items, numItems, itemsMaxSize, sizeof(Product*));
 	}
 	items[numItems++] = product.clone();
 	return true;

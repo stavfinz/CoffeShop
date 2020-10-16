@@ -24,9 +24,27 @@ Shift::Shift(double clubDiscountPercent, const Date& shiftDate) :shiftDate(shift
 
 Shift::~Shift()
 {
-	deleteArray((void**)dailyMenu, dailyMenuSize, sizeof(Customer*));
+	for (int i = 0; i < dailyMenuSize; i++)
+	{
+		delete dailyMenu[i];
+	}
+	delete[] dailyMenu;
+
+	for (int i = 0; i < numEmployees; i++)
+	{
+		delete employees[i];
+	}
+	delete[] employees;
+
+	for (int i = 0; i < numOrders; i++)
+	{
+		delete orders[i];
+	}
+	delete[] orders;
+
+	/*deleteArray((void**)dailyMenu, dailyMenuSize, sizeof(Product*));
 	deleteArray((void**)employees, numEmployees, sizeof(Employee*));
-	deleteArray((void**)orders, numOrders, sizeof(Shift*));
+	deleteArray((void**)orders, numOrders, sizeof(Order*));*/
 }
 
 bool Shift::setClubDiscountPercent(double clubDiscountPercent)
@@ -60,7 +78,11 @@ bool Shift::addOrder(const Order& order)
 	if (numOrders == ordersMaxSize)
 	{
 		ordersMaxSize *= 2;
-		increaseArraySize((void**)orders, numOrders, ordersMaxSize, sizeof(Order*));
+		Order** tempArr = new Order * [ordersMaxSize];
+		memcpy(tempArr, orders, numOrders * sizeof(Order*));
+		std::swap(tempArr, orders);
+		delete[] tempArr;
+		//increaseArraySize((void**)orders, numOrders, ordersMaxSize, sizeof(Order*));
 	}
 
 	orders[numOrders++] = new Order(order);

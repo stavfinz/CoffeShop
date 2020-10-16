@@ -20,5 +20,5 @@ void Customer::setClubMember(bool clubMember)
 // functions
 void Customer::toOs(ostream& os) const
 {
-	os << (clubMember ? ", club member" : "") << endl;
+	os << (clubMember ? ", a club member" : "");
 }

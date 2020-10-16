@@ -28,23 +28,23 @@ bool isDigitsOnly(const char* str)
 	return true;
 }
 
-void deleteArray(void** arr, int size, int elemSize)		//	todo: fix this functions
-{
-	for (int i = 0; i < size; i++)
-	{
-		void** elem = arr + (i * elemSize);
-		delete *elem;
-	}
-	delete[] arr;
-}
-
-void increaseArraySize(void** arr, int numElem, int newSize, int elemSize)
-{
-	void** tempArr = new void* [newSize];
-	memcpy(arr, tempArr, numElem * elemSize);
-	std::swap(tempArr, arr);
-	delete[] tempArr;
-}
+//void deleteArray(void** arr, int size, int elemSize)		//	todo: fix this functions
+//{
+//	for (int i = 0; i < size; i++)
+//	{
+//		void** elem = arr + (i * elemSize);
+//		delete *elem;
+//	}
+//	delete[] arr;
+//}
+//
+//void increaseArraySize(void** arr, int numElem, int newSize, int elemSize)
+//{
+//	void** tempArr = new void* [newSize];
+//	memcpy(tempArr, arr, numElem * elemSize);
+//	std::swap(tempArr, arr);
+//	delete[] tempArr;
+//}
 
 void cleanBuffer()
 {

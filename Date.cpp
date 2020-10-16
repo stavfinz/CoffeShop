@@ -92,4 +92,6 @@ bool Date::isValid(int day, int month, int year)
 
 	if (year < 1900)
 		return false;
+
+	return true;
 }

@@ -90,7 +90,9 @@ CoffeeShop::~CoffeeShop()
 void CoffeeShop::setName(const char* name)
 {
 	if (strlen(name) < 2)
-		throw IllegalValue("Name is too short");
+		throw IllegalValue("Name is too short.");
+	if (!isAlphaOnly(name))
+		throw IllegalValue("Name should contain characters only.");
 	this->name = strdup(name);
 }
 
@@ -100,7 +102,11 @@ bool  CoffeeShop::addNewEmployee(const Employee& employee)
 	if (numEmployees == employeesMaxSize)
 	{
 		employeesMaxSize *= 2;
-		increaseArraySize((void**)employees, numEmployees, employeesMaxSize, sizeof(Employee*));
+		Employee** tempArr = new Employee * [employeesMaxSize];
+		memcpy(tempArr,employees, numEmployees * sizeof(Employee*));
+		std::swap(tempArr, employees);
+		delete[] tempArr;
+		//increaseArraySize((void**)employees, numEmployees, employeesMaxSize, sizeof(Employee*));
 	}
 
 	employees[numEmployees++] = new Employee(employee);
@@ -113,7 +119,11 @@ bool  CoffeeShop::addNewEmployee(Employee&& employee)
 	if (numEmployees == employeesMaxSize)
 	{
 		employeesMaxSize *= 2;
-		increaseArraySize((void**)employees, numEmployees, employeesMaxSize, sizeof(Employee*));
+		Employee** tempArr = new Employee * [employeesMaxSize];
+		memcpy(tempArr,employees, numEmployees * sizeof(Employee*));
+		std::swap(tempArr, employees);
+		delete[] tempArr;
+		//increaseArraySize((void**)employees, numEmployees, employeesMaxSize, sizeof(Employee*));
 	}
 
 	employees[numEmployees++] = new Employee(std::move(employee));
@@ -126,7 +136,11 @@ bool  CoffeeShop::addNewProduct(const Product& product)
 	if (numProducts == productsMaxSize)
 	{
 		productsMaxSize *= 2;
-		increaseArraySize((void**)products, numProducts, productsMaxSize, sizeof(Product*));
+		Product** tempArr = new Product * [productsMaxSize];
+		memcpy(tempArr, products, numProducts * sizeof(Product*));
+		std::swap(tempArr, products);
+		delete[] tempArr;
+		//increaseArraySize((void**)products, numProducts, productsMaxSize, sizeof(Product*));
 	}
 
 	products[numProducts++] = product.clone();
@@ -139,7 +153,11 @@ bool  CoffeeShop::addNewProduct(Product&& product)
 	if (numProducts == productsMaxSize)
 	{
 		productsMaxSize *= 2;
-		increaseArraySize((void**)products, numProducts, productsMaxSize, sizeof(Product*));
+		Product** tempArr = new Product * [productsMaxSize];
+		memcpy(tempArr, products, numProducts * sizeof(Product*));
+		std::swap(tempArr, products);
+		delete[] tempArr;
+		//increaseArraySize((void**)products, numProducts, productsMaxSize, sizeof(Product*));
 	}
 
 	products[numProducts++] = product.clone();			//	todo: possible to use std::move or something similar?
@@ -152,7 +170,11 @@ bool  CoffeeShop::addNewCustomer(const Customer& customer)
 	if (numCustomers == customersMaxSize)
 	{
 		customersMaxSize *= 2;
-		increaseArraySize((void**)customers, numCustomers, customersMaxSize, sizeof(Customer*));
+		Customer** tempArr = new Customer * [customersMaxSize];
+		memcpy(tempArr, customers, numCustomers * sizeof(Customer*));
+		std::swap(tempArr, customers);
+		delete[] tempArr;
+		//increaseArraySize((void**)customers, numCustomers, customersMaxSize, sizeof(Customer*));
 	}
 
 	customers[numCustomers++] = new Customer(customer);
@@ -165,7 +187,11 @@ bool  CoffeeShop::addNewCustomer(Customer&& customer)
 	if (numCustomers == customersMaxSize)
 	{
 		customersMaxSize *= 2;
-		increaseArraySize((void**)customers, numCustomers, customersMaxSize, sizeof(Customer*));
+		Customer** tempArr = new Customer * [customersMaxSize];
+		memcpy(tempArr, customers, numCustomers * sizeof(Customer*));
+		std::swap(tempArr, customers);
+		delete[] tempArr;
+		//increaseArraySize((void**)customers, numCustomers, customersMaxSize, sizeof(Customer*));
 	}
 
 	customers[numCustomers++] = new Customer(std::move(customer));
@@ -178,7 +204,11 @@ bool  CoffeeShop::openShift(double clubDiscountPercent, const Date& date)
 	if (numShifts == shiftsMaxSize)
 	{
 		shiftsMaxSize *= 2;
-		increaseArraySize((void**)shifts, numShifts, shiftsMaxSize, sizeof(Shift*));
+		Shift** tempArr = new Shift * [shiftsMaxSize];
+		memcpy(tempArr, shifts, numShifts * sizeof(Shift*));
+		std::swap(tempArr, shifts);
+		delete[] tempArr;
+		//increaseArraySize((void**)shifts, numShifts, shiftsMaxSize, sizeof(Shift*));
 	}
 
 	shifts[numShifts++] = new Shift(clubDiscountPercent, date);

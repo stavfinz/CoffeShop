@@ -233,12 +233,24 @@ const Product* showProductsByType(CoffeeShop& shop, const type_info& productType
 {
 	int choice;
 	const Product* const* products = shop.getProducts();
- 
-	for (int i = 0; i < shop.getNumProducts(); i++)
+	int numOfProducts = shop.getNumProducts();
+
+	if (numOfProducts == 0)
+		return nullptr;
+
+	for (int i = 0; i < numOfProducts; i++)
+	{
 		if (typeid(*products[i]) == productType)
 			cout << i + 1 << ". " << *products[i] << endl;
+	}
 
-	cin >> choice;
+	while (true)
+	{
+		cin >> choice;
+		if (choice > 0 && choice <= numOfProducts && productType == typeid(*products[choice - 1]))
+			break;				//	break if the choice is in the array bounds and the product's type match
+		cout << "Invalid index, please try again." << endl;
+	}
 	return products[choice - 1];
 }
 
@@ -379,8 +391,20 @@ bool addCookieCoffee(CoffeeShop& shop)
 	cout << "Choose from existing Cookie product:" << endl;
 	p1 = showProductsByType(shop, typeid(Cookie));
 
+	if (p1 == nullptr)
+	{
+		cout << "There are no Cookies in the menu." << endl;
+		return false;
+	}
+
 	cout << "Choose from existing Coffee product:" << endl;
 	p2 = showProductsByType(shop, typeid(Coffee));
+
+	if (p2 == nullptr)
+	{
+		cout << "There is no Coffee in the menu."<<endl;
+		return false;
+	}
 
 	cout << "Would you like to grind the cookie in the coffee? Y/N" << endl;
 	cin >> choice;
