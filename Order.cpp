@@ -29,8 +29,8 @@ const Order& Order::operator=(const Order& other)
 	if (this != &other)
 	{
 		deleteArray((void**)items, numItems, sizeof(Product*));
-		//employee = other.employee;
-		//customer = other.customer;
+		/*employee = other.employee;
+		customer = other.customer;*/
 		numItems = 0;
 		itemsMaxSize = other.itemsMaxSize;
 		items = new Product * [itemsMaxSize];

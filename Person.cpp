@@ -60,8 +60,10 @@ bool Person::operator==(const Person& other) const
 
 void Person::setName(const char* name)
 {
-	if (!isAlphaOnly(name) || strlen(name) < 2)
-		throw IllegalValue("Name");
+	if(strlen(name) < 2)
+		throw IllegalValue("Name should be at least 2 characters.");
+	if (!isAlphaOnly(name))
+		throw IllegalValue("Name should be characters only.");
 
 	this->name = strdup(name);
 	this->name[0] = toupper(name[0]);
@@ -70,19 +72,13 @@ void Person::setName(const char* name)
 
 void Person::setPhoneNumber(const char* phoneNumber)
 {
-	int phoneLen = strlen(phoneNumber);
-	if (phoneLen < 9)
+	if (strlen(phoneNumber) < 9)
+		throw IllegalValue("Phone Number should contain at least 9 digits");
+	if (!isDigitsOnly(phoneNumber))
 		throw IllegalValue("Phone Number");
-	for (int i = 0; i < phoneLen; i++)
-	{
-		char ch = phoneNumber[i];
-		if (!isdigit(ch))
-		{
-			throw IllegalValue("Phone Number");
-		}
-	}
 
 	this->phoneNumber = strdup(phoneNumber);
+
 }
 
 ostream& operator<<(ostream& os, const Person& person)

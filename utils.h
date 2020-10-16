@@ -8,6 +8,8 @@ static const int SYSTEM_MONTH_FACTOR = 1;
 
 bool isAlphaOnly(const char* str);
 
+bool isDigitsOnly(const char* str);
+
 void deleteArray(void** arr, int size, int elemSize);
 
 void increaseArraySize(void** arr, int numElem, int newSize, int elemSize);

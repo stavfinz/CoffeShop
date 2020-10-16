@@ -25,16 +25,20 @@ Address::Address(Address&& other) : city(nullptr), streetName(nullptr)
 
 void Address::setCity(const char* city)
 {
+	if (strlen(city) < 2)
+		throw IllegalValue("City is too short.");
 	if (!isAlphaOnly(city))
-		throw IllegalValue("City");
+		throw IllegalValue("City must be characters only.");
 
 	this->city = strdup(city);
 }
 
 void Address::setStreetName(const char* street)
 {
+	if (strlen(street) < 2)
+		throw IllegalValue("Street name is too short.");
 	if (!isAlphaOnly(street))
-		throw IllegalValue("Street");
+		throw IllegalValue("Street name must be characters only.");
 
 	this->streetName = strdup(street);
 }

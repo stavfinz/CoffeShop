@@ -38,6 +38,7 @@ public:
 	// setters
 	void setName(const char* name) noexcept(false);
 	void setCalories(int calories) noexcept(false);
+	void addCalories(int amount) noexcept(false);
 	void setCost(double cost) noexcept(false);
 	void setPrice(double price) noexcept(false);
 

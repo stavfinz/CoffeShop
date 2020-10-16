@@ -18,6 +18,16 @@ bool isAlphaOnly(const char* str)
 	return true;
 }
 
+bool isDigitsOnly(const char* str)
+{
+	for (int i = 0; i < strlen(str); i++)
+	{
+		if (!isdigit(str[i]))
+			return false;
+	}
+	return true;
+}
+
 void deleteArray(void** arr, int size, int elemSize)		//	todo: fix this functions
 {
 	for (int i = 0; i < size; i++)

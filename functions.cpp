@@ -268,31 +268,38 @@ void addProductMenu(CoffeeShop& shop)
 		cin >> choice;
 		cleanBuffer();
 
-		switch (choice)
+		try
 		{
-		case 1:
-			// 1. add coffee product to coffee shop
-			addProduct(shop, typeid(Coffee));
-			break;
-		case 2:
-			// 2. add cookie product to coffee shop
-			addProduct(shop, typeid(Cookie));
-			break;
-		case 3:
-			// 3. add salad product to coffee shop
-			addProduct(shop, typeid(Salad));
-			break;
-		case 4:
-			// 4. add CookieCoffee product to coffee shop
-			addCookieCoffee(shop);
-			break;
-		case 0:
-			// exit menu
-			return;
-		default:
-			// show unknown choice msg
-			cout << "Invalid choice, try again." << endl;
-			break;
+			switch (choice)
+			{
+			case 1:
+				// 1. add coffee product to coffee shop
+				addProduct(shop, typeid(Coffee));
+				break;
+			case 2:
+				// 2. add cookie product to coffee shop
+				addProduct(shop, typeid(Cookie));
+				break;
+			case 3:
+				// 3. add salad product to coffee shop
+				addProduct(shop, typeid(Salad));
+				break;
+			case 4:
+				// 4. add CookieCoffee product to coffee shop
+				addCookieCoffee(shop);
+				break;
+			case 0:
+				// exit menu
+				return;
+			default:
+				// show unknown choice msg
+				cout << "Invalid choice, try again." << endl;
+				break;
+			}
+		}
+		catch (exception& e)
+		{
+			cout << e.what() << endl << "Please try again." << endl << endl;
 		}
 	}
 }

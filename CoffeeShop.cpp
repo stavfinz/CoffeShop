@@ -90,7 +90,7 @@ CoffeeShop::~CoffeeShop()
 void CoffeeShop::setName(const char* name)
 {
 	if (strlen(name) < 2)
-		throw IllegalValue("Name");
+		throw IllegalValue("Name is too short");
 	this->name = strdup(name);
 }
 

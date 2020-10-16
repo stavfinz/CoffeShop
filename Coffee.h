@@ -24,8 +24,8 @@ public:
 	int getSugarSpoons() const { return sugarSpoons; }
 
 	// functions
-	bool addSugar(int sugarSpoons = 1) noexcept(false);
-	void setMilk(bool isWithMilk);
+	void addSugar(int sugarSpoons = 1) noexcept(false);
+	void setMilk(bool isWithMilk) noexcept(false);
 
 	void toOs(ostream& os) const override;
 	//	friend ostream& operator<<(ostream& os, const Coffee& coffee);

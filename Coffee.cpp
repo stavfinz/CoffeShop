@@ -15,21 +15,21 @@ const Coffee& Coffee:: operator+=(int sugarSpoons)
 	return *this;
 }
 
-//Ma laasot kedey she ihtov false?
-bool Coffee::addSugar(int sugarSpoons)
+void Coffee::addSugar(int sugarSpoons)
 {
-	if (sugarSpoons < 1)
+	if (sugarSpoons < 0)
 	{
 		throw IllegalValue("Invalid sugar amount");
 	}
 	this->sugarSpoons += sugarSpoons;
-	return true;
+	addCalories(50);
 }
 
-//Ma laasot kedey she ihtov false?
 void Coffee::setMilk(bool isWithMilk)
 {
 	this->withMilk = isWithMilk;
+	if (isWithMilk)
+		addCalories(100);
 }
 
 void Coffee::toOs(ostream& os) const

@@ -5,7 +5,7 @@
 #include "IllegalValue.h"
 
 Product::Product(const char* name, int calories, double cost, double price) : name(NULL), cost(DBL_MIN), price(DBL_MAX)
-{
+{																			//	set max and min values first because of the setters validation
 	setName(name);
 	setCalories(calories);
 	setCost(cost);
@@ -57,30 +57,42 @@ Product:: ~Product()
 
 void Product::setName(const char* name)
 {
+	int nameLen = strlen(name);
+	if (nameLen < 2)
+		throw IllegalValue("Product Name should contain at least 2 characters.");
 	if (!isAlphaOnly(name))
-		throw IllegalValue("Name");
+		throw IllegalValue("Product Name should contain characters only.");
 	delete[] this->name;
-	this->name = new char[strlen(name) + 1];
+	nameLen++;	//	one place for '\0'
+	this->name = new char[nameLen];
 	strcpy(this->name, name);
 }
 
 void Product::setCalories(int calories)
 {
 	if (calories < 0)
-		throw IllegalValue("Calories");
+		throw IllegalValue("Calories can not be less than 0.");
 	this->calories = calories;
+}
+
+void Product::addCalories(int amount) noexcept(false)
+{
+	if (amount < 0)
+		throw IllegalValue("Can not add less than 0 calories.");
+	setCalories(calories + amount);
 }
 
 void Product::setCost(double cost)
 {
 	if (cost < 0 || cost > price)
-		throw IllegalValue("Price");
+		throw IllegalValue("Cost can not be greater than the price.");
 	this->cost = cost;
 }
+
 void Product::setPrice(double price)
 {
 	if (price < 0 || price < cost)
-		throw IllegalValue("Price");
+		throw IllegalValue("Price can not be less than the cost.");
 	this->price = price;
 }
 
