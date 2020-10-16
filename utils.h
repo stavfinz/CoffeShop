@@ -18,4 +18,6 @@ void cleanBuffer();
 
 Date getTodayDate();
 
+Date createDate() noexcept(false);
+
 #endif // !__UTILS_H__

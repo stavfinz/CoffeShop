@@ -24,7 +24,7 @@ void showEmployees(const Employee* const* employees, int numEmployees);
 void showCustomers(const Customer* const* customers, int numCustomers);
 // 4.
 void showProducts(const Product* const* products, int numProducts);
-const Product* showProductsByType(CoffeeShop& shop, const type_info& productType);		//	todo: change name to 'chooseProductByType'
+const Product* chooseProductByType(CoffeeShop& shop, const type_info& productType);		//	todo: change name to 'chooseProductByType'
 // 5.
 void showShifts(CoffeeShop& shop);
 // 6.
@@ -42,5 +42,8 @@ void makeOrder(CoffeeShop& shop, Shift& shift);
 
 void addEmployeesToShift(CoffeeShop& shop, Shift& shift);
 void addProductToDailyMenu(CoffeeShop& shop, Shift& shift);
+
+
+Date createDate();
 
 #endif

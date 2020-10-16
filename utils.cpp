@@ -48,6 +48,7 @@ bool isDigitsOnly(const char* str)
 
 void cleanBuffer()
 {
+	cin.clear();
 	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
@@ -56,4 +57,29 @@ Date getTodayDate()
 	time_t now = time(0);
 	tm* dateStruct = localtime(&now);
 	return Date(dateStruct->tm_mday, dateStruct->tm_mon + SYSTEM_MONTH_FACTOR, dateStruct->tm_year + SYSTEM_YEAR_FACTOR);
+}
+
+Date createDate()
+{
+	int day, month, year;
+	cout << "day: " << endl;
+	while (!(cin >> day) || day <= 0 || day > 31)
+	{
+		cleanBuffer();
+		cout << "Numbers only, please try again: ";
+	}
+	cout << "month: " << endl;
+	while (!(cin >> month) || month <= 0 || month > 12)
+	{
+		cleanBuffer();
+		cout << "Numbers only, please try again: ";
+	}
+	cout << "year: " << endl;
+	while (!(cin >> year) || year < SYSTEM_YEAR_FACTOR)
+	{
+		cleanBuffer();
+		cout << "Numbers only, please try again: ";
+	}
+
+	return Date(day, month, year);
 }

@@ -48,9 +48,8 @@ void menu(CoffeeShop& shop)
 	while (choice)
 	{
 		// get choice from user
-		cout << "Shop Menu" << endl;
+		cout << "\nShop Menu" << endl;
 		cout << "===============" << endl;
-
 		cout << "Enter your choice:" << endl;
 		cout << "1 - Show coffee shop details" << endl;
 		cout << "2 - Show employees details" << endl;
@@ -63,7 +62,8 @@ void menu(CoffeeShop& shop)
 		cout << "9 - Shift menu" << endl;
 		cout << "0 - Quit" << endl;
 
-		cin >> choice;
+		if (!(cin >> choice))
+			choice = -1;
 		cleanBuffer();
 
 		switch (choice)
@@ -177,7 +177,6 @@ bool shiftMenu(CoffeeShop& shop)
 
 void openShift(CoffeeShop& shop)
 {
-	int day, month, year;
 	double discount;
 
 	// init shift
@@ -185,17 +184,11 @@ void openShift(CoffeeShop& shop)
 	cin >> discount;
 
 	cout << "Enter Date details: " << endl;
-	cout << "day: " << endl;
-	cin >> day;
-	cout << "month: " << endl;
-	cin >> month;
-	cout << "year: " << endl;
-	cin >> year;
 
-	Date date(day, month, year);
+	Date date = createDate();				//	todo: check if it use operator= or not (should not)
+											//	todo: add exception handling
 	shop.openShift(discount, date);
 }
-
 
 void showCoffeeShop(CoffeeShop& shop)
 {
@@ -229,7 +222,16 @@ void showProducts(const Product* const* products, int numProducts)
 	}
 }
 
-const Product* showProductsByType(CoffeeShop& shop, const type_info& productType)
+void showShifts(CoffeeShop& shop)
+{
+	const Shift* const* shifts = shop.getShifts();
+
+	cout << "The shifts of the coffee shop are:" << endl;
+	for (int i = 0; i < shop.getNumShifts(); i++)
+		cout << i + 1 << ". " << *shifts[i] << endl;
+}
+
+const Product* chooseProductByType(CoffeeShop& shop, const type_info& productType)
 {
 	int choice;
 	const Product* const* products = shop.getProducts();
@@ -247,20 +249,12 @@ const Product* showProductsByType(CoffeeShop& shop, const type_info& productType
 	while (true)
 	{
 		cin >> choice;
+		cleanBuffer();
 		if (choice > 0 && choice <= numOfProducts && productType == typeid(*products[choice - 1]))
 			break;				//	break if the choice is in the array bounds and the product's type match
 		cout << "Invalid index, please try again." << endl;
 	}
 	return products[choice - 1];
-}
-
-void showShifts(CoffeeShop& shop)
-{
-	const Shift* const* shifts = shop.getShifts();
-
-	cout << "The shifts of the coffee shop are:" << endl;
-	for (int i = 0; i < shop.getNumShifts(); i++)
-		cout << i + 1 << ". " << *shifts[i] << endl;
 }
 
 void addProductMenu(CoffeeShop& shop)
@@ -270,14 +264,15 @@ void addProductMenu(CoffeeShop& shop)
 	while (choice)
 	{
 		// get choice from user
-		cout << "Choose product type to add:" << endl;
+		cout << "\nChoose product type to add:" << endl;
 		cout << "1 - Coffee" << endl;
 		cout << "2 - Cookie" << endl;
 		cout << "3 - Salad" << endl;
 		cout << "4 - CookieCoffee" << endl;
 		cout << "0 - Quit" << endl;
 
-		cin >> choice;
+		if (!(cin >> choice))
+			choice = -1;
 		cleanBuffer();
 
 		try
@@ -323,17 +318,32 @@ bool addProduct(CoffeeShop& shop, const type_info& productType)
 	double cost, price;
 	int choice;
 
-	cout << "Enter product's name" << endl;
+	cout << "Enter product's name: ";
 	cin.getline(name, STRING_SIZE);
 
-	cout << "Enter product's calories" << endl;
-	cin >> calories;
+	cout << "Enter product's calories: ";
+	if (!(cin >> calories))
+	{
+		cleanBuffer();
+		cout << "Invalid input." << endl<<endl;
+		return false;
+	}
 
-	cout << "Enter product's cost" << endl;
-	cin >> cost;
+	cout << "Enter product's cost: " ;
+	if(!(cin >> cost))
+	{
+		cleanBuffer();
+		cout << "Invalid input." << endl << endl;
+		return false;
+	}
 
-	cout << "Enter product's price" << endl;
-	cin >> price;
+	cout << "Enter product's price: ";
+	if(!(cin >> price))
+	{
+		cleanBuffer();
+		cout << "Invalid input." << endl << endl;
+		return false;
+	}
 
 	if (productType == typeid(Coffee))
 		shop.addNewProduct(Coffee(name, calories, cost, price));
@@ -346,10 +356,11 @@ bool addProduct(CoffeeShop& shop, const type_info& productType)
 			for (int i = 0; i < (int)Salad::eDressingType::enumTypeEnd; i++)
 				cout << i + 1 << ". " << sDressingType[i] << endl;
 
-			cin >> choice;
+			if (!(cin >> choice))
+				choice = -1;
 
 			if (choice < 1 || choice > (int)Salad::eDressingType::enumTypeEnd)
-				cout << "Invalid choice" << endl;
+				cout << "Invalid choice." << endl;
 			else break;
 		}
 
@@ -364,10 +375,11 @@ bool addProduct(CoffeeShop& shop, const type_info& productType)
 			for (int i = 0; i < (int)Cookie::eFlourType::enumTypeEnd; i++)
 				cout << i + 1 << ". " << sFlourType[i] << endl;
 
-			cin >> choice;
+			if (!(cin >> choice))
+				choice = -1;
 
 			if (choice < 1 || choice > (int)Cookie::eFlourType::enumTypeEnd)
-				cout << "Invalid choice" << endl;
+				cout << "Invalid choice." << endl;
 			else break;
 		}
 
@@ -389,7 +401,7 @@ bool addCookieCoffee(CoffeeShop& shop)
 	discountPercent = (double)tmp / 100;
 
 	cout << "Choose from existing Cookie product:" << endl;
-	p1 = showProductsByType(shop, typeid(Cookie));
+	p1 = chooseProductByType(shop, typeid(Cookie));
 
 	if (p1 == nullptr)
 	{
@@ -398,7 +410,7 @@ bool addCookieCoffee(CoffeeShop& shop)
 	}
 
 	cout << "Choose from existing Coffee product:" << endl;
-	p2 = showProductsByType(shop, typeid(Coffee));
+	p2 = chooseProductByType(shop, typeid(Coffee));
 
 	if (p2 == nullptr)
 	{
@@ -424,7 +436,6 @@ void addEmployee(CoffeeShop& shop)
 	char name[STRING_SIZE];
 	char phoneNumber[STRING_SIZE];
 	double shiftSalary;
-	int day, month, year;
 
 	cout << "Enter employee's name" << endl;
 	cin.getline(name, STRING_SIZE);
@@ -433,17 +444,23 @@ void addEmployee(CoffeeShop& shop)
 	cin.getline(phoneNumber, STRING_SIZE);
 
 	cout << "Enter employee's shift salary" << endl;
-	cin >> shiftSalary;
+	while (!(cin >> shiftSalary))
+	{
+		cleanBuffer();
+		cout << "Numbers only, please enter new salary: ";
+	}
 
 	cout << "Enter employee's hire date details: " << endl;
-	cout << "day: " << endl;
-	cin >> day;
-	cout << "month: " << endl;
-	cin >> month;
-	cout << "year: " << endl;
-	cin >> year;
 
-	shop.addNewEmployee(Employee(name, phoneNumber, shiftSalary, Date(day, month, year)));
+	try
+	{
+		Date date = createDate();
+		shop.addNewEmployee(Employee(name, phoneNumber, shiftSalary, date));
+	}
+	catch (exception& e)
+	{
+		cout << e.what() << " Please try again." << endl;
+	}
 }
 
 void addCustomer(CoffeeShop& shop)
@@ -460,6 +477,7 @@ void addCustomer(CoffeeShop& shop)
 
 	cout << "Is club member? true=1/false=0" << endl;
 	cin >> clubMember;
+	cleanBuffer();
 
 	shop.addNewCustomer(Customer(name, phoneNumber, clubMember));
 }
@@ -640,4 +658,3 @@ void addProductToDailyMenu(CoffeeShop& shop, Shift& shift)
 		}
 	}
 }
-
