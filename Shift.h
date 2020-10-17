@@ -47,7 +47,7 @@ public:
 	const Order* const* getOrders() const { return orders; }
 
 	// setters
-	bool setClubDiscountPercent(double clubDiscountPercent);
+	void setClubDiscountPercent(double clubDiscountPercent) noexcept(false);
 
 	// functions
 	bool addProductToMenu(const Product& product);

@@ -5,6 +5,7 @@
 #include "Order.h"
 #include "Product.h"
 #include "utils.h"
+#include "IllegalValue.h"
 
 Shift::Shift(double clubDiscountPercent, const Date& shiftDate) :shiftDate(shiftDate)
 {
@@ -47,12 +48,11 @@ Shift::~Shift()
 	deleteArray((void**)orders, numOrders, sizeof(Order*));*/
 }
 
-bool Shift::setClubDiscountPercent(double clubDiscountPercent)
+void Shift::setClubDiscountPercent(double clubDiscountPercent)
 {
 	if (clubDiscountPercent < 0 || clubDiscountPercent > 100)
-		return false;
+		throw IllegalValue("Illegal discount precentage.");
 	this->clubDiscountPercent = clubDiscountPercent;
-	return true;
 }
 
 bool Shift::addProductToMenu(const Product& product)

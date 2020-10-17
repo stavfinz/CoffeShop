@@ -119,8 +119,6 @@ void menu(CoffeeShop& shop)
 void shiftMenu(CoffeeShop& shop)
 {
 	int choice;
-
-	// get current shift
 	Shift* shift = nullptr;
 	Date* date = nullptr;
 
@@ -134,7 +132,17 @@ void shiftMenu(CoffeeShop& shop)
 	if (choice == 1)
 		date = new Date(getTodayDate());
 	else
-		date = new Date(createDate());
+	{
+		try
+		{
+			date = new Date(createDate());		//	todo: validate it's going to move c'tor
+		}
+		catch (exception& e)
+		{
+			cout << e.what() << " Please try again." << endl;
+			return;
+		}
+	}
 
 	while (!(shift = shop.getShiftByDate(*date)))
 	{
@@ -142,13 +150,11 @@ void shiftMenu(CoffeeShop& shop)
 	}
 
 	choice = -1;
-
 	while (choice)
 	{
 		// get choice from user
 		cout << "Shift Menu (" << *date << ")" << endl;
 		cout << "===============" << endl;
-
 		cout << "Enter your choice:" << endl;
 		cout << "1 - Show daily menu" << endl;
 		cout << "2 - Make order" << endl;
@@ -206,7 +212,14 @@ void openShift(CoffeeShop& shop, const Date& date)
 	cout << "Enter club discount: " << endl;
 	cin >> discount;
 
-	shop.openShift(discount, date);
+	try
+	{
+		shop.openShift(discount, date);
+	}
+	catch (exception& e)
+	{
+		cout << e.what() << " Please try again." << endl;
+	}
 }
 
 void showCoffeeShop(CoffeeShop& shop)
@@ -294,38 +307,31 @@ void addProductMenu(CoffeeShop& shop)
 			choice = -1;
 		cleanBuffer();
 
-		try
+		switch (choice)
 		{
-			switch (choice)
-			{
-			case 1:
-				// 1. add coffee product to coffee shop
-				addProduct(shop, typeid(Coffee));
-				break;
-			case 2:
-				// 2. add cookie product to coffee shop
-				addProduct(shop, typeid(Cookie));
-				break;
-			case 3:
-				// 3. add salad product to coffee shop
-				addProduct(shop, typeid(Salad));
-				break;
-			case 4:
-				// 4. add CookieCoffee product to coffee shop
-				addCookieCoffee(shop);
-				break;
-			case 0:
-				// exit menu
-				return;
-			default:
-				// show unknown choice msg
-				cout << "Invalid choice, try again." << endl;
-				break;
-			}
-		}
-		catch (exception& e)
-		{
-			cout << e.what() << endl << "Please try again." << endl << endl;
+		case 1:
+			// 1. add coffee product to coffee shop
+			addProduct(shop, typeid(Coffee));
+			break;
+		case 2:
+			// 2. add cookie product to coffee shop
+			addProduct(shop, typeid(Cookie));
+			break;
+		case 3:
+			// 3. add salad product to coffee shop
+			addProduct(shop, typeid(Salad));
+			break;
+		case 4:
+			// 4. add CookieCoffee product to coffee shop
+			addCookieCoffee(shop);
+			break;
+		case 0:
+			// exit menu
+			return;
+		default:
+			// show unknown choice msg
+			cout << "Invalid choice, try again." << endl;
+			break;
 		}
 	}
 }
@@ -344,12 +350,12 @@ bool addProduct(CoffeeShop& shop, const type_info& productType)
 	if (!(cin >> calories))
 	{
 		cleanBuffer();
-		cout << "Invalid input." << endl<<endl;
+		cout << "Invalid input." << endl << endl;
 		return false;
 	}
 
-	cout << "Enter product's cost: " ;
-	if(!(cin >> cost))
+	cout << "Enter product's cost: ";
+	if (!(cin >> cost))
 	{
 		cleanBuffer();
 		cout << "Invalid input." << endl << endl;
@@ -357,35 +363,43 @@ bool addProduct(CoffeeShop& shop, const type_info& productType)
 	}
 
 	cout << "Enter product's price: ";
-	if(!(cin >> price))
+	if (!(cin >> price))
 	{
 		cleanBuffer();
 		cout << "Invalid input." << endl << endl;
 		return false;
 	}
 
-	if (productType == typeid(Coffee))
-		shop.addNewProduct(Coffee(name, calories, cost, price));
-	else if (productType == typeid(Salad))
-		shop.addNewProduct(Salad(name, calories, cost, price));
-	else if (productType == typeid(Cookie))
+	try
 	{
-		cout << "Select cookie flour type index" << endl;
-
-		while (true)
+		if (productType == typeid(Coffee))
+			shop.addNewProduct(Coffee(name, calories, cost, price));
+		else if (productType == typeid(Salad))
+			shop.addNewProduct(Salad(name, calories, cost, price));
+		else if (productType == typeid(Cookie))
 		{
-			for (int i = 0; i < (int)Cookie::eFlourType::enumTypeEnd; i++)
-				cout << i + 1 << ". " << sFlourType[i] << endl;
+			cout << "Select cookie flour type index" << endl;
 
-			if (!(cin >> choice))
-				choice = -1;
+			while (true)
+			{
+				for (int i = 0; i < (int)Cookie::eFlourType::enumTypeEnd; i++)
+					cout << i + 1 << ". " << sFlourType[i] << endl;
 
-			if (choice < 1 || choice > (int)Cookie::eFlourType::enumTypeEnd)
-				cout << "Invalid choice." << endl;
-			else break;
+				if (!(cin >> choice))
+					choice = -1;
+
+				if (choice < 1 || choice >(int)Cookie::eFlourType::enumTypeEnd)
+					cout << "Invalid choice." << endl;
+				else break;
+			}
+
+			shop.addNewProduct(Cookie(name, calories, cost, price, (Cookie::eFlourType)(choice - 1)));
 		}
-
-		shop.addNewProduct(Cookie(name, calories, cost, price, (Cookie::eFlourType)(choice - 1)));
+	}
+	catch (exception& e)
+	{
+		cout << e.what() << " Please try again." << endl;
+		return false;
 	}
 
 	return true;
@@ -399,7 +413,11 @@ bool addCookieCoffee(CoffeeShop& shop)
 	char choice;
 
 	cout << "Enter product's discount percent:" << endl;
-	cin >> tmp;
+	while (!(cin >> tmp))
+	{
+		cleanBuffer();
+		cout << "Invalid input. Please try again. ";
+	}
 	discountPercent = (double)tmp / 100;
 
 	cout << "Choose from existing Cookie product:" << endl;
@@ -478,9 +496,11 @@ void addCustomer(CoffeeShop& shop)
 	cin.getline(phoneNumber, STRING_SIZE);
 
 	cout << "Is club member? true=1/false=0" << endl;
-	cin >> clubMember;
-	cleanBuffer();
-
+	while (!(cin >> clubMember))
+	{
+		cleanBuffer();
+		cout << "Invalid input. Please try again. ";
+	}
 	shop.addNewCustomer(Customer(name, phoneNumber, clubMember));
 }
 
@@ -549,65 +569,72 @@ void makeOrder(CoffeeShop& shop, Shift& shift)
 		if (!(cin >> choice))
 			choice = -2;
 		cleanBuffer();
-
-		if (choice >= 1 && choice <= shift.getDailyMenuSize())
+		try
 		{
-			p = shift.getDailyMenu()[choice - 1]->clone();
-			if (typeid(*p) == typeid(Coffee))
+			if (choice >= 1 && choice <= shift.getDailyMenuSize())
 			{
-				cout << "With milk? True=1/False=0" << endl;
-				cin >> withMilk;
-				cout << "How many sugar spoons?" << endl;
-				cin >> numOfSugar;
-				Coffee* temp = dynamic_cast<Coffee*>(p);
-				temp->setMilk(withMilk);
-				//				temp->addSugar(numOfSugar);
-				*temp += numOfSugar;
-				p = temp;
-			}
-			else if (typeid(*p) == typeid(Salad))
-			{
-				cout << "Select salad dressing type index" << endl;
-
-				while (true)
+				p = shift.getDailyMenu()[choice - 1]->clone();
+				if (typeid(*p) == typeid(Coffee))
 				{
-					for (int i = 0; i < (int)Salad::eDressingType::enumTypeEnd; i++)
-						cout << i + 1 << ". " << sDressingType[i] << endl;
-
-					cin >> choice;
-
-					if (choice < 1 || choice >= (int)Salad::eDressingType::enumTypeEnd)
-						cout << "Invalid choice" << endl;
-					else break;
+					cout << "With milk? True=1/False=0" << endl;
+					cin >> withMilk;
+					cout << "How many sugar spoons?" << endl;
+					cin >> numOfSugar;
+					Coffee* temp = dynamic_cast<Coffee*>(p);
+					temp->setMilk(withMilk);
+					//				temp->addSugar(numOfSugar);
+					*temp += numOfSugar;
+					p = temp;
 				}
+				else if (typeid(*p) == typeid(Salad))
+				{
+					cout << "Select salad dressing type index" << endl;
 
-				Salad* temp = dynamic_cast<Salad*>(p);
-				temp->addDressing(Salad::eDressingType(choice - 1));
+					while (true)
+					{
+						for (int i = 0; i < (int)Salad::eDressingType::enumTypeEnd; i++)
+							cout << i + 1 << ". " << sDressingType[i] << endl;
 
-				p = temp;
+						cin >> choice;
 
+						if (choice < 1 || choice >= (int)Salad::eDressingType::enumTypeEnd)
+							cout << "Invalid choice" << endl;
+						else break;
+					}
+
+					Salad* temp = dynamic_cast<Salad*>(p);
+					temp->addDressing(Salad::eDressingType(choice - 1));
+
+					p = temp;
+
+				}
+				else if (typeid(*p) == typeid(CookieCoffee))
+				{
+					cout << "With milk? True/False" << endl;
+					cin >> withMilk;
+					cout << "How many sugar spoons?" << endl;
+					cin >> numOfSugar;
+					CookieCoffee* temp = dynamic_cast<CookieCoffee*>(p);
+					temp->setMilk(withMilk);
+					//				temp->addSugar(numOfSugar);
+					*temp += numOfSugar;
+					p = temp;
+				}
+				else {} // its a cookie
+
+				theOrder += *p;
 			}
-			else if (typeid(*p) == typeid(CookieCoffee))
-			{
-				cout << "With milk? True/False" << endl;
-				cin >> withMilk;
-				cout << "How many sugar spoons?" << endl;
-				cin >> numOfSugar;
-				CookieCoffee* temp = dynamic_cast<CookieCoffee*>(p);
-				temp->setMilk(withMilk);
-				//				temp->addSugar(numOfSugar);
-				*temp += numOfSugar;
-				p = temp;
-			}
-			else {} // its a cookie
 
-			theOrder += *p;
+			else if (choice == -1)
+				break;
+			else
+				cout << "Invalid product index." << endl;
 		}
-
-		else if (choice == -1)
-			break;
-		else
-			cout << "Invalid product index." << endl;
+		catch (exception& e)
+		{
+			cout << e.what() << "Please try again." << endl;
+			return;
+		}
 	}
 
 	shift.addOrder(theOrder);
@@ -642,7 +669,7 @@ void addEmployeesToShift(CoffeeShop& shop, Shift& shift)
 		else if (choice == -1)
 			break;
 		else
-			cout << "Invalid employee index" << endl;
+			cout << "Invalid employee index." << endl;
 	}
 }
 
