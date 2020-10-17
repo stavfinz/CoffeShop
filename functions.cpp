@@ -497,11 +497,17 @@ void makeOrder(CoffeeShop& shop, Shift& shift)
 		cout << "There are no products in the shop!"<<endl;
 		return;
 	}
+
+	if (shift.getDailyMenuSize() == 0)
+	{
+		cout << "No products in the daily menu!" << endl;
+		return;
+	}
 	
 	cout << "Enter employee to be incharge of the order" << endl;
 	showEmployees(shift.getEmployees(), shift.getNumEmployees());
 
-	while (!(cin >> choice) || choice <= 0 || choice > shift.getNumEmployees())
+while (!(cin >> choice) || choice <= 0 || choice > shift.getNumEmployees())
 	{
 		cleanBuffer();
 		cout << "Invalid index, please try again. ";
@@ -527,15 +533,12 @@ void makeOrder(CoffeeShop& shop, Shift& shift)
 	while (choice != -1)
 	{
 		cout << "choose items indice you wish to order, -1 to stop" << endl;
-		cin >> choice;
+		if (!(cin >> choice))
+			choice = -2;
+		cleanBuffer();
 
-		if (choice<-1 || choice > shift.getDailyMenuSize()) {
-			cout << "Invalid product index" << endl;
-			continue;
-		}
-
-		if (choice != -1)
-		{ 
+		if (choice >= 1 && choice <= shift.getDailyMenuSize())
+		{
 			p = shift.getDailyMenu()[choice - 1]->clone();
 			if (typeid(*p) == typeid(Coffee))
 			{
@@ -545,8 +548,8 @@ void makeOrder(CoffeeShop& shop, Shift& shift)
 				cin >> numOfSugar;
 				Coffee* temp = dynamic_cast<Coffee*>(p);
 				temp->setMilk(withMilk);
-//				temp->addSugar(numOfSugar);
-				temp += numOfSugar;
+				//				temp->addSugar(numOfSugar);
+				*temp += numOfSugar;
 				p = temp;
 			}
 			else if (typeid(*p) == typeid(Salad))
@@ -567,9 +570,9 @@ void makeOrder(CoffeeShop& shop, Shift& shift)
 
 				Salad* temp = dynamic_cast<Salad*>(p);
 				temp->addDressing(Salad::eDressingType(choice - 1));
-				
-				p = temp;	
-			
+
+				p = temp;
+
 			}
 			else if (typeid(*p) == typeid(CookieCoffee))
 			{
@@ -580,13 +583,18 @@ void makeOrder(CoffeeShop& shop, Shift& shift)
 				CookieCoffee* temp = dynamic_cast<CookieCoffee*>(p);
 				temp->setMilk(withMilk);
 				//				temp->addSugar(numOfSugar);
-				temp += numOfSugar;
+				*temp += numOfSugar;
 				p = temp;
 			}
 			else {} // its a cookie
 
 			theOrder.addItem(*p);
 		}
+
+		else if (choice == -1)
+			break;
+		else
+			cout << "Invalid product index." << endl;
 	}
 
 	shift.addOrder(theOrder);

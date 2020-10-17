@@ -41,7 +41,7 @@ const Order& Order::operator=(const Order& other)
 		}
 		delete[] items;
 		
-		/*employee = other.employee;
+		/*employee = other.employee;				//	todo: check this
 		customer = other.customer;*/
 		numItems = 0;
 		itemsMaxSize = other.itemsMaxSize;
