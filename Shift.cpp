@@ -114,7 +114,7 @@ bool Shift::addOrder(const Order& order)
 	return true;
 }
 
-const Employee* Shift::getShiftManger() const
+const Employee* Shift::getShiftManager() const
 {
 	int maxSeniorty = 0;
 	const Employee* shiftManager = nullptr;

@@ -19,7 +19,7 @@ private:
 
 	Order(const Order& other);
 	const Order& operator=(const Order& other);
-	const Order& operator=(Order&& other);
+	const Order& operator=(Order&& other) = delete;
 public:
 	friend class Shift;
 	// ctor
@@ -30,7 +30,7 @@ public:
 	// operators
 	//Product& operator[](int index){ return *items[index]; }
 	const Product& operator[](int index) const { return *items[index]; }			//	todo: add exception?? invalid index?
-	Order operator+(const Order& order);
+	Order& operator+=(const Product& product);
 
 	// getters
 	int getNumItems() const { return numItems; }

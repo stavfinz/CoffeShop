@@ -69,7 +69,7 @@ public:
 	bool addNewCustomer(const Customer& customer);
 	bool addNewCustomer(Customer&& customer);
 	bool openShift(double clubDiscountPercent, const Date& date);
-	Shift* getCurrentShift() const;
+	Shift* getShiftByDate(const Date& date) const;
 	friend ostream& operator<<(ostream& os, const CoffeeShop& coffeeShop);
 };
 

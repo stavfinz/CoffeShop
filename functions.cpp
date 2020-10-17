@@ -43,7 +43,6 @@ CoffeeShop initCoffeeShop()
 void menu(CoffeeShop& shop)
 {
 	int choice = -1;
-	bool shiftOpen = false;
 
 	while (choice)
 	{
@@ -102,10 +101,7 @@ void menu(CoffeeShop& shop)
 			break;
 		case 9:
 			// 9. shift menu
-			// open shift if none is open
-			if (!shiftOpen)
-				openShift(shop);
-			shiftOpen = shiftMenu(shop);
+			shiftMenu(shop);
 			break;
 		case 0:
 			// exit menu
@@ -120,17 +116,37 @@ void menu(CoffeeShop& shop)
 }
 
 // return true if shift is still open
-bool shiftMenu(CoffeeShop& shop)
+void shiftMenu(CoffeeShop& shop)
 {
-	int choice = -1;
+	int choice;
 
 	// get current shift
-	Shift* shift = shop.getCurrentShift();
+	Shift* shift = nullptr;
+	Date* date = nullptr;
+
+	cout << "Open today's shift? Yes=1/No=0: ";
+	while (!(cin >> choice))
+	{
+		cleanBuffer();
+		cout << "Invalid choice. Please try again. ";
+	}
+	
+	if (choice == 1)
+		date = new Date(getTodayDate());
+	else
+		date = new Date(createDate());
+
+	while (!(shift = shop.getShiftByDate(*date)))
+	{
+		openShift(shop, *date);
+	}
+
+	choice = -1;
 
 	while (choice)
 	{
 		// get choice from user
-		cout << "Shift Menu" << endl;
+		cout << "Shift Menu (" << *date << ")" << endl;
 		cout << "===============" << endl;
 
 		cout << "Enter your choice:" << endl;
@@ -138,7 +154,7 @@ bool shiftMenu(CoffeeShop& shop)
 		cout << "2 - Make order" << endl;
 		cout << "3 - Add employee to shift" << endl;
 		cout << "4 - Add product to dailyMenu" << endl;
-		cout << "5 - Close shift" << endl;
+		cout << "5 - Show daily profits" << endl;
 		cout << "0 - Quit" << endl;
 
 		if (!(cin >> choice))
@@ -167,21 +183,22 @@ bool shiftMenu(CoffeeShop& shop)
 			addProductToDailyMenu(shop, *shift);
 			break;
 		case 5:
-			// 5. close shift
-			return false;
+			// 5. show daily profits
+			showShiftProfits(*shift);
+			break;
 		case 0:
-			// exit shift menu
-			return true;
+			return;
 		default:
 			// show unknown choice msg
 			cout << "Invalid choice, try again." << endl;
 			break;
 		}
 	}
-	return true;
+
+	delete date;
 }
 
-void openShift(CoffeeShop& shop)
+void openShift(CoffeeShop& shop, const Date& date)
 {
 	double discount;
 
@@ -189,10 +206,6 @@ void openShift(CoffeeShop& shop)
 	cout << "Enter club discount: " << endl;
 	cin >> discount;
 
-	cout << "Enter Date details: " << endl;
-
-	Date date = createDate();				//	todo: check if it use operator= or not (should not)
-											//	todo: add exception handling
 	shop.openShift(discount, date);
 }
 
@@ -494,7 +507,7 @@ void makeOrder(CoffeeShop& shop, Shift& shift)
 
 	if (shop.getNumProducts() == 0)
 	{
-		cout << "There are no products in the shop!"<<endl;
+		cout << "There are no products in the shop!" << endl;
 		return;
 	}
 
@@ -503,11 +516,11 @@ void makeOrder(CoffeeShop& shop, Shift& shift)
 		cout << "No products in the daily menu!" << endl;
 		return;
 	}
-	
+
 	cout << "Enter employee to be incharge of the order" << endl;
 	showEmployees(shift.getEmployees(), shift.getNumEmployees());
 
-while (!(cin >> choice) || choice <= 0 || choice > shift.getNumEmployees())
+	while (!(cin >> choice) || choice <= 0 || choice > shift.getNumEmployees())
 	{
 		cleanBuffer();
 		cout << "Invalid index, please try again. ";
@@ -515,7 +528,7 @@ while (!(cin >> choice) || choice <= 0 || choice > shift.getNumEmployees())
 	theEmployee = shift.getEmployees()[choice - 1];
 
 	cout << "Enter customer making the order" << endl;
-	showCustomers(shop.getCustomers(),shop.getNumCustomers());
+	showCustomers(shop.getCustomers(), shop.getNumCustomers());
 
 	while (!(cin >> choice) || choice <= 0 || choice > shop.getNumCustomers())
 	{
@@ -523,12 +536,12 @@ while (!(cin >> choice) || choice <= 0 || choice > shift.getNumEmployees())
 		cout << "Invalid index, please try again. ";
 	}
 	theCustomer = shop.getCustomers()[choice - 1];
-	
+
 	// create order
 	Order theOrder(*theEmployee, *theCustomer);
 
 	cout << "The daily menu items" << endl;
-		showProducts(shift.getDailyMenu(),shift.getDailyMenuSize());
+	showProducts(shift.getDailyMenu(), shift.getDailyMenuSize());
 
 	while (choice != -1)
 	{
@@ -588,7 +601,7 @@ while (!(cin >> choice) || choice <= 0 || choice > shift.getNumEmployees())
 			}
 			else {} // its a cookie
 
-			theOrder.addItem(*p);
+			theOrder += *p;
 		}
 
 		else if (choice == -1)
@@ -664,4 +677,20 @@ void addProductToDailyMenu(CoffeeShop& shop, Shift& shift)
 		else
 			cout << "Invalid product index" << endl;
 	}
+}
+
+void showShiftProfits(const Shift& shift)
+{
+	double total = 0;
+	const Order* const* orders = shift.getOrders();
+	cout << "Shift Manger: " << *shift.getShiftManager() << endl;
+	cout << "Orders: " << endl;
+	if (shift.getNumOrders() == 0)
+		cout << "There are no orders in this shift." << endl;
+	for (int i = 0; i < shift.getNumOrders(); i++)
+	{
+		cout << (i + 1) << *orders[i] << endl;
+		total += orders[i]->getOrderProfit() * shift.getClubDiscountPercent();
+	}
+	cout << "Total profits after discount: " << total << endl;
 }

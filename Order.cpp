@@ -41,38 +41,37 @@ const Order& Order::operator=(const Order& other)
 		}
 		delete[] items;
 		
-		/*employee = other.employee;				//	todo: check this
-		customer = other.customer;*/
+		//employee = other.employee;				//	todo: check this
+		//customer = other.customer;
 		numItems = 0;
 		itemsMaxSize = other.itemsMaxSize;
 		items = new Product * [itemsMaxSize];
 		for (int i = 0; i < numItems; i++)
 		{
-			addItem(other[i]);
+			*this += other[i];
+			//addItem(other[i]);
 		}
 	}
 	return *this;
 }
 
-const Order& Order::operator=(Order&& other)
-{
-	if (this != &other)
-	{
-		numItems = other.numItems;
-		itemsMaxSize = other.itemsMaxSize;
-		std::swap(items, other.items);
-	}
-	return *this;
-}
+//const Order& Order::operator=(Order&& other)
+//{
+//	if (this != &other)
+//	{
+//		/*swap(employee, other.employee);
+//		swap(customer, other.customer);*/
+//		numItems = other.numItems;
+//		itemsMaxSize = other.itemsMaxSize;
+//		std::swap(items, other.items);
+//	}
+//	return *this;
+//}
 
-Order Order::operator+(const Order& order)
+Order& Order::operator+=(const Product& product)
 {
-	Order combined(*this);
-	for (int i = 0; i < order.numItems; i++)
-	{
-		combined.addItem(order[i]);
-	}
-	return combined;
+	addItem(product);
+	return *this;
 }
 
 bool Order::addItem(const Product& product)
@@ -112,6 +111,9 @@ double Order::getOrderProfit() const
 
 ostream& operator<<(ostream& os, const Order& order)
 {
-	os << "Order, Employee: " << order.getEmployee() << " Profit: " << order.getOrderProfit() << endl;
+	os << "Employee: " << order.getEmployee().getName()
+		<< ", Customer: " << order.getCustomer().getName()
+		<< ", Number of products: " << order.getNumItems()
+		<< ", Profit: " << order.getOrderProfit() << endl;
 	return os;
 }

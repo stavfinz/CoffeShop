@@ -14,7 +14,7 @@ CoffeeShop initCoffeeShop();
 void menu(CoffeeShop& shop);
 
 // shift menu
-bool shiftMenu(CoffeeShop& shop);
+void shiftMenu(CoffeeShop& shop);
 
 // 1.
 void showCoffeeShop(CoffeeShop& shop);
@@ -36,14 +36,13 @@ void addEmployee(CoffeeShop& shop);
 // 8.
 void addCustomer(CoffeeShop& shop);
 // 9.
-void openShift(CoffeeShop& shop);
+void openShift(CoffeeShop& shop, const Date& date);
 // 10.
 void makeOrder(CoffeeShop& shop, Shift& shift);
 
 void addEmployeesToShift(CoffeeShop& shop, Shift& shift);
 void addProductToDailyMenu(CoffeeShop& shop, Shift& shift);
 
-
-Date createDate();
+void showShiftProfits(const Shift& shift);
 
 #endif

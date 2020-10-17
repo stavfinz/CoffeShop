@@ -53,7 +53,7 @@ public:
 	bool addProductToMenu(const Product& product);
 	bool addEmployeeToShift(const Employee& employee);
 	bool addOrder(const Order& order);
-	const Employee* getShiftManger() const;
+	const Employee* getShiftManager() const;
 	double getShiftProfit() const;
 	friend ostream& operator<<(ostream& os, const Shift& shift);
 };

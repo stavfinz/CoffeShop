@@ -201,6 +201,12 @@ bool  CoffeeShop::addNewCustomer(Customer&& customer)
 
 bool  CoffeeShop::openShift(double clubDiscountPercent, const Date& date)
 {
+	for (int i = 0; i < numShifts; i++)
+	{
+		if (*shifts[i]->getShiftDate() == date)
+			return false;		//	shift already exist with this date
+	}
+
 	if (numShifts == shiftsMaxSize)
 	{
 		shiftsMaxSize *= 2;
@@ -212,19 +218,16 @@ bool  CoffeeShop::openShift(double clubDiscountPercent, const Date& date)
 	}
 
 	shifts[numShifts++] = new Shift(clubDiscountPercent, date);
-
-	return true;								//	todo: add validations?
+	return true;
 }
 
-Shift* CoffeeShop::getCurrentShift() const
+Shift* CoffeeShop::getShiftByDate(const Date& date) const
 {
-	Date today = getTodayDate();
-
 	for (int i = 0; i < numShifts; i++)
 	{
 		const Date* d = shifts[i]->getShiftDate();
 
-		if (today == *d)
+		if (date == *d)
 			return shifts[i];
 	}
 	return nullptr;
