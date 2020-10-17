@@ -141,13 +141,19 @@ bool shiftMenu(CoffeeShop& shop)
 		cout << "5 - Close shift" << endl;
 		cout << "0 - Quit" << endl;
 
-		cin >> choice;
+		if (!(cin >> choice))
+			choice = -1;
+		cleanBuffer();
 
 		switch (choice)
 		{
 		case 1:
 			// 1. show daily menu
-			showProducts(shift->getDailyMenu(), shift->getDailyMenuSize());
+			if (shift->getDailyMenuSize() == 0)
+				cout << "There are no items in the menu." << endl << endl;
+			else
+				showProducts(shift->getDailyMenu(), shift->getDailyMenuSize());
+			break;
 		case 2:
 			// 2. make order
 			makeOrder(shop, *shift);
@@ -348,24 +354,7 @@ bool addProduct(CoffeeShop& shop, const type_info& productType)
 	if (productType == typeid(Coffee))
 		shop.addNewProduct(Coffee(name, calories, cost, price));
 	else if (productType == typeid(Salad))
-	{
-		cout << "Select salad dressing type index" << endl;
-
-		while (true)
-		{
-			for (int i = 0; i < (int)Salad::eDressingType::enumTypeEnd; i++)
-				cout << i + 1 << ". " << sDressingType[i] << endl;
-
-			if (!(cin >> choice))
-				choice = -1;
-
-			if (choice < 1 || choice > (int)Salad::eDressingType::enumTypeEnd)
-				cout << "Invalid choice." << endl;
-			else break;
-		}
-
-		shop.addNewProduct(Salad(name, calories, cost, price, (Salad::eDressingType)(choice - 1)));
-	}
+		shop.addNewProduct(Salad(name, calories, cost, price));
 	else if (productType == typeid(Cookie))
 	{
 		cout << "Select cookie flour type index" << endl;
@@ -493,32 +482,40 @@ void makeOrder(CoffeeShop& shop, Shift& shift)
 
 	if (shift.getNumEmployees() == 0)
 	{
-		cout << "No employees in the shift!";
+		cout << "No employees in the shift!" << endl;
 		return;
 	}
 
 	if (shop.getNumCustomers() == 0)
 	{
-		cout << "There are no customers in the shop!";
+		cout << "There are no customers in the shop!" << endl;
 		return;
 	}
 
 	if (shop.getNumProducts() == 0)
 	{
-		cout << "There are no products in the shop!";
+		cout << "There are no products in the shop!"<<endl;
 		return;
 	}
 	
 	cout << "Enter employee to be incharge of the order" << endl;
 	showEmployees(shift.getEmployees(), shift.getNumEmployees());
 
-	cin >> choice;
+	while (!(cin >> choice) || choice <= 0 || choice > shift.getNumEmployees())
+	{
+		cleanBuffer();
+		cout << "Invalid index, please try again. ";
+	}
 	theEmployee = shift.getEmployees()[choice - 1];
 
 	cout << "Enter customer making the order" << endl;
 	showCustomers(shop.getCustomers(),shop.getNumCustomers());
 
-	cin >> choice;
+	while (!(cin >> choice) || choice <= 0 || choice > shop.getNumCustomers())
+	{
+		cleanBuffer();
+		cout << "Invalid index, please try again. ";
+	}
 	theCustomer = shop.getCustomers()[choice - 1];
 	
 	// create order
@@ -542,7 +539,7 @@ void makeOrder(CoffeeShop& shop, Shift& shift)
 			p = shift.getDailyMenu()[choice - 1]->clone();
 			if (typeid(*p) == typeid(Coffee))
 			{
-				cout << "With milk? True/False" << endl;
+				cout << "With milk? True=1/False=0" << endl;
 				cin >> withMilk;
 				cout << "How many sugar spoons?" << endl;
 				cin >> numOfSugar;
@@ -606,14 +603,11 @@ void addEmployeesToShift(CoffeeShop& shop, Shift& shift)
 	while (choice != -1)
 	{
 		cout << "choose employee indice you wish to add, -1 to stop" << endl;
-		cin >> choice;
+		if (!(cin >> choice))
+			choice = 0;
+		cleanBuffer();
 
-		if (choice<-1 || choice > shop.getNumEmployees()) {
-			cout << "Invalid employee index" << endl;
-			continue;
-		}
-
-		if (choice != -1)
+		if (choice >= 1 && choice <= shop.getNumEmployees())
 		{
 			if (shift.addEmployeeToShift(*shop.getEmployees()[choice - 1]))
 			{
@@ -624,9 +618,13 @@ void addEmployeesToShift(CoffeeShop& shop, Shift& shift)
 				cout << " Employee already exists in shift!" << endl;
 			}
 		}
+		else if (choice == -1)
+			break;
+		else
+			cout << "Invalid employee index" << endl;
 	}
-	
 }
+
 void addProductToDailyMenu(CoffeeShop& shop, Shift& shift)
 {
 	int choice = 1;
@@ -638,14 +636,11 @@ void addProductToDailyMenu(CoffeeShop& shop, Shift& shift)
 	while (choice != -1)
 	{
 		cout << "choose product indice you wish to add, -1 to stop" << endl;
-		cin >> choice;
+		if (!(cin >> choice))
+			choice = 0;
+		cleanBuffer();
 
-		if (choice<-1 || choice > shop.getNumProducts()) {
-			cout << "Invalid product index" << endl;
-			continue;
-		}
-
-		if (choice != -1)
+		if (choice >= 1 && choice <= shop.getNumProducts())
 		{
 			if (shift.addProductToMenu(*shop.getProducts()[choice - 1]))
 			{
@@ -656,5 +651,9 @@ void addProductToDailyMenu(CoffeeShop& shop, Shift& shift)
 				cout << " Product already exists in daily menu!" << endl;
 			}
 		}
+		else if (choice == -1)
+			break;
+		else
+			cout << "Invalid product index" << endl;
 	}
 }

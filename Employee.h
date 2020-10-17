@@ -25,7 +25,7 @@ public:
 	// operators
 	bool operator<(const Employee& other) const; 
 	bool operator>(const Employee& other) const;
-	virtual bool operator==(const Person& other) const override;
+	//virtual bool operator==(const Person& other) const override;
 
 	// getters
 	double getShiftSalary() const { return shiftSalary; }

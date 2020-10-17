@@ -15,5 +15,6 @@ bool Salad::addDressing(eDressingType dressing)
 
 void Salad::toOs(ostream& os) const
 {
-    os << ", " << sDressingType[(int)dressing] << " dressing";
+    if (dressing != Salad::eDressingType::enumTypeEnd)
+        os << ", " << sDressingType[(int)dressing] << " dressing";
 }

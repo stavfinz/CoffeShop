@@ -10,15 +10,15 @@ Shift::Shift(double clubDiscountPercent, const Date& shiftDate) :shiftDate(shift
 {
 	setClubDiscountPercent(clubDiscountPercent);
 	dailyMenuSize = 0;
-	dailyMenuMaxSize = 10; //Change to const
+	dailyMenuMaxSize = 10;
 	this->dailyMenu = new Product * [dailyMenuMaxSize];
 
 	numEmployees = 0;
-	employeesMaxSize = 5; //Change to const
-	this->employees = new Employee * [employeesMaxSize];
+	employeesMaxSize = 5;
+	this->employees = new const Employee * [employeesMaxSize];
 
 	numOrders = 0;
-	ordersMaxSize = 50; //Change to const
+	ordersMaxSize = 50;
 	this->orders = new Order * [ordersMaxSize];
 }
 
@@ -57,8 +57,20 @@ bool Shift::setClubDiscountPercent(double clubDiscountPercent)
 
 bool Shift::addProductToMenu(const Product& product)
 {
+	for (int i = 0; i < dailyMenuSize; i++)
+	{
+		if (*dailyMenu[i] == product)
+			return false;
+	}
+
 	if (dailyMenuSize == dailyMenuMaxSize)
-		return false;
+	{
+		dailyMenuMaxSize *= 2;
+		Product** tempArr = new Product * [dailyMenuMaxSize];
+		memcpy(tempArr, dailyMenu, dailyMenuSize * sizeof(Product*));
+		std::swap(tempArr, dailyMenu);
+		delete[] tempArr;
+	}
 
 	dailyMenu[dailyMenuSize++] = product.clone();
 	return true;
@@ -66,9 +78,22 @@ bool Shift::addProductToMenu(const Product& product)
 
 bool Shift::addEmployeeToShift(const Employee& employee)
 {
+	for (int i = 0; i < numEmployees; i++)
+	{
+		if (*employees[i] == employee)
+			return false;
+	}
+
 	if (numEmployees == employeesMaxSize)
-		return false;
-	//employees[numEmployees++] = &employee; ////?????
+	{
+		employeesMaxSize *= 2;
+		const Employee** tempArr = new const Employee * [employeesMaxSize];
+		memcpy(tempArr, employees, numEmployees* sizeof(Employee*));
+		std::swap(tempArr, employees);
+		delete[] tempArr;
+	}
+
+	employees[numEmployees++] = &employee;
 
 	return true;
 }
@@ -92,7 +117,7 @@ bool Shift::addOrder(const Order& order)
 const Employee* Shift::getShiftManger() const
 {
 	int maxSeniorty = 0;
-	Employee* shiftManager = nullptr;
+	const Employee* shiftManager = nullptr;
 	for (int i = 0; i < numEmployees; i++)
 	{
 		if (employees[i]->getSeniority() > maxSeniorty)

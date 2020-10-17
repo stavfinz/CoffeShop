@@ -66,6 +66,7 @@ void Product::setName(const char* name)
 	nameLen++;	//	one place for '\0'
 	this->name = new char[nameLen];
 	strcpy(this->name, name);
+	this->name[0] = toupper(name[0]);
 }
 
 void Product::setCalories(int calories)
@@ -99,7 +100,7 @@ void Product::setPrice(double price)
 // operators
 bool Product::operator==(const Product& other) const
 {
-	return (strcmp(name, other.name) && calories == other.calories &&
+	return ((strcmp(name, other.name) == 0) && calories == other.calories &&
 		cost == other.cost && price == other.price);
 }
 
