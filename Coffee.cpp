@@ -3,7 +3,7 @@
 #include "Coffee.h"
 #include "IllegalValue.h"
 
-Coffee::Coffee(const char* name, int calories, double cost, double price, bool withMilk, int sugarSpoons) : Product(name, calories, cost, price)
+Coffee::Coffee(const char* name, int calories, double cost, double price, bool withMilk, int sugarSpoons) : Product(name, calories, cost, price), sugarSpoons(0)
 {
 	setMilk(withMilk);
 	addSugar(sugarSpoons);
@@ -22,7 +22,7 @@ void Coffee::addSugar(int sugarSpoons)
 		throw IllegalValue("Invalid sugar amount");
 	}
 	this->sugarSpoons += sugarSpoons;
-	addCalories(50);
+	addCalories(50 * sugarSpoons);
 }
 
 void Coffee::setMilk(bool isWithMilk)
@@ -34,5 +34,5 @@ void Coffee::setMilk(bool isWithMilk)
 
 void Coffee::toOs(ostream& os) const
 {
-	os << ", Sugar Spoons = " << this->getSugarSpoons() << (this->getWithMilk() ? ", with milk" : "");
+	os << ", Sugar Spoons: " << this->getSugarSpoons() << (this->getWithMilk() ? ", with milk" : "");
 }
