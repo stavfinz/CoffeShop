@@ -73,10 +73,10 @@ public:
 	Shift* getShiftByDate(const Date& date) const;
 	friend ostream& operator<<(ostream& os, const CoffeeShop& coffeeShop);
 
-	bool isEmployeeExist(const Person& employee) const;
-	bool isCustomerExist(const Person& employee) const;
-	bool isProductExist(const Product& product) const;
-	bool isShiftExist(const Date& date) const;
+	bool isEmployeeExists(const Person& employee) const;
+	bool isCustomerExists(const Person& employee) const;
+	bool isProductExists(const Product& product) const;
+	bool isShiftExists(const Date& date) const;
 
 };
 

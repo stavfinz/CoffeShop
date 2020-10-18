@@ -18,26 +18,24 @@ Date::Date(int day, int month, int year)
 
 bool Date::operator==(const Date& d) const
 {
-	if (this->year != d.year)
+	if (this->year != d.year)		//	if different year
 		return false;
-	if (this->month != d.month)
+	if (this->month != d.month)		//	if different month
 		return false;
-	if (this->day != d.day)
+	if (this->day != d.day)			//	if different day
 		return false;
-
-	return true;
+	return true;					//	otherwise, the same
 }
 
 bool Date::operator>(const Date& d) const 
 {
-	if (year <= d.year)
+	if (year <= d.year)				//	if less than or equal year
 		return false;
-	if (month <= d.month)
+	if (month <= d.month)			//	if less than or equal month
 		return false;
-	if (day <= d.day)
+	if (day <= d.day)				//	if less than or equal day
 		return false;
-
-	return true;
+	return true;					//	otherwise, greater
 }
 
 ostream& operator<<(ostream& os, const Date& date)
@@ -46,6 +44,7 @@ ostream& operator<<(ostream& os, const Date& date)
 	return os;
 }
 
+//	get the real amount of days in a month based on month and year
 int Date::getMonthDays(int month, int year)
 {
 	switch (month)
@@ -70,6 +69,7 @@ int Date::getMonthDays(int month, int year)
 	}
 }
 
+//	return true if the year is a leap year, otherwise return false
 bool Date::isLeapYear(int year)
 {
 	if (year % 4 == 0)
@@ -85,6 +85,7 @@ bool Date::isLeapYear(int year)
 	return false;
 }
 
+// return true if the date is a real valid date
 bool Date::isValid(int day, int month, int year)
 {
 	if (day <= 0 || getMonthDays(month, year) < day)	//	also validate that month is between 1 to 12

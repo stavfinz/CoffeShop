@@ -99,9 +99,9 @@ void CoffeeShop::setName(const char* name)
 // functions
 bool  CoffeeShop::addNewEmployee(const Employee& employee)
 {
-	if (isEmployeeExist(employee))
+	if (isEmployeeExists(employee))
 		return false;
-	if (numEmployees == employeesMaxSize)
+	if (numEmployees == employeesMaxSize)	//	if the array full -> increase it
 	{
 		employeesMaxSize *= 2;
 		Employee** tempArr = new Employee * [employeesMaxSize];
@@ -116,9 +116,9 @@ bool  CoffeeShop::addNewEmployee(const Employee& employee)
 
 bool  CoffeeShop::addNewEmployee(Employee&& employee)
 {
-	if (isEmployeeExist(employee))
+	if (isEmployeeExists(employee))
 		return false;
-	if (numEmployees == employeesMaxSize)
+	if (numEmployees == employeesMaxSize)	//	if the array full -> increase it
 	{
 		employeesMaxSize *= 2;
 		Employee** tempArr = new Employee * [employeesMaxSize];
@@ -133,9 +133,9 @@ bool  CoffeeShop::addNewEmployee(Employee&& employee)
 
 bool  CoffeeShop::addNewProduct(const Product& product)
 {
-	if (isProductExist(product))
+	if (isProductExists(product))
 		return false;
-	if (numProducts == productsMaxSize)
+	if (numProducts == productsMaxSize)	//	if the array full -> increase it
 	{
 		productsMaxSize *= 2;
 		Product** tempArr = new Product * [productsMaxSize];
@@ -150,9 +150,9 @@ bool  CoffeeShop::addNewProduct(const Product& product)
 
 bool  CoffeeShop::addNewProduct(Product&& product)
 {
-	if (isProductExist(product))
+	if (isProductExists(product))
 		return false;
-	if (numProducts == productsMaxSize)
+	if (numProducts == productsMaxSize)	//	if the array full -> increase it
 	{
 		productsMaxSize *= 2;
 		Product** tempArr = new Product * [productsMaxSize];
@@ -163,16 +163,16 @@ bool  CoffeeShop::addNewProduct(Product&& product)
 	}
 	products[numProducts++] = product.clone();			//	todo: possible to use std::move or something similar?
 
-	//products[numProducts++] = new Product(product);	//	todo:	whyyyyyy did they make it abstract class????????????????????
+	//products[numProducts++] = new Product(product);	//	todo:	whyyyyyy did they make it abstract class???????????????????
 
 	return true;
 }
 
 bool  CoffeeShop::addNewCustomer(const Customer& customer)
 {
-	if (isCustomerExist(customer))
+	if (isCustomerExists(customer))
 		return false;
-	if (numCustomers == customersMaxSize)
+	if (numCustomers == customersMaxSize)	//	if the array full -> increase it
 	{
 		customersMaxSize *= 2;
 		Customer** tempArr = new Customer * [customersMaxSize];
@@ -187,9 +187,9 @@ bool  CoffeeShop::addNewCustomer(const Customer& customer)
 
 bool  CoffeeShop::addNewCustomer(Customer&& customer)
 {
-	if (isCustomerExist(customer))
+	if (isCustomerExists(customer))
 		return false;
-	if (numCustomers == customersMaxSize)
+	if (numCustomers == customersMaxSize)	//	if the array full -> increase it
 	{
 		customersMaxSize *= 2;
 		Customer** tempArr = new Customer * [customersMaxSize];
@@ -204,10 +204,9 @@ bool  CoffeeShop::addNewCustomer(Customer&& customer)
 
 bool  CoffeeShop::openShift(double clubDiscountPercent, const Date& date)
 {
-	if (isShiftExist(date))
+	if (isShiftExists(date))
 		return false;		//	false -> shift already exists with this date
-
-	if (numShifts == shiftsMaxSize)
+	if (numShifts == shiftsMaxSize)	//	if the array full -> increase it
 	{
 		shiftsMaxSize *= 2;
 		Shift** tempArr = new Shift * [shiftsMaxSize];
@@ -229,6 +228,46 @@ Shift* CoffeeShop::getShiftByDate(const Date& date) const
 			return shifts[i];
 	}
 	return nullptr;
+}
+
+bool CoffeeShop::isEmployeeExists(const Person& employee)const
+{
+	for (int i = 0; i < numEmployees; i++)
+	{
+		if (employee == *employees[i])
+			return true;
+	}
+	return false;
+}
+
+bool CoffeeShop::isCustomerExists(const Person& employee) const
+{
+	for (int i = 0; i < numCustomers; i++)
+	{
+		if (employee == *customers[i])
+			return true;
+	}
+	return false;
+}
+
+bool CoffeeShop::isProductExists(const Product& product) const
+{
+	for (int i = 0; i < numProducts; i++)
+	{
+		if (product == *products[i])
+			return true;
+	}
+	return false;
+}
+
+bool CoffeeShop::isShiftExists(const Date& date) const
+{
+	for (int i = 0; i < numShifts; i++)
+	{
+		if (date == *shifts[i]->getShiftDate())
+			return true;
+	}
+	return false;
 }
 
 ostream& operator<<(ostream& os, const CoffeeShop& coffeeShop)
@@ -266,45 +305,4 @@ ostream& operator<<(ostream& os, const CoffeeShop& coffeeShop)
 	}
 
 	return os;
-}
-
-bool CoffeeShop::isEmployeeExist(const Person& employee)const
-{
-	for (int i = 0; i < numEmployees; i++)
-	{
-		if (employee == *employees[i])
-			return true;
-	}
-	return false;
-}
-
-
-bool CoffeeShop::isCustomerExist(const Person& employee) const
-{
-	for (int i = 0; i < numCustomers; i++)
-	{
-		if (employee == *customers[i])
-			return true;
-	}
-	return false;
-}
-
-bool CoffeeShop::isProductExist(const Product& product) const
-{
-	for (int i = 0; i < numProducts; i++)
-	{
-		if (product == *products[i])
-			return true;
-	}
-	return false;
-}
-
-bool CoffeeShop::isShiftExist(const Date& date) const
-{
-	for (int i = 0; i < numShifts; i++)
-	{
-		if (date == *shifts[i]->getShiftDate())
-			return true;
-	}
-	return false;
 }

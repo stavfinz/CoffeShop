@@ -8,6 +8,7 @@ using namespace std;
 class Order;
 class Employee;
 class Product;
+class Person;
 
 class Shift {
 private:
@@ -56,6 +57,11 @@ public:
 	const Employee* getShiftManager() const;
 	double getShiftProfit() const;
 	friend ostream& operator<<(ostream& os, const Shift& shift);
+
+	bool isProductExists(const Product& product) const;
+	bool isEmployeeExists(const Person& employee) const;
+
+
 };
 
 #endif

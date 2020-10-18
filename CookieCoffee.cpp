@@ -9,11 +9,11 @@ CookieCoffee::CookieCoffee(const Cookie& cookie, const Coffee& coffee, double di
 {
 	setDiscountPercent(discountPercent);
 
-	char name[CHAR_MAX];
-	strcpy(name, cookie.getName());
-	name[strlen(cookie.getName())] = ' ';
-	name[strlen(cookie.getName()) + 1] = '\0';
-	strcat(name, coffee.getName());
+	char name[CHAR_MAX];							//	combined the name of the cookie and the coffee
+	strcpy(name, cookie.getName());					//	copy the name of the cookie
+	name[strlen(cookie.getName())] = ' ';			//	
+	name[strlen(cookie.getName()) + 1] = '\0';		//
+	strcat(name, coffee.getName());					//	copy the name of the coffe
 	Product::setName(name);
 }
 
@@ -37,8 +37,9 @@ double CookieCoffee::getCost() const
 	return Coffee::getCost() + Cookie::getCost();
 }
 
+//	the price of the cookie and the coffee minus the discount precentage
 double CookieCoffee::getPrice() const
-{
+{	
 	double price = Coffee::getPrice() + Cookie::getPrice();
 	price -= price * discountPercent;
 	return price;

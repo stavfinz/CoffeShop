@@ -56,15 +56,31 @@ void Shift::setClubDiscountPercent(double clubDiscountPercent)
 	this->clubDiscountPercent = clubDiscountPercent;
 }
 
-bool Shift::addProductToMenu(const Product& product)
+bool Shift::isProductExists(const Product& product) const
 {
 	for (int i = 0; i < dailyMenuSize; i++)
 	{
 		if (*dailyMenu[i] == product)
-			return false;
+			return true;
 	}
+	return false;
+}
 
-	if (dailyMenuSize == dailyMenuMaxSize)
+bool Shift::isEmployeeExists(const Person& employee) const
+{
+	for (int i = 0; i < numEmployees; i++)
+	{
+		if (*employees[i] == employee)
+			return true;
+	}
+	return false;
+}
+
+bool Shift::addProductToMenu(const Product& product)
+{
+	if (isProductExists(product))
+		return false;
+	if (dailyMenuSize == dailyMenuMaxSize)		//	if array is full -> increase it
 	{
 		dailyMenuMaxSize *= 2;
 		Product** tempArr = new Product * [dailyMenuMaxSize];
@@ -72,20 +88,15 @@ bool Shift::addProductToMenu(const Product& product)
 		std::swap(tempArr, dailyMenu);
 		delete[] tempArr;
 	}
-
 	dailyMenu[dailyMenuSize++] = product.clone();
 	return true;
 }
 
 bool Shift::addEmployeeToShift(const Employee& employee)
 {
-	for (int i = 0; i < numEmployees; i++)
-	{
-		if (*employees[i] == employee)
-			return false;
-	}
-
-	if (numEmployees == employeesMaxSize)
+	if (isEmployeeExists(employee))
+		return false;
+	if (numEmployees == employeesMaxSize)		//	if array is full -> increase it
 	{
 		employeesMaxSize *= 2;
 		const Employee** tempArr = new const Employee * [employeesMaxSize];
@@ -93,15 +104,13 @@ bool Shift::addEmployeeToShift(const Employee& employee)
 		std::swap(tempArr, employees);
 		delete[] tempArr;
 	}
-
 	employees[numEmployees++] = &employee;
-
 	return true;
 }
 
 bool Shift::addOrder(const Order& order)
 {
-	if (numOrders == ordersMaxSize)
+	if (numOrders == ordersMaxSize)		//	if array is full -> increase it
 	{
 		ordersMaxSize *= 2;
 		Order** tempArr = new Order * [ordersMaxSize];
@@ -110,7 +119,6 @@ bool Shift::addOrder(const Order& order)
 		delete[] tempArr;
 		//increaseArraySize((void**)orders, numOrders, ordersMaxSize, sizeof(Order*));
 	}
-
 	orders[numOrders++] = new Order(order);
 	return true;
 }
@@ -127,7 +135,7 @@ const Employee* Shift::getShiftManager() const
 			shiftManager = employees[i];
 		}
 	}
-	return shiftManager; //Check This
+	return shiftManager;
 }
 
 double Shift::getShiftProfit() const

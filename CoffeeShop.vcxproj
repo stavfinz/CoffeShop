@@ -40,7 +40,7 @@
     <ClCompile Include="Coffee.cpp" />
     <ClCompile Include="CoffeeShop.cpp" />
     <ClCompile Include="Cookie.cpp" />
-    <ClCompile Include="CookieCoffe.cpp" />
+    <ClCompile Include="CookieCoffee.cpp" />
     <ClCompile Include="Customer.cpp" />
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="Employee.cpp" />

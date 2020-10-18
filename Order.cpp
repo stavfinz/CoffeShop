@@ -68,6 +68,7 @@ const Order& Order::operator=(const Order& other)
 //	return *this;
 //}
 
+//	add an item to the order
 Order& Order::operator+=(const Product& product)
 {
 	addItem(product);

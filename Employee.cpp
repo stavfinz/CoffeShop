@@ -67,6 +67,7 @@ void Employee::setHireDate(Date& hireDate)
 	this->hireDate = hireDate;
 }
 
+//	calculate a rough estimate of amount of days from hired date to today
 int Employee::getSeniority() const
 {
 	Date today = getTodayDate();

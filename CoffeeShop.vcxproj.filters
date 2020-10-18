@@ -77,9 +77,6 @@
     <ClCompile Include="Customer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CookieCoffe.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="IllegalValue.h">
       <Filter>Header Files</Filter>
     </ClCompile>
@@ -111,6 +108,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CookieCoffee.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
