@@ -2,6 +2,7 @@
 
 #include "Shift.h"
 #include "Employee.h"
+#include "Customer.h"
 #include "Order.h"
 #include "Product.h"
 #include "utils.h"
@@ -132,10 +133,15 @@ const Employee* Shift::getShiftManager() const
 double Shift::getShiftProfit() const
 {
 	double profitSum = 0;
+	double temp = 0;
 
 	for (int i = 0; i < numOrders; i++)
 	{
-		profitSum += orders[i]->getOrderProfit();
+		temp = orders[i]->getOrderProfit();
+
+		if (orders[i]->getCustomer().isClubMember())
+			temp -= temp * clubDiscountPercent;
+		profitSum += temp;
 	}
 	return profitSum;
 }

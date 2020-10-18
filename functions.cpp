@@ -342,6 +342,7 @@ bool addProduct(CoffeeShop& shop, const type_info& productType)
 	int calories;
 	double cost, price;
 	int choice;
+	bool check = false;
 
 	cout << "Enter product's name: ";
 	cin.getline(name, STRING_SIZE);
@@ -373,9 +374,9 @@ bool addProduct(CoffeeShop& shop, const type_info& productType)
 	try
 	{
 		if (productType == typeid(Coffee))
-			shop.addNewProduct(Coffee(name, calories, cost, price));
+			check=shop.addNewProduct(Coffee(name, calories, cost, price));
 		else if (productType == typeid(Salad))
-			shop.addNewProduct(Salad(name, calories, cost, price));
+			check=shop.addNewProduct(Salad(name, calories, cost, price));
 		else if (productType == typeid(Cookie))
 		{
 			cout << "Select cookie flour type index" << endl;
@@ -393,12 +394,18 @@ bool addProduct(CoffeeShop& shop, const type_info& productType)
 				else break;
 			}
 
-			shop.addNewProduct(Cookie(name, calories, cost, price, (Cookie::eFlourType)(choice - 1)));
+			check=shop.addNewProduct(Cookie(name, calories, cost, price, (Cookie::eFlourType)(choice - 1)));
 		}
 	}
 	catch (exception& e)
 	{
 		cout << e.what() << " Please try again." << endl;
+		return false;
+	}
+
+	if (!check)
+	{
+		cout << "Product already exist in the coffee shop.";
 		return false;
 	}
 
@@ -441,12 +448,18 @@ bool addCookieCoffee(CoffeeShop& shop)
 	cout << "Would you like to grind the cookie in the coffee? Y/N" << endl;
 	cin >> choice;
 
-	shop.addNewProduct(
+	bool check = shop.addNewProduct(
 		CookieCoffee(
 			*dynamic_cast<const Cookie*>(p1), 
 			*dynamic_cast<const Coffee*>(p2), 
 			discountPercent, 
 			(choice == 'Y' || choice == 'y') ? true : false));
+
+	if (!check)
+	{
+		cout << "Product already exist in the coffee shop.";
+		return false;
+	}
 
 	return true;
 }
@@ -456,6 +469,7 @@ void addEmployee(CoffeeShop& shop)
 	char name[STRING_SIZE];
 	char phoneNumber[STRING_SIZE];
 	double shiftSalary;
+	bool check = false;
 
 	cout << "Enter employee's name" << endl;
 	cin.getline(name, STRING_SIZE);
@@ -475,12 +489,16 @@ void addEmployee(CoffeeShop& shop)
 	try
 	{
 		Date date = createDate();
-		shop.addNewEmployee(Employee(name, phoneNumber, shiftSalary, date));
+		check=shop.addNewEmployee(Employee(name, phoneNumber, shiftSalary, date));
 	}
 	catch (exception& e)
 	{
 		cout << e.what() << " Please try again." << endl;
+		return;
 	}
+
+	if (!check)
+		cout << "Employee already exist in the coffee shop.";
 }
 
 void addCustomer(CoffeeShop& shop)
@@ -488,6 +506,7 @@ void addCustomer(CoffeeShop& shop)
 	char name[STRING_SIZE];
 	char phoneNumber[STRING_SIZE];
 	bool clubMember;
+	bool check = false;
 
 	cout << "Enter customer's name" << endl;
 	cin.getline(name, STRING_SIZE);
@@ -501,7 +520,19 @@ void addCustomer(CoffeeShop& shop)
 		cleanBuffer();
 		cout << "Invalid input. Please try again. ";
 	}
-	shop.addNewCustomer(Customer(name, phoneNumber, clubMember));
+
+	try
+	{
+		check = shop.addNewCustomer(Customer(name, phoneNumber, clubMember));
+	}
+	catch (exception& e)
+	{
+		cout << e.what() << " Please try again." << endl;
+		return;
+	}
+
+	if (!check)
+		cout << "Customer already exist in the coffee shop.";
 }
 
 void makeOrder(CoffeeShop& shop, Shift& shift)

@@ -5,6 +5,7 @@
 using namespace std;
 
 #include "Address.h"
+class Person;
 class Customer;
 class Employee;
 class Shift;
@@ -71,6 +72,12 @@ public:
 	bool openShift(double clubDiscountPercent, const Date& date);
 	Shift* getShiftByDate(const Date& date) const;
 	friend ostream& operator<<(ostream& os, const CoffeeShop& coffeeShop);
+
+	bool isEmployeeExist(const Person& employee) const;
+	bool isCustomerExist(const Person& employee) const;
+	bool isProductExist(const Product& product) const;
+	bool isShiftExist(const Date& date) const;
+
 };
 
 #endif

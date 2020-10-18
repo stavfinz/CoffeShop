@@ -99,6 +99,8 @@ void CoffeeShop::setName(const char* name)
 // functions
 bool  CoffeeShop::addNewEmployee(const Employee& employee)
 {
+	if (isEmployeeExist(employee))
+		return false;
 	if (numEmployees == employeesMaxSize)
 	{
 		employeesMaxSize *= 2;
@@ -108,14 +110,14 @@ bool  CoffeeShop::addNewEmployee(const Employee& employee)
 		delete[] tempArr;
 		//increaseArraySize((void**)employees, numEmployees, employeesMaxSize, sizeof(Employee*));
 	}
-
 	employees[numEmployees++] = new Employee(employee);
-
-	return true;								//	todo: add validations?
+	return true;
 }
 
 bool  CoffeeShop::addNewEmployee(Employee&& employee)
 {
+	if (isEmployeeExist(employee))
+		return false;
 	if (numEmployees == employeesMaxSize)
 	{
 		employeesMaxSize *= 2;
@@ -125,14 +127,14 @@ bool  CoffeeShop::addNewEmployee(Employee&& employee)
 		delete[] tempArr;
 		//increaseArraySize((void**)employees, numEmployees, employeesMaxSize, sizeof(Employee*));
 	}
-
 	employees[numEmployees++] = new Employee(std::move(employee));
-
-	return true;								//	todo: add validations?
+	return true;
 }
 
 bool  CoffeeShop::addNewProduct(const Product& product)
 {
+	if (isProductExist(product))
+		return false;
 	if (numProducts == productsMaxSize)
 	{
 		productsMaxSize *= 2;
@@ -142,14 +144,14 @@ bool  CoffeeShop::addNewProduct(const Product& product)
 		delete[] tempArr;
 		//increaseArraySize((void**)products, numProducts, productsMaxSize, sizeof(Product*));
 	}
-
 	products[numProducts++] = product.clone();
-
-	return true;								//	todo: add validations?
+	return true;
 }
 
 bool  CoffeeShop::addNewProduct(Product&& product)
 {
+	if (isProductExist(product))
+		return false;
 	if (numProducts == productsMaxSize)
 	{
 		productsMaxSize *= 2;
@@ -159,14 +161,17 @@ bool  CoffeeShop::addNewProduct(Product&& product)
 		delete[] tempArr;
 		//increaseArraySize((void**)products, numProducts, productsMaxSize, sizeof(Product*));
 	}
-
 	products[numProducts++] = product.clone();			//	todo: possible to use std::move or something similar?
 
-	return true;								//	todo: add validations?
+	//products[numProducts++] = new Product(product);	//	todo:	whyyyyyy did they make it abstract class????????????????????
+
+	return true;
 }
 
 bool  CoffeeShop::addNewCustomer(const Customer& customer)
 {
+	if (isCustomerExist(customer))
+		return false;
 	if (numCustomers == customersMaxSize)
 	{
 		customersMaxSize *= 2;
@@ -176,14 +181,14 @@ bool  CoffeeShop::addNewCustomer(const Customer& customer)
 		delete[] tempArr;
 		//increaseArraySize((void**)customers, numCustomers, customersMaxSize, sizeof(Customer*));
 	}
-
 	customers[numCustomers++] = new Customer(customer);
-
-	return true;								//	todo: add validations?
+	return true;
 }
 
 bool  CoffeeShop::addNewCustomer(Customer&& customer)
 {
+	if (isCustomerExist(customer))
+		return false;
 	if (numCustomers == customersMaxSize)
 	{
 		customersMaxSize *= 2;
@@ -193,19 +198,14 @@ bool  CoffeeShop::addNewCustomer(Customer&& customer)
 		delete[] tempArr;
 		//increaseArraySize((void**)customers, numCustomers, customersMaxSize, sizeof(Customer*));
 	}
-
 	customers[numCustomers++] = new Customer(std::move(customer));
-
-	return true;								//	todo: add validations?
+	return true;
 }
 
 bool  CoffeeShop::openShift(double clubDiscountPercent, const Date& date)
 {
-	for (int i = 0; i < numShifts; i++)
-	{
-		if (*shifts[i]->getShiftDate() == date)
-			return false;		//	shift already exist with this date
-	}
+	if (isShiftExist(date))
+		return false;		//	false -> shift already exists with this date
 
 	if (numShifts == shiftsMaxSize)
 	{
@@ -216,7 +216,6 @@ bool  CoffeeShop::openShift(double clubDiscountPercent, const Date& date)
 		delete[] tempArr;
 		//increaseArraySize((void**)shifts, numShifts, shiftsMaxSize, sizeof(Shift*));
 	}
-
 	shifts[numShifts++] = new Shift(clubDiscountPercent, date);
 	return true;
 }
@@ -226,7 +225,6 @@ Shift* CoffeeShop::getShiftByDate(const Date& date) const
 	for (int i = 0; i < numShifts; i++)
 	{
 		const Date* d = shifts[i]->getShiftDate();
-
 		if (date == *d)
 			return shifts[i];
 	}
@@ -268,4 +266,45 @@ ostream& operator<<(ostream& os, const CoffeeShop& coffeeShop)
 	}
 
 	return os;
+}
+
+bool CoffeeShop::isEmployeeExist(const Person& employee)const
+{
+	for (int i = 0; i < numEmployees; i++)
+	{
+		if (employee == *employees[i])
+			return true;
+	}
+	return false;
+}
+
+
+bool CoffeeShop::isCustomerExist(const Person& employee) const
+{
+	for (int i = 0; i < numCustomers; i++)
+	{
+		if (employee == *customers[i])
+			return true;
+	}
+	return false;
+}
+
+bool CoffeeShop::isProductExist(const Product& product) const
+{
+	for (int i = 0; i < numProducts; i++)
+	{
+		if (product == *products[i])
+			return true;
+	}
+	return false;
+}
+
+bool CoffeeShop::isShiftExist(const Date& date) const
+{
+	for (int i = 0; i < numShifts; i++)
+	{
+		if (date == *shifts[i]->getShiftDate())
+			return true;
+	}
+	return false;
 }

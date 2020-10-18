@@ -9,7 +9,7 @@ CookieCoffee::CookieCoffee(const Cookie& cookie, const Coffee& coffee, double di
 {
 	setDiscountPercent(discountPercent);
 
-	char name[CHAR_MAX];						//	todo: check that it works
+	char name[CHAR_MAX];
 	strcpy(name, cookie.getName());
 	name[strlen(cookie.getName())] = ' ';
 	name[strlen(cookie.getName()) + 1] = '\0';
@@ -22,7 +22,7 @@ void CookieCoffee::setDiscountPercent(double discountPercent)
 {
 	if (discountPercent > 100 || discountPercent < 0)
 	{
-		throw IllegalValue("Discount");
+		throw IllegalValue("Illegal Discount.");
 	}
 	this->discountPercent = discountPercent;
 }

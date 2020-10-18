@@ -100,8 +100,7 @@ void Product::setPrice(double price)
 // operators
 bool Product::operator==(const Product& other) const
 {
-	return ((strcmp(name, other.name) == 0) && calories == other.calories &&
-		cost == other.cost && price == other.price);
+	return ((strcmp(name, other.name) == 0) && (typeid(*this) == typeid(other)));
 }
 
 ostream& operator<<(ostream& os, const Product& product)
