@@ -232,7 +232,7 @@ void showEmployees(const Employee* const* employees, int numEmployees)
 	cout << "The employees are:" << endl;
 	for (int i = 0; i < numEmployees; i++)
 	{
-		cout << i + 1 << ". " << *employees[i] << endl;
+		cout <<"\t"<< i + 1 << ". " << *employees[i] << endl;
 	}
 }
 
@@ -241,7 +241,7 @@ void showCustomers(const Customer* const* customers, int numCustomers)
 	cout << "The customers are:" << endl;
 	for (int i = 0; i < numCustomers; i++)
 	{
-		cout << i + 1 << ". " << *customers[i] << endl;
+		cout << "\t" << i + 1 << ". " << *customers[i] << endl;
 	}
 }
 
@@ -250,7 +250,7 @@ void showProducts(const Product* const* products, int numProducts)
 	cout << "The products are:" << endl;
 	for (int i = 0; i < numProducts; i++)
 	{
-		cout << i + 1 << ". " << *products[i] << endl;
+		cout <<"\t"<< i + 1 << ". " << *products[i] << endl;
 	}
 }
 

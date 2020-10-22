@@ -40,16 +40,13 @@ const Order& Order::operator=(const Order& other)
 			delete items[i];
 		}
 		delete[] items;
-		
-		//employee = other.employee;				//	todo: check this
-		//customer = other.customer;
+
 		numItems = 0;
 		itemsMaxSize = other.itemsMaxSize;
 		items = new Product * [itemsMaxSize];
 		for (int i = 0; i < numItems; i++)
 		{
 			*this += other[i];
-			//addItem(other[i]);
 		}
 	}
 	return *this;

@@ -42,8 +42,9 @@ bool isDigitsOnly(const char* str)
 //{
 //	for (int i = 0; i < size; i++)
 //	{
-//		void** elem = arr + (i * elemSize);
-//		delete *elem;
+//		/*void** elem = arr + (i * elemSize);
+//		delete *elem;*/
+//		delete arr[i];
 //	}
 //	delete[] arr;
 //}
