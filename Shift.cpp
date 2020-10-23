@@ -100,7 +100,7 @@ bool Shift::addEmployeeToShift(const Employee& employee)
 	{
 		employeesMaxSize *= 2;
 		const Employee** tempArr = new const Employee * [employeesMaxSize];
-		memcpy(tempArr, employees, numEmployees* sizeof(Employee*));
+		memcpy(tempArr, employees, numEmployees * sizeof(Employee*));
 		std::swap(tempArr, employees);
 		delete[] tempArr;
 	}
@@ -148,7 +148,7 @@ double Shift::getShiftProfit() const
 		temp = orders[i]->getOrderProfit();
 
 		if (orders[i]->getCustomer().isClubMember())
-			temp -= temp * clubDiscountPercent;
+			temp *= (1 - (clubDiscountPercent / 100));
 		profitSum += temp;
 	}
 	return profitSum;
@@ -156,6 +156,6 @@ double Shift::getShiftProfit() const
 
 ostream& operator<<(ostream& os, const Shift& shift)
 {
-	os << "Shift Date: " << shift.getShiftDate() << " Profit: " << shift.getShiftProfit() << endl;
+	os << "Shift Date: " << *shift.getShiftDate() << " Profit: " << shift.getShiftProfit() << endl;
 	return os;
 }
