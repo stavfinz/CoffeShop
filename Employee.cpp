@@ -47,12 +47,6 @@ bool Employee::operator>(const Employee& other) const
 	return this->getSeniority() > other.getSeniority();
 }
 
-////Lo barur li ma lirshom po --- Polymorphism?
-//bool Employee::operator==(const Person& other) const 
-//{
-//	return false;
-//}
-
 void Employee::setShiftSalary(double shiftSalary)
 {
 	if (shiftSalary <= 0)

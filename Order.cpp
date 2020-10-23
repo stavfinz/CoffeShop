@@ -17,12 +17,6 @@ Order::Order(const Employee& employee, const Customer& customer) : employee(empl
 Order::Order(const Order& other) : employee(other.employee), customer(other.customer)
 {
 	*this = other;
-	for (int i = 0; i < other.numItems; i++)
-	{
-		this->items[i] = other.items[i]->clone();
-	}
-	this->numItems = other.numItems;
-
 }
 
 Order::~Order()
@@ -32,15 +26,12 @@ Order::~Order()
 		delete items[i];
 	}
 	delete[] items;
-	//deleteArray((void**)items, itemsMaxSize, numItems);
 }
 
 const Order& Order::operator=(const Order& other)
 {
 	if (this != &other)
-	{
-		//deleteArray((void**)items, numItems, sizeof(Product*));
-		
+	{		
 		for (int i = 0; i < numItems; i++)
 		{
 			delete items[i];
@@ -50,26 +41,13 @@ const Order& Order::operator=(const Order& other)
 		numItems = 0;
 		itemsMaxSize = other.itemsMaxSize;
 		items = new Product * [itemsMaxSize];
-		for (int i = 0; i < numItems; i++)
+		for (int i = 0; i < other.numItems; i++)
 		{
-			*this += other[i];		//	todo: add clone() ?
+			*this += other[i];
 		}
 	}
 	return *this;
 }
-
-//const Order& Order::operator=(Order&& other)
-//{
-//	if (this != &other)
-//	{
-//		/*swap(employee, other.employee);
-//		swap(customer, other.customer);*/
-//		numItems = other.numItems;
-//		itemsMaxSize = other.itemsMaxSize;
-//		std::swap(items, other.items);
-//	}
-//	return *this;
-//}
 
 //	add an item to the order
 Order& Order::operator+=(const Product& product)
@@ -87,7 +65,6 @@ bool Order::addItem(const Product& product)
 		memcpy(tempArr, items, numItems * sizeof(Product*));
 		std::swap(tempArr, items);
 		delete[] tempArr;
-		//increaseArraySize((void**)items, numItems, itemsMaxSize, sizeof(Product*));
 	}
 	items[numItems++] = product.clone();
 	return true;

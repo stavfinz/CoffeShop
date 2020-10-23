@@ -17,7 +17,7 @@ private:
 	Date shiftDate;
 
 	int numEmployees, employeesMaxSize;
-	const Employee* *  employees;
+	const Employee** employees;
 
 	int dailyMenuSize, dailyMenuMaxSize;
 	Product** dailyMenu;

@@ -79,11 +79,6 @@ CoffeeShop::~CoffeeShop()
 		delete shifts[i];
 	}
 	delete[]shifts;
-
-	/*deleteArray((void**)customers, numCustomers, sizeof(Customer*));
-	deleteArray((void**)employees, numEmployees, sizeof(Employee*));
-	deleteArray((void**)shifts, numShifts, sizeof(Shift*));
-	deleteArray((void**)products, numProducts, sizeof(Product*));*/
 }
 
 // setters
@@ -108,7 +103,6 @@ bool  CoffeeShop::addNewEmployee(const Employee& employee)
 		memcpy(tempArr,employees, numEmployees * sizeof(Employee*));
 		std::swap(tempArr, employees);
 		delete[] tempArr;
-		//increaseArraySize((void**)employees, numEmployees, employeesMaxSize, sizeof(Employee*));
 	}
 	employees[numEmployees++] = new Employee(employee);
 	return true;
@@ -125,7 +119,6 @@ bool  CoffeeShop::addNewEmployee(Employee&& employee)
 		memcpy(tempArr,employees, numEmployees * sizeof(Employee*));
 		std::swap(tempArr, employees);
 		delete[] tempArr;
-		//increaseArraySize((void**)employees, numEmployees, employeesMaxSize, sizeof(Employee*));
 	}
 	employees[numEmployees++] = new Employee(std::move(employee));
 	return true;
@@ -142,13 +135,12 @@ bool  CoffeeShop::addNewProduct(const Product& product)
 		memcpy(tempArr, products, numProducts * sizeof(Product*));
 		std::swap(tempArr, products);
 		delete[] tempArr;
-		//increaseArraySize((void**)products, numProducts, productsMaxSize, sizeof(Product*));
 	}
 	products[numProducts++] = product.clone();
 	return true;
 }
 
-bool  CoffeeShop::addNewProduct(Product&& product)
+bool  CoffeeShop::addNewProduct(Product&& product)		///	todo: delete
 {
 	if (isProductExists(product))
 		return false;
@@ -179,7 +171,6 @@ bool  CoffeeShop::addNewCustomer(const Customer& customer)
 		memcpy(tempArr, customers, numCustomers * sizeof(Customer*));
 		std::swap(tempArr, customers);
 		delete[] tempArr;
-		//increaseArraySize((void**)customers, numCustomers, customersMaxSize, sizeof(Customer*));
 	}
 	customers[numCustomers++] = new Customer(customer);
 	return true;
@@ -196,7 +187,6 @@ bool  CoffeeShop::addNewCustomer(Customer&& customer)
 		memcpy(tempArr, customers, numCustomers * sizeof(Customer*));
 		std::swap(tempArr, customers);
 		delete[] tempArr;
-		//increaseArraySize((void**)customers, numCustomers, customersMaxSize, sizeof(Customer*));
 	}
 	customers[numCustomers++] = new Customer(std::move(customer));
 	return true;
@@ -213,7 +203,6 @@ bool  CoffeeShop::openShift(double clubDiscountPercent, const Date& date)
 		memcpy(tempArr, shifts, numShifts * sizeof(Shift*));
 		std::swap(tempArr, shifts);
 		delete[] tempArr;
-		//increaseArraySize((void**)shifts, numShifts, shiftsMaxSize, sizeof(Shift*));
 	}
 	shifts[numShifts++] = new Shift(clubDiscountPercent, date);
 	return true;

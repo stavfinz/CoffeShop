@@ -32,21 +32,13 @@ Shift::~Shift()
 	}
 	delete[] dailyMenu;
 
-	for (int i = 0; i < numEmployees; i++)
-	{
-		delete employees[i];
-	}
-	delete[] employees;
-
 	for (int i = 0; i < numOrders; i++)
 	{
 		delete orders[i];
 	}
 	delete[] orders;
 
-	/*deleteArray((void**)dailyMenu, dailyMenuSize, sizeof(Product*));
-	deleteArray((void**)employees, numEmployees, sizeof(Employee*));
-	deleteArray((void**)orders, numOrders, sizeof(Order*));*/
+	delete[] employees;
 }
 
 void Shift::setClubDiscountPercent(double clubDiscountPercent)
@@ -117,7 +109,6 @@ bool Shift::addOrder(const Order& order)
 		memcpy(tempArr, orders, numOrders * sizeof(Order*));
 		std::swap(tempArr, orders);
 		delete[] tempArr;
-		//increaseArraySize((void**)orders, numOrders, ordersMaxSize, sizeof(Order*));
 	}
 	orders[numOrders++] = new Order(order);
 	return true;
