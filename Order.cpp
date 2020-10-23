@@ -17,6 +17,12 @@ Order::Order(const Employee& employee, const Customer& customer) : employee(empl
 Order::Order(const Order& other) : employee(other.employee), customer(other.customer)
 {
 	*this = other;
+	for (int i = 0; i < other.numItems; i++)
+	{
+		this->items[i] = other.items[i]->clone();
+	}
+	this->numItems = other.numItems;
+
 }
 
 Order::~Order()
@@ -46,7 +52,7 @@ const Order& Order::operator=(const Order& other)
 		items = new Product * [itemsMaxSize];
 		for (int i = 0; i < numItems; i++)
 		{
-			*this += other[i];
+			*this += other[i];		//	todo: add clone() ?
 		}
 	}
 	return *this;
