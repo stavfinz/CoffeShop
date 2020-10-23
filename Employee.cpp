@@ -75,5 +75,5 @@ int Employee::getSeniority() const
 
 void Employee::toOs(ostream& os) const
 {
-	os << ", Salary: " << this->getShiftSalary() << ", Seniority: " << this->getSeniority() << " Hired date: " << this->hireDate;
+	os << ", Salary: " << this->getShiftSalary() << ", Seniority: " << this->getSeniority() << ", Hired date: " << this->hireDate;
 }

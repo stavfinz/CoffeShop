@@ -105,7 +105,8 @@ bool Product::operator==(const Product& other) const
 
 ostream& operator<<(ostream& os, const Product& product)
 {
-	os << product.name << " Calories: " << product.calories << " Cost: " <<
+	os << "(" << typeid(product).name() + 6 << ") " << product.name << " Calories: " <<
+		product.calories << " Cost: " <<
 		product.cost << " Price: " << product.price;
 	product.toOs(os);
 	return os;

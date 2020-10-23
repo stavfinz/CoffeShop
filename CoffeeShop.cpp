@@ -9,25 +9,27 @@
 #include "utils.h"
 #include "IllegalValue.h"
 
+const int DEFAULT_ARRAY_SIZE = 20;
+
 // ctor
 CoffeeShop::CoffeeShop(const char* name, const Address& address) : name(nullptr), address(address)
 {
 	setName(name);
 
 	this->numCustomers = 0;
-	this->customersMaxSize = 20;
+	this->customersMaxSize = DEFAULT_ARRAY_SIZE;
 	this->customers = new Customer*[customersMaxSize];
 
 	this->numEmployees = 0;
-	this->employeesMaxSize = 20;
+	this->employeesMaxSize = DEFAULT_ARRAY_SIZE;
 	this->employees = new Employee * [employeesMaxSize];
 
 	this->numShifts = 0;
-	this->shiftsMaxSize = 20;
+	this->shiftsMaxSize = DEFAULT_ARRAY_SIZE;
 	this->shifts = new Shift * [shiftsMaxSize];
 
 	this->numProducts = 0;
-	this->productsMaxSize = 20;
+	this->productsMaxSize = DEFAULT_ARRAY_SIZE;
 	this->products = new Product * [productsMaxSize];
 }
 

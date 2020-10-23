@@ -38,25 +38,9 @@ bool isDigitsOnly(const char* str)
 	return true;
 }
 
-//void deleteArray(void** arr, int size, int elemSize)		//	todo: fix this functions
-//{
-//	for (int i = 0; i < size; i++)
-//	{
-//		/*void** elem = arr + (i * elemSize);
-//		delete *elem;*/
-//		delete arr[i];
-//	}
-//	delete[] arr;
-//}
-//
-//void increaseArraySize(void** arr, int numElem, int newSize, int elemSize)
-//{
-//	void** tempArr = new void* [newSize];
-//	memcpy(tempArr, arr, numElem * elemSize);
-//	std::swap(tempArr, arr);
-//	delete[] tempArr;
-//}
-
+/// <summary>
+/// Clean the input buffer
+/// </summary>
 void cleanBuffer()
 {
 	cin.clear();
@@ -91,13 +75,13 @@ Date createDate()
 	while (!(cin >> month) || month <= 0 || month > 12)
 	{
 		cleanBuffer();
-		cout << "Numbers only, please try again: ";
+		cout << "Only numbers between 1-12, please try again: ";
 	}
 	cout << "year: " << endl;
 	while (!(cin >> year) || year < SYSTEM_YEAR_FACTOR)
 	{
 		cleanBuffer();
-		cout << "Numbers only, please try again: ";
+		cout << "Only numbers (1900-" << getTodayDate().getYear() << ") , please try again: ";
 	}
 
 	return Date(day, month, year);

@@ -6,11 +6,12 @@
 #include "Customer.h"
 #include "utils.h"
 
+const int DEFAULT_ARRAY_SIZE = 20;
 
 Order::Order(const Employee& employee, const Customer& customer) : employee(employee), customer(customer)
 {
 	this->numItems = 0;
-	this->itemsMaxSize = 20;
+	this->itemsMaxSize = DEFAULT_ARRAY_SIZE;
 	this->items = new Product * [itemsMaxSize];
 }
 
@@ -95,6 +96,6 @@ ostream& operator<<(ostream& os, const Order& order)
 	os << "Employee: " << order.getEmployee().getName()
 		<< ", Customer: " << order.getCustomer().getName()
 		<< ", Number of products: " << order.getNumItems()
-		<< ", Profit: " << order.getOrderProfit() << endl;
+		<< ", Profit: " << order.getOrderProfit();
 	return os;
 }

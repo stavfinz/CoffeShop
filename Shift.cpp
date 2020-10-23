@@ -8,19 +8,23 @@
 #include "utils.h"
 #include "IllegalValue.h"
 
+const int DEFAULT_ITEMS_SIZE = 10;
+const int DEFUALT_EMPLOYEES_SIZE = 5;
+const int DEFAULT_ORDERS_SIZE = 50;
+
 Shift::Shift(double clubDiscountPercent, const Date& shiftDate) :shiftDate(shiftDate)
 {
 	setClubDiscountPercent(clubDiscountPercent);
 	dailyMenuSize = 0;
-	dailyMenuMaxSize = 10;
+	dailyMenuMaxSize = DEFAULT_ITEMS_SIZE;
 	this->dailyMenu = new Product * [dailyMenuMaxSize];
 
 	numEmployees = 0;
-	employeesMaxSize = 5;
+	employeesMaxSize = DEFUALT_EMPLOYEES_SIZE;
 	this->employees = new const Employee * [employeesMaxSize];
 
 	numOrders = 0;
-	ordersMaxSize = 50;
+	ordersMaxSize = DEFAULT_ORDERS_SIZE;
 	this->orders = new Order * [ordersMaxSize];
 }
 
@@ -120,9 +124,10 @@ const Employee* Shift::getShiftManager() const
 	const Employee* shiftManager = nullptr;
 	for (int i = 0; i < numEmployees; i++)
 	{
-		if (employees[i]->getSeniority() > maxSeniorty)
+		int currSeniority = employees[i]->getSeniority();
+		if (currSeniority > maxSeniorty)
 		{
-			maxSeniorty = employees[i]->getSeniority();
+			maxSeniorty = currSeniority;
 			shiftManager = employees[i];
 		}
 	}
@@ -147,6 +152,6 @@ double Shift::getShiftProfit() const
 
 ostream& operator<<(ostream& os, const Shift& shift)
 {
-	os << "Shift Date: " << *shift.getShiftDate() << " Profit: " << shift.getShiftProfit() << endl;
+	os << "Shift Date: " << *shift.getShiftDate() << ", Profit: " << shift.getShiftProfit();
 	return os;
 }

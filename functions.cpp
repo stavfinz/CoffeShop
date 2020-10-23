@@ -746,7 +746,7 @@ void showShiftProfits(const Shift& shift)
 		cout << "There are no orders in this shift." << endl;
 	for (int i = 0; i < shift.getNumOrders(); i++)
 	{
-		cout << (i + 1) << *orders[i] << endl;
+		cout << (i + 1) << ". " << *orders[i] << endl;
 	}
-	cout << "Total profits after discount: " << shift.getShiftProfit() << endl;
+	cout << "Total profits after discount: " << shift.getShiftProfit() << endl << endl;
 }
