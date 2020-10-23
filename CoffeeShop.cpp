@@ -33,6 +33,27 @@ CoffeeShop::CoffeeShop(const char* name, const Address& address) : name(nullptr)
 	this->products = new Product * [productsMaxSize];
 }
 
+CoffeeShop::CoffeeShop(const char* name, Address&& address) : name(nullptr), address(std::move(address))
+{
+	setName(name);
+
+	this->numCustomers = 0;
+	this->customersMaxSize = DEFAULT_ARRAY_SIZE;
+	this->customers = new Customer * [customersMaxSize];
+
+	this->numEmployees = 0;
+	this->employeesMaxSize = DEFAULT_ARRAY_SIZE;
+	this->employees = new Employee * [employeesMaxSize];
+
+	this->numShifts = 0;
+	this->shiftsMaxSize = DEFAULT_ARRAY_SIZE;
+	this->shifts = new Shift * [shiftsMaxSize];
+
+	this->numProducts = 0;
+	this->productsMaxSize = DEFAULT_ARRAY_SIZE;
+	this->products = new Product * [productsMaxSize];
+}
+
 CoffeeShop::CoffeeShop(CoffeeShop&& other) : name(std::move(other.name)), address(std::move(other.address)),
 									customers(nullptr), employees(nullptr), shifts(nullptr), products(nullptr)
 {
@@ -263,6 +284,7 @@ bool CoffeeShop::isShiftExists(const Date& date) const
 
 ostream& operator<<(ostream& os, const CoffeeShop& coffeeShop)
 {
+	cout << "Name: " << coffeeShop.getName() << ", Address: " << *coffeeShop.getAddress() << endl;
 	cout << endl << "Employees:" << endl;
 	if (coffeeShop.numEmployees == 0)
 		cout << "No employess." << endl;

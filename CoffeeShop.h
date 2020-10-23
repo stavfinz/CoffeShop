@@ -32,12 +32,13 @@ private:
 public:
 	// ctor
 	CoffeeShop(const char* name, const Address& address) noexcept(false);
+
 	// copy ctor
 	CoffeeShop(const CoffeeShop& other) = delete;
-	CoffeeShop(CoffeeShop&& other);
 
 	// move ctor
-	//CoffeeShop(const char* name, Address&& address);				//	todo:	not sure about the delete here
+	CoffeeShop(CoffeeShop&& other);
+	CoffeeShop(const char* name, Address&& address);
 
 	// assignment operator
 	const CoffeeShop& operator=(const CoffeeShop& other) = delete;

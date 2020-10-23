@@ -28,7 +28,6 @@ public:
 	void setMilk(bool isWithMilk) noexcept(false);
 
 	void toOs(ostream& os) const override;
-	//	friend ostream& operator<<(ostream& os, const Coffee& coffee);
 };
 
 #endif

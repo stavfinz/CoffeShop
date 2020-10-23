@@ -57,7 +57,7 @@ Product:: ~Product()
 
 void Product::setName(const char* name)
 {
-	int nameLen = strlen(name);
+	int nameLen = (int)strlen(name);
 	if (nameLen < 2)
 		throw IllegalValue("Product Name should contain at least 2 characters.");
 	if (!isAlphaOnly(name))

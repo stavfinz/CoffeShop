@@ -88,6 +88,6 @@ Address::~Address()
 // functions
 ostream& operator<<(ostream& os, const Address& address)
 {
-	os << address.streetName << " " << address.streetNumber << ", " << address.city << endl;
+	os << address.streetName << " " << address.streetNumber << ", " << address.city;
 	return os;
 }

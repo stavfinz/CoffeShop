@@ -224,7 +224,7 @@ void openShift(CoffeeShop& shop, const Date& date)
 
 void showCoffeeShop(CoffeeShop& shop)
 {
-	cout << "The coffee shop details are:" << shop << endl;
+	cout << "The coffee shop details are:" << endl << shop << endl;
 }
 
 void showEmployees(const Employee* const* employees, int numEmployees)
