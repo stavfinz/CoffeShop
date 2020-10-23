@@ -77,11 +77,11 @@ void menu(CoffeeShop& shop)
 			break;
 		case 3:
 			// 3. show customers details
-			showCustomers(shop.getCustomers(),shop.getNumCustomers());
+			showCustomers(shop.getCustomers(), shop.getNumCustomers());
 			break;
 		case 4:
 			// 4. show products details
-			showProducts(shop.getProducts(),shop.getNumProducts());
+			showProducts(shop.getProducts(), shop.getNumProducts());
 			break;
 		case 5:
 			// 5. show shifts details
@@ -128,7 +128,7 @@ void shiftMenu(CoffeeShop& shop)
 		cleanBuffer();
 		cout << "Invalid choice. Please try again. ";
 	}
-	
+
 	if (choice == 1)
 		date = new Date(getTodayDate());
 	else
@@ -232,7 +232,7 @@ void showEmployees(const Employee* const* employees, int numEmployees)
 	cout << "The employees are:" << endl;
 	for (int i = 0; i < numEmployees; i++)
 	{
-		cout <<"\t"<< i + 1 << ". " << *employees[i] << endl;
+		cout << i + 1 << ". " << *employees[i] << endl;
 	}
 }
 
@@ -241,7 +241,7 @@ void showCustomers(const Customer* const* customers, int numCustomers)
 	cout << "The customers are:" << endl;
 	for (int i = 0; i < numCustomers; i++)
 	{
-		cout << "\t" << i + 1 << ". " << *customers[i] << endl;
+		cout << i + 1 << ". " << *customers[i] << endl;
 	}
 }
 
@@ -250,7 +250,7 @@ void showProducts(const Product* const* products, int numProducts)
 	cout << "The products are:" << endl;
 	for (int i = 0; i < numProducts; i++)
 	{
-		cout <<"\t"<< i + 1 << ". " << *products[i] << endl;
+		cout << i + 1 << ". " << *products[i] << endl;
 	}
 }
 
@@ -374,9 +374,9 @@ bool addProduct(CoffeeShop& shop, const type_info& productType)
 	try
 	{
 		if (productType == typeid(Coffee))
-			check=shop.addNewProduct(Coffee(name, calories, cost, price));
+			check = shop.addNewProduct(Coffee(name, calories, cost, price));
 		else if (productType == typeid(Salad))
-			check=shop.addNewProduct(Salad(name, calories, cost, price));
+			check = shop.addNewProduct(Salad(name, calories, cost, price));
 		else if (productType == typeid(Cookie))
 		{
 			cout << "Select cookie flour type index" << endl;
@@ -394,7 +394,7 @@ bool addProduct(CoffeeShop& shop, const type_info& productType)
 				else break;
 			}
 
-			check=shop.addNewProduct(Cookie(name, calories, cost, price, (Cookie::eFlourType)(choice - 1)));
+			check = shop.addNewProduct(Cookie(name, calories, cost, price, (Cookie::eFlourType)(choice - 1)));
 		}
 	}
 	catch (exception& e)
@@ -441,7 +441,7 @@ bool addCookieCoffee(CoffeeShop& shop)
 
 	if (p2 == nullptr)
 	{
-		cout << "There is no Coffee in the menu."<<endl;
+		cout << "There is no Coffee in the menu." << endl;
 		return false;
 	}
 
@@ -450,9 +450,9 @@ bool addCookieCoffee(CoffeeShop& shop)
 
 	bool check = shop.addNewProduct(
 		CookieCoffee(
-			*dynamic_cast<const Cookie*>(p1), 
-			*dynamic_cast<const Coffee*>(p2), 
-			discountPercent, 
+			*dynamic_cast<const Cookie*>(p1),
+			*dynamic_cast<const Coffee*>(p2),
+			discountPercent,
 			(choice == 'Y' || choice == 'y') ? true : false));
 
 	if (!check)
@@ -489,7 +489,7 @@ void addEmployee(CoffeeShop& shop)
 	try
 	{
 		Date date = createDate();
-		check=shop.addNewEmployee(Employee(name, phoneNumber, shiftSalary, date));
+		check = shop.addNewEmployee(Employee(name, phoneNumber, shiftSalary, date));
 	}
 	catch (exception& e)
 	{
@@ -736,7 +736,6 @@ void addProductToDailyMenu(CoffeeShop& shop, Shift& shift)
 			cout << "Invalid product index" << endl;
 	}
 }
-
 void showShiftProfits(const Shift& shift)
 {
 	double total = 0;
@@ -748,7 +747,6 @@ void showShiftProfits(const Shift& shift)
 	for (int i = 0; i < shift.getNumOrders(); i++)
 	{
 		cout << (i + 1) << *orders[i] << endl;
-		total += orders[i]->getOrderProfit() * shift.getClubDiscountPercent();
 	}
-	cout << "Total profits after discount: " << total << endl;
+	cout << "Total profits after discount: " << shift.getShiftProfit() << endl;
 }
