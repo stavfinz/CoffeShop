@@ -20,16 +20,15 @@ CookieCoffee::CookieCoffee(const Cookie& cookie, const Coffee& coffee, double di
 // setters
 void CookieCoffee::setDiscountPercent(double discountPercent)
 {
-	if (discountPercent > 100 || discountPercent < 0)
-	{
+	if (discountPercent > 100 || discountPercent < 0)		//	discount should be between 0 to 100
 		throw IllegalValue("Illegal Discount.");
-	}
+
 	this->discountPercent = discountPercent;
 }
 
 int CookieCoffee::getCalories() const
 {
-	return Coffee::getCalories() + Cookie::getCalories();
+	return Coffee::getCalories() + Cookie::getCalories();	//	combined the calories of the coffee and the cookie
 }
 
 double CookieCoffee::getCost() const

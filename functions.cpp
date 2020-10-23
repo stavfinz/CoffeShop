@@ -13,8 +13,6 @@
 using namespace std;
 
 const int STRING_SIZE = 255;
-//extern const char* sFlourType[] = { "White", "Whole", "Gluten Free" };				//	todo: should be initialized here?
-//extern const char* sDressingType[]= {"Vinegret", "Soy", "Thousand Island"};				//	todo: should be initialized here?
 
 CoffeeShop initCoffeeShop()
 {
@@ -135,7 +133,7 @@ void shiftMenu(CoffeeShop& shop)
 	{
 		try
 		{
-			date = new Date(createDate());		//	todo: validate it's going to move c'tor
+			date = new Date(createDate());
 		}
 		catch (exception& e)
 		{
@@ -208,7 +206,6 @@ void openShift(CoffeeShop& shop, const Date& date)
 {
 	double discount;
 
-	// init shift
 	cout << "Enter club discount: " << endl;
 	cin >> discount;
 
@@ -613,7 +610,6 @@ void makeOrder(CoffeeShop& shop, Shift& shift)
 					cin >> numOfSugar;
 					Coffee* temp = dynamic_cast<Coffee*>(p);
 					temp->setMilk(withMilk);
-					//				temp->addSugar(numOfSugar);
 					*temp += numOfSugar;
 					p = temp;
 				}
@@ -647,7 +643,6 @@ void makeOrder(CoffeeShop& shop, Shift& shift)
 					cin >> numOfSugar;
 					CookieCoffee* temp = dynamic_cast<CookieCoffee*>(p);
 					temp->setMilk(withMilk);
-					//				temp->addSugar(numOfSugar);
 					*temp += numOfSugar;
 					p = temp;
 				}
@@ -694,7 +689,7 @@ void addEmployeesToShift(CoffeeShop& shop, Shift& shift)
 			}
 			else
 			{
-				cout << " Employee already exists in shift!" << endl;
+				cout << "Employee already exists in shift!" << endl;
 			}
 		}
 		else if (choice == -1)
@@ -727,7 +722,7 @@ void addProductToDailyMenu(CoffeeShop& shop, Shift& shift)
 			}
 			else
 			{
-				cout << " Product already exists in daily menu!" << endl;
+				cout << "Product already exists in daily menu!" << endl;
 			}
 		}
 		else if (choice == -1)

@@ -61,7 +61,6 @@ public:
 
 	// setters
 	void setName(const char* name) noexcept(false);
-	bool setAddress(const Address& address) noexcept(false) = delete;			//	todo: delete this line..?
 	
 	// functions
 	bool addNewEmployee(const Employee& employee);

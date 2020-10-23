@@ -7,14 +7,13 @@ Salad::Salad(const char* name, int calories, double cost, double price, eDressin
     this->dressing = dressing;
 }
 
-bool Salad::addDressing(eDressingType dressing)
+void Salad::addDressing(eDressingType dressing)
 {
     this->dressing = dressing;
-    return true;
 }
 
 void Salad::toOs(ostream& os) const
 {
-    if (dressing != Salad::eDressingType::enumTypeEnd)
+    if (dressing != Salad::eDressingType::enumTypeEnd)      //  if there is a dressing, print it
         os << ", " << sDressingType[(int)dressing] << " dressing";
 }

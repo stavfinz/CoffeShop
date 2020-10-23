@@ -38,13 +38,7 @@ bool Date::operator>(const Date& d) const
 	return true;					//	otherwise, greater
 }
 
-ostream& operator<<(ostream& os, const Date& date)
-{
-	os << date.getDay() << "/" << date.getMonth() << "/" << date.getYear();
-	return os;
-}
-
-//	get the real amount of days in a month based on month and year
+//	get the real amount of days in a month based on the month and the year
 int Date::getMonthDays(int month, int year)
 {
 	switch (month)
@@ -95,4 +89,10 @@ bool Date::isValid(int day, int month, int year)
 		return false;
 
 	return true;
+}
+
+ostream& operator<<(ostream& os, const Date& date)
+{
+	os << date.getDay() << "/" << date.getMonth() << "/" << date.getYear();
+	return os;
 }

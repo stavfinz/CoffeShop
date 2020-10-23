@@ -42,7 +42,8 @@ const Order& Order::operator=(const Order& other)
 		numItems = 0;
 		itemsMaxSize = other.itemsMaxSize;
 		items = new Product * [itemsMaxSize];
-		for (int i = 0; i < other.numItems; i++)
+
+		for (int i = 0; i < other.numItems; i++)	//	iterate over the other order array and copy it's items
 		{
 			*this += other[i];
 		}
@@ -59,7 +60,7 @@ Order& Order::operator+=(const Product& product)
 
 bool Order::addItem(const Product& product)
 {
-	if (numItems == itemsMaxSize)
+	if (numItems == itemsMaxSize)			//	if the array is full -> double it's size
 	{
 		itemsMaxSize *= 2;
 		Product** tempArr = new Product * [itemsMaxSize];
@@ -67,27 +68,25 @@ bool Order::addItem(const Product& product)
 		std::swap(tempArr, items);
 		delete[] tempArr;
 	}
-	items[numItems++] = product.clone();
+	items[numItems++] = product.clone();	//	copy the product into the array
 	return true;
 }
 
 int Order::getTotalCalories() const
 {
 	int totalCalories = 0;
-	for (int i = 0; i < numItems; i++)
-	{
+	for (int i = 0; i < numItems; i++)				//	iterate over all the products and sum up the calories
 		totalCalories += items[i]->getCalories();
-	}
+
 	return totalCalories;
 }
 
 double Order::getOrderProfit() const
 {
 	double sumProfit = 0;
-	for (int i = 0; i < numItems; i++)
-	{
+	for (int i = 0; i < numItems; i++)				//	iterate over all the products and calculate the profit of each
 		sumProfit += (items[i]->getPrice() - items[i]->getCost());
-	}
+
 	return sumProfit;
 }
 

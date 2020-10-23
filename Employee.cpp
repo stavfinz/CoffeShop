@@ -49,10 +49,9 @@ bool Employee::operator>(const Employee& other) const
 
 void Employee::setShiftSalary(double shiftSalary)
 {
-	if (shiftSalary <= 0)
-	{
+	if (shiftSalary <= 0)						//	salary should be greater than zero
 		throw IllegalValue("Invalid Shift Salary");
-	}
+
 	this->shiftSalary = shiftSalary;
 }
 
@@ -61,7 +60,7 @@ void Employee::setHireDate(Date& hireDate)
 	this->hireDate = hireDate;
 }
 
-//	calculate a rough estimate of amount of days from hired date to today
+//	calculate a rough estimate of the number of days from hire date to today
 int Employee::getSeniority() const
 {
 	Date today = getTodayDate();

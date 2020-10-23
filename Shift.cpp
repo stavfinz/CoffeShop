@@ -47,7 +47,7 @@ Shift::~Shift()
 
 void Shift::setClubDiscountPercent(double clubDiscountPercent)
 {
-	if (clubDiscountPercent < 0 || clubDiscountPercent > 100)
+	if (clubDiscountPercent < 0 || clubDiscountPercent > 100)	//	discount should be between 0 to 100
 		throw IllegalValue("Illegal discount precentage.");
 	this->clubDiscountPercent = clubDiscountPercent;
 }
@@ -76,7 +76,7 @@ bool Shift::addProductToMenu(const Product& product)
 {
 	if (isProductExists(product))
 		return false;
-	if (dailyMenuSize == dailyMenuMaxSize)		//	if array is full -> increase it
+	if (dailyMenuSize == dailyMenuMaxSize)				//	if array is full -> increase it
 	{
 		dailyMenuMaxSize *= 2;
 		Product** tempArr = new Product * [dailyMenuMaxSize];
@@ -84,7 +84,7 @@ bool Shift::addProductToMenu(const Product& product)
 		std::swap(tempArr, dailyMenu);
 		delete[] tempArr;
 	}
-	dailyMenu[dailyMenuSize++] = product.clone();
+	dailyMenu[dailyMenuSize++] = product.clone();		//	clone the product
 	return true;
 }
 
@@ -92,7 +92,7 @@ bool Shift::addEmployeeToShift(const Employee& employee)
 {
 	if (isEmployeeExists(employee))
 		return false;
-	if (numEmployees == employeesMaxSize)		//	if array is full -> increase it
+	if (numEmployees == employeesMaxSize)				//	if array is full -> increase it
 	{
 		employeesMaxSize *= 2;
 		const Employee** tempArr = new const Employee * [employeesMaxSize];
@@ -100,13 +100,13 @@ bool Shift::addEmployeeToShift(const Employee& employee)
 		std::swap(tempArr, employees);
 		delete[] tempArr;
 	}
-	employees[numEmployees++] = &employee;
+	employees[numEmployees++] = &employee;				//	save pointer to the employee
 	return true;
 }
 
 bool Shift::addOrder(const Order& order)
 {
-	if (numOrders == ordersMaxSize)		//	if array is full -> increase it
+	if (numOrders == ordersMaxSize)						//	if array is full -> increase it
 	{
 		ordersMaxSize *= 2;
 		Order** tempArr = new Order * [ordersMaxSize];
@@ -114,24 +114,26 @@ bool Shift::addOrder(const Order& order)
 		std::swap(tempArr, orders);
 		delete[] tempArr;
 	}
-	orders[numOrders++] = new Order(order);
+	orders[numOrders++] = new Order(order);				//	copy order into the array
 	return true;
 }
 
+//	iterate over the employee's array and find the one with the greatest seniority
 const Employee* Shift::getShiftManager() const
-{
+{														
 	int maxSeniorty = 0;
 	const Employee* shiftManager = nullptr;
-	for (int i = 0; i < numEmployees; i++)
+
+	for (int i = 0; i < numEmployees; i++)					//	iterate over the employees array
 	{
-		int currSeniority = employees[i]->getSeniority();
-		if (currSeniority > maxSeniorty)
+		int currSeniority = employees[i]->getSeniority();	//	calculate current employee's seniority
+		if (currSeniority > maxSeniorty)					//	if greater than the max -> save it, and the employee
 		{
 			maxSeniorty = currSeniority;
 			shiftManager = employees[i];
 		}
 	}
-	return shiftManager;
+	return shiftManager;									//	return employee with greatest seniority
 }
 
 double Shift::getShiftProfit() const
@@ -139,12 +141,12 @@ double Shift::getShiftProfit() const
 	double profitSum = 0;
 	double temp = 0;
 
-	for (int i = 0; i < numOrders; i++)
+	for (int i = 0; i < numOrders; i++)						//	iterate over the orders array
 	{
-		temp = orders[i]->getOrderProfit();
+		temp = orders[i]->getOrderProfit();					//	get the profit of the current order
 
-		if (orders[i]->getCustomer().isClubMember())
-			temp *= (1 - (clubDiscountPercent / 100));
+		if (orders[i]->getCustomer().isClubMember())		//	if the customer of the order is a club member, he got a discount
+			temp *= (1 - (clubDiscountPercent / 100));		//	reduce profit with the discount
 		profitSum += temp;
 	}
 	return profitSum;

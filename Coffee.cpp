@@ -17,19 +17,18 @@ const Coffee& Coffee:: operator+=(int sugarSpoons)
 
 void Coffee::addSugar(int sugarSpoons)
 {
-	if (sugarSpoons < 0)
-	{
+	if (sugarSpoons < 0)					//	can not add negative amount of spoons
 		throw IllegalValue("Invalid sugar amount");
-	}
+
 	this->sugarSpoons += sugarSpoons;
-	addCalories(50 * sugarSpoons);
+	addCalories(50 * sugarSpoons);			//	for each spoon add 50 calories
 }
 
 void Coffee::setMilk(bool isWithMilk)
 {
 	this->withMilk = isWithMilk;
 	if (isWithMilk)
-		addCalories(100);
+		addCalories(100);					//	milk should increase the amount of calories
 }
 
 void Coffee::toOs(ostream& os) const

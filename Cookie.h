@@ -23,7 +23,6 @@ public:
 
 	// functions
 	void toOs(ostream& os) const override;
-	//	friend ostream& operator<<(ostream& os, const Cookie& cookie);
 };
 
 static const char* sFlourType[] = { "White", "Whole", "Gluten Free" };

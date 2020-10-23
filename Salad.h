@@ -22,10 +22,9 @@ public:
 	eDressingType getDressing() const { return dressing; }
 
 	// functions
-	bool addDressing(eDressingType dressing);
+	void addDressing(eDressingType dressing);
 
 	void toOs(ostream& os) const override;
-//	friend ostream& operator<<(ostream& os, const Salad& salad);
 };
 
 static const char* sDressingType[] = { "Vinegret", "Soy", "Thousand Island" };

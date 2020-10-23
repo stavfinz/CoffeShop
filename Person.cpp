@@ -53,28 +53,28 @@ const Person& Person::operator=(Person&& other)
 // operators
 bool Person::operator==(const Person& other) const
 {
-	int nameComp = strcmp(this->name, other.name);
-	int phoneComp = strcmp(this->phoneNumber, other.phoneNumber);
-	return nameComp == 0 && phoneComp == 0;
+	int nameComp = strcmp(this->name, other.name);					//	compare the names
+	int phoneComp = strcmp(this->phoneNumber, other.phoneNumber);	//	compare the phone numbers
+	return nameComp == 0 && phoneComp == 0;		//	return true if both equals, false otherwise
 }
 
 void Person::setName(const char* name)
 {
-	if(strlen(name) < 2)
+	if(strlen(name) < 2)						//	if the name is too short
 		throw IllegalValue("Name should be at least 2 characters.");
-	if (!isAlphaOnly(name))
+	if (!isAlphaOnly(name))						//	if the name contains non-alphabetic characters
 		throw IllegalValue("Name should be characters only.");
 
 	this->name = strdup(name);
-	this->name[0] = toupper(name[0]);
+	this->name[0] = toupper(name[0]);			//	upper case the first letter
 }
 
 
 void Person::setPhoneNumber(const char* phoneNumber)
 {
-	if (strlen(phoneNumber) < 9)
+	if (strlen(phoneNumber) < 9)				//	if phone number is too short
 		throw IllegalValue("Phone Number should contain at least 9 digits");
-	if (!isDigitsOnly(phoneNumber))
+	if (!isDigitsOnly(phoneNumber))				//	if phone number contains non-digits characters
 		throw IllegalValue("Phone Number");
 
 	this->phoneNumber = strdup(phoneNumber);

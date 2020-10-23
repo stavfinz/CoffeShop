@@ -107,9 +107,9 @@ CoffeeShop::~CoffeeShop()
 // setters
 void CoffeeShop::setName(const char* name)
 {
-	if (strlen(name) < 2)
+	if (strlen(name) < 2)								//	if name is too short
 		throw IllegalValue("Name is too short.");
-	if (!isAlphaOnly(name))
+	if (!isAlphaOnly(name))								//	if name contains non-alphabet characters
 		throw IllegalValue("Name should contain characters only.");
 	this->name = strdup(name);
 }
@@ -127,7 +127,7 @@ bool  CoffeeShop::addNewEmployee(const Employee& employee)
 		std::swap(tempArr, employees);
 		delete[] tempArr;
 	}
-	employees[numEmployees++] = new Employee(employee);
+	employees[numEmployees++] = new Employee(employee);		//	copy employee
 	return true;
 }
 
@@ -143,7 +143,7 @@ bool  CoffeeShop::addNewEmployee(Employee&& employee)
 		std::swap(tempArr, employees);
 		delete[] tempArr;
 	}
-	employees[numEmployees++] = new Employee(std::move(employee));
+	employees[numEmployees++] = new Employee(std::move(employee));		//	move employee
 	return true;
 }
 
@@ -159,7 +159,7 @@ bool  CoffeeShop::addNewProduct(const Product& product)
 		std::swap(tempArr, products);
 		delete[] tempArr;
 	}
-	products[numProducts++] = product.clone();
+	products[numProducts++] = product.clone();			//	copy product
 	return true;
 }
 
@@ -195,7 +195,7 @@ bool  CoffeeShop::addNewCustomer(const Customer& customer)
 		std::swap(tempArr, customers);
 		delete[] tempArr;
 	}
-	customers[numCustomers++] = new Customer(customer);
+	customers[numCustomers++] = new Customer(customer);		//	copy customer
 	return true;
 }
 
@@ -211,7 +211,7 @@ bool  CoffeeShop::addNewCustomer(Customer&& customer)
 		std::swap(tempArr, customers);
 		delete[] tempArr;
 	}
-	customers[numCustomers++] = new Customer(std::move(customer));
+	customers[numCustomers++] = new Customer(std::move(customer));		//	move customer
 	return true;
 }
 
@@ -219,6 +219,7 @@ bool  CoffeeShop::openShift(double clubDiscountPercent, const Date& date)
 {
 	if (isShiftExists(date))
 		return false;		//	false -> shift already exists with this date
+
 	if (numShifts == shiftsMaxSize)	//	if the array full -> increase it
 	{
 		shiftsMaxSize *= 2;
@@ -227,7 +228,7 @@ bool  CoffeeShop::openShift(double clubDiscountPercent, const Date& date)
 		std::swap(tempArr, shifts);
 		delete[] tempArr;
 	}
-	shifts[numShifts++] = new Shift(clubDiscountPercent, date);
+	shifts[numShifts++] = new Shift(clubDiscountPercent, date);		//	create new shift
 	return true;
 }
 
@@ -235,18 +236,18 @@ Shift* CoffeeShop::getShiftByDate(const Date& date) const
 {
 	for (int i = 0; i < numShifts; i++)
 	{
-		const Date* d = shifts[i]->getShiftDate();
-		if (date == *d)
-			return shifts[i];
+		const Date* currDate = shifts[i]->getShiftDate();		//	get current shift's date
+		if (date == *currDate)									//	if equals to the desire date
+			return shifts[i];									//	return current shift
 	}
-	return nullptr;
+	return nullptr;		//	shift with this date does not exists
 }
 
-bool CoffeeShop::isEmployeeExists(const Person& employee)const
+bool CoffeeShop::isEmployeeExists(const Person& employee) const
 {
 	for (int i = 0; i < numEmployees; i++)
 	{
-		if (employee == *employees[i])
+		if (employee == *employees[i])		//	if current employee equals to the desired one
 			return true;
 	}
 	return false;
@@ -256,7 +257,7 @@ bool CoffeeShop::isCustomerExists(const Person& employee) const
 {
 	for (int i = 0; i < numCustomers; i++)
 	{
-		if (employee == *customers[i])
+		if (employee == *customers[i])			//	if current customer equals to the desired one
 			return true;
 	}
 	return false;
@@ -266,7 +267,7 @@ bool CoffeeShop::isProductExists(const Product& product) const
 {
 	for (int i = 0; i < numProducts; i++)
 	{
-		if (product == *products[i])
+		if (product == *products[i])			//	if current product equals to the desired one
 			return true;
 	}
 	return false;
@@ -276,7 +277,7 @@ bool CoffeeShop::isShiftExists(const Date& date) const
 {
 	for (int i = 0; i < numShifts; i++)
 	{
-		if (date == *shifts[i]->getShiftDate())
+		if (date == *shifts[i]->getShiftDate())			//	if the shift's date equals to the date asked for
 			return true;
 	}
 	return false;

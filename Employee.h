@@ -25,7 +25,6 @@ public:
 	// operators
 	bool operator<(const Employee& other) const; 
 	bool operator>(const Employee& other) const;
-	//virtual bool operator==(const Person& other) const override;
 
 	// getters
 	double getShiftSalary() const { return shiftSalary; }
@@ -38,7 +37,6 @@ public:
 	// functions
 	int getSeniority() const;
 	void toOs(ostream& os) const override;
-//	friend ostream& operator<<(ostream& os, const Employee& employee);
 };
 
 #endif

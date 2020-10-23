@@ -24,7 +24,7 @@ void showEmployees(const Employee* const* employees, int numEmployees);
 void showCustomers(const Customer* const* customers, int numCustomers);
 // 4.
 void showProducts(const Product* const* products, int numProducts);
-const Product* chooseProductByType(CoffeeShop& shop, const type_info& productType);		//	todo: change name to 'chooseProductByType'
+const Product* chooseProductByType(CoffeeShop& shop, const type_info& productType);
 // 5.
 void showShifts(CoffeeShop& shop);
 // 6.

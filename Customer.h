@@ -28,7 +28,6 @@ public:
 
 	// functions
 	void toOs(ostream& os) const override;
-	//	friend ostream& operator<<(ostream& os, const Customer& customer);
 };
 
 #endif
