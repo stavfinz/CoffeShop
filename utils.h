@@ -1,6 +1,8 @@
 #ifndef __UTILS_H__
 #define __UTILS_H__
 
+using namespace std;
+#include <iostream>
 #include "Date.h"
 
 static const int SYSTEM_YEAR_FACTOR = 1900;
