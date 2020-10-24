@@ -163,26 +163,6 @@ bool  CoffeeShop::addNewProduct(const Product& product)
 	return true;
 }
 
-bool  CoffeeShop::addNewProduct(Product&& product)		///	todo: delete
-{
-	if (isProductExists(product))
-		return false;
-	if (numProducts == productsMaxSize)	//	if the array full -> increase it
-	{
-		productsMaxSize *= 2;
-		Product** tempArr = new Product * [productsMaxSize];
-		memcpy(tempArr, products, numProducts * sizeof(Product*));
-		std::swap(tempArr, products);
-		delete[] tempArr;
-		//increaseArraySize((void**)products, numProducts, productsMaxSize, sizeof(Product*));
-	}
-	products[numProducts++] = product.clone();			//	todo: possible to use std::move or something similar?
-
-	//products[numProducts++] = new Product(product);	//	todo:	whyyyyyy did they make it abstract class???????????????????
-
-	return true;
-}
-
 bool  CoffeeShop::addNewCustomer(const Customer& customer)
 {
 	if (isCustomerExists(customer))

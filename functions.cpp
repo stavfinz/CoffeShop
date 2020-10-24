@@ -746,7 +746,11 @@ void showShiftProfits(const Shift& shift)
 {
 	double total = 0;
 	const Order* const* orders = shift.getOrders();
-	cout << "Shift Manger: " << *shift.getShiftManager() << endl;
+	const Employee* manager = shift.getShiftManager();
+	if (!manager)
+		cout << "There are no employees in the shift." << endl;
+	else
+		cout << "Shift Manger: " << *shift.getShiftManager() << endl;
 	cout << "Orders: " << endl;
 	if (shift.getNumOrders() == 0)
 		cout << "There are no orders in this shift." << endl;

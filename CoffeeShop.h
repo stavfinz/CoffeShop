@@ -66,7 +66,6 @@ public:
 	bool addNewEmployee(const Employee& employee);
 	bool addNewEmployee(Employee&& employee);	
 	bool addNewProduct(const Product& product);
-	bool addNewProduct(Product&& product);
 	bool addNewCustomer(const Customer& customer);
 	bool addNewCustomer(Customer&& customer);
 	bool openShift(double clubDiscountPercent, const Date& date);
@@ -77,7 +76,6 @@ public:
 	bool isCustomerExists(const Person& employee) const;
 	bool isProductExists(const Product& product) const;
 	bool isShiftExists(const Date& date) const;
-
 };
 
 #endif
