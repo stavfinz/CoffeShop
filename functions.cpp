@@ -206,6 +206,7 @@ void openShift(CoffeeShop& shop, const Date& date)
 {
 	double discount;
 
+	// init shift
 	cout << "Enter club discount: " << endl;
 	cin >> discount;
 
@@ -610,6 +611,7 @@ void makeOrder(CoffeeShop& shop, Shift& shift)
 					cin >> numOfSugar;
 					Coffee* temp = dynamic_cast<Coffee*>(p);
 					temp->setMilk(withMilk);
+					//				temp->addSugar(numOfSugar);
 					*temp += numOfSugar;
 					p = temp;
 				}
@@ -643,6 +645,7 @@ void makeOrder(CoffeeShop& shop, Shift& shift)
 					cin >> numOfSugar;
 					CookieCoffee* temp = dynamic_cast<CookieCoffee*>(p);
 					temp->setMilk(withMilk);
+					//				temp->addSugar(numOfSugar);
 					*temp += numOfSugar;
 					p = temp;
 				}
@@ -669,6 +672,7 @@ void makeOrder(CoffeeShop& shop, Shift& shift)
 void addEmployeesToShift(CoffeeShop& shop, Shift& shift)
 {
 	int choice = 1;
+	int numEmployeesShift = shift.getNumEmployees();
 
 	// show all Employees in the coffeeshop
 	showEmployees(shop.getEmployees(), shop.getNumEmployees());
@@ -686,6 +690,9 @@ void addEmployeesToShift(CoffeeShop& shop, Shift& shift)
 			if (shift.addEmployeeToShift(*shop.getEmployees()[choice - 1]))
 			{
 				cout << shop.getEmployees()[choice - 1]->getName() << " added to shift! " << endl;
+				numEmployeesShift++;
+				if (numEmployeesShift == shop.getNumEmployees())
+					break;
 			}
 			else
 			{
@@ -702,7 +709,7 @@ void addEmployeesToShift(CoffeeShop& shop, Shift& shift)
 void addProductToDailyMenu(CoffeeShop& shop, Shift& shift)
 {
 	int choice = 1;
-
+	int numProductsShift = shift.getDailyMenuSize();
 	// show all products in the coffeeshop
 	showProducts(shop.getProducts(), shop.getNumProducts());
 
@@ -719,6 +726,9 @@ void addProductToDailyMenu(CoffeeShop& shop, Shift& shift)
 			if (shift.addProductToMenu(*shop.getProducts()[choice - 1]))
 			{
 				cout << shop.getProducts()[choice - 1]->getName() << " added to daily menu! " << endl;
+				numProductsShift++;
+				if (numProductsShift == shop.getNumProducts())
+					break;
 			}
 			else
 			{
@@ -731,6 +741,7 @@ void addProductToDailyMenu(CoffeeShop& shop, Shift& shift)
 			cout << "Invalid product index" << endl;
 	}
 }
+
 void showShiftProfits(const Shift& shift)
 {
 	double total = 0;
