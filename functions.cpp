@@ -750,7 +750,7 @@ void showShiftProfits(const Shift& shift)
 	if (!manager)
 		cout << "There are no employees in the shift." << endl;
 	else
-		cout << "Shift Manger: " << *shift.getShiftManager() << endl;
+		cout << "Shift Manger: " << *manager << endl;
 	cout << "Orders: " << endl;
 	if (shift.getNumOrders() == 0)
 		cout << "There are no orders in this shift." << endl;
