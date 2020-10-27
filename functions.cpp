@@ -32,7 +32,10 @@ CoffeeShop initCoffeeShop()
 	cin.getline(streetName, STRING_SIZE);
 
 	cout << "Enter Street number:" << endl;
-	cin >> streetNum;
+	while (!(cin >> streetNum))
+	{
+		cout << "Invalid input, please try again. ";
+	}
 
 	return CoffeeShop(name, Address(city, streetName, streetNum));
 }
