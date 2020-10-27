@@ -1,8 +1,8 @@
 #pragma warning(disable : 4996)
 
+#include <exception>
 #include "Person.h"
 #include "utils.h"
-#include "IllegalValue.h"
 
 // ctor
 Person::Person(const char* name, const char* phoneNumber)
@@ -61,9 +61,9 @@ bool Person::operator==(const Person& other) const
 void Person::setName(const char* name)
 {
 	if(strlen(name) < 2)						//	if the name is too short
-		throw IllegalValue("Name should be at least 2 characters.");
+		throw exception("Name should be at least 2 characters.");
 	if (!isAlphaOnly(name))						//	if the name contains non-alphabetic characters
-		throw IllegalValue("Name should be characters only.");
+		throw exception("Name should be characters only.");
 
 	this->name = strdup(name);
 	this->name[0] = toupper(name[0]);			//	upper case the first letter
@@ -73,9 +73,9 @@ void Person::setName(const char* name)
 void Person::setPhoneNumber(const char* phoneNumber)
 {
 	if (strlen(phoneNumber) < 9)				//	if phone number is too short
-		throw IllegalValue("Phone Number should contain at least 9 digits");
+		throw exception("Phone Number should contain at least 9 digits");
 	if (!isDigitsOnly(phoneNumber))				//	if phone number contains non-digits characters
-		throw IllegalValue("Phone Number");
+		throw exception("Phone Number");
 
 	this->phoneNumber = strdup(phoneNumber);
 

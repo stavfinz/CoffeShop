@@ -1,14 +1,14 @@
 #pragma warning(disable : 4996)
 
+#include <exception>
 #include "Date.h"
 #include "utils.h"
-#include "IllegalValue.h"
 
 Date::Date(int day, int month, int year)
 {
 	if (!isValid(day, month, year))
 	{
-		throw IllegalValue("Invalid Date!");
+		throw exception("Invalid Date!");
 	}
 
 	this->day = day;

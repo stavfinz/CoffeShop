@@ -45,7 +45,6 @@
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="Employee.cpp" />
     <ClCompile Include="functions.cpp" />
-    <ClCompile Include="IllegalValue.h" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Order.cpp" />
     <ClCompile Include="Person.cpp" />

@@ -1,12 +1,12 @@
 #pragma warning(disable : 4996)
 
+#include <exception>
 #include "Shift.h"
 #include "Employee.h"
 #include "Customer.h"
 #include "Order.h"
 #include "Product.h"
 #include "utils.h"
-#include "IllegalValue.h"
 
 const int DEFAULT_ITEMS_SIZE = 10;
 const int DEFUALT_EMPLOYEES_SIZE = 5;
@@ -48,7 +48,7 @@ Shift::~Shift()
 void Shift::setClubDiscountPercent(double clubDiscountPercent)
 {
 	if (clubDiscountPercent < 0 || clubDiscountPercent > 100)	//	discount should be between 0 to 100
-		throw IllegalValue("Illegal discount precentage.");
+		throw exception("Illegal discount precentage.");
 	this->clubDiscountPercent = clubDiscountPercent;
 }
 

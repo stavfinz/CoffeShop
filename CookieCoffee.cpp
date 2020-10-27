@@ -1,7 +1,7 @@
 #pragma warning(disable : 4996)
 
+#include <exception>
 #include "CookieCoffee.h"
-#include "IllegalValue.h"
 
 // ctor
 CookieCoffee::CookieCoffee(const Cookie& cookie, const Coffee& coffee, double discountPercent, bool groundCookie)
@@ -21,7 +21,7 @@ CookieCoffee::CookieCoffee(const Cookie& cookie, const Coffee& coffee, double di
 void CookieCoffee::setDiscountPercent(double discountPercent)
 {
 	if (discountPercent > 100 || discountPercent < 0)		//	discount should be between 0 to 100
-		throw IllegalValue("Illegal Discount.");
+		throw exception("Illegal Discount.");
 
 	this->discountPercent = discountPercent;
 }

@@ -77,9 +77,6 @@
     <ClCompile Include="Customer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IllegalValue.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="CoffeeShop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
