@@ -10,10 +10,10 @@ CookieCoffee::CookieCoffee(const Cookie& cookie, const Coffee& coffee, double di
 	setDiscountPercent(discountPercent);
 
 	char name[CHAR_MAX];							//	combined the name of the cookie and the coffee
-	strcpy(name, cookie.getName());					//	copy the name of the cookie
-	name[strlen(cookie.getName())] = ' ';			//	
-	name[strlen(cookie.getName()) + 1] = '\0';		//
-	strcat(name, coffee.getName());					//	copy the name of the coffe
+	strcat(name, cookie.getName());					//	copy the name of the cookie
+	strcat(name, " ");
+	strcat(name, cookie.getName());					//	copy the name of the coffe
+	strcat(name, "\0");
 	Product::setName(name);
 }
 

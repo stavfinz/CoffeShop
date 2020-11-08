@@ -65,6 +65,7 @@ void Person::setName(const char* name)
 	if (!isAlphaOnly(name))						//	if the name contains non-alphabetic characters
 		throw exception("Name should be characters only.");
 
+	delete[] this->name;
 	this->name = strdup(name);
 	this->name[0] = toupper(name[0]);			//	upper case the first letter
 }
@@ -77,6 +78,7 @@ void Person::setPhoneNumber(const char* phoneNumber)
 	if (!isDigitsOnly(phoneNumber))				//	if phone number contains non-digits characters
 		throw exception("Phone Number");
 
+	delete[] this->phoneNumber;
 	this->phoneNumber = strdup(phoneNumber);
 
 }

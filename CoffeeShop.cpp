@@ -111,6 +111,7 @@ void CoffeeShop::setName(const char* name)
 		throw exception("Name is too short.");
 	if (!isAlphaOnly(name))								//	if name contains non-alphabet characters
 		throw exception("Name should contain characters only.");
+	delete[] this->name;
 	this->name = strdup(name);
 }
 

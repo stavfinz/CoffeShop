@@ -30,6 +30,7 @@ void Address::setCity(const char* city)
 	if (!isAlphaOnly(city))						//	if the city name contains non-alphaber characters
 		throw exception("City must be characters only.");
 
+	delete[] this->city;
 	this->city = strdup(city);
 }
 
@@ -40,6 +41,7 @@ void Address::setStreetName(const char* street)
 	if (!isAlphaOnly(street))					//	if the street name contains non-alphaber characters
 		throw exception("Street name must be characters only.");
 
+	delete[] this->streetName;
 	this->streetName = strdup(street);
 }
 
